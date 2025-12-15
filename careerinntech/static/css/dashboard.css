@@ -1,0 +1,212 @@
+/* ================= DASHBOARD BASE ================= */
+
+.hero,
+.explore,
+.skills {
+    position: relative;
+    z-index: 1;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 56px;
+    padding: 80px 100px 50px;
+}
+
+.hero-left h1 {
+    font-size: 48px;
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.hero-left p {
+    margin-top: 18px;
+    max-width: 700px;
+    font-size: 17px;
+    color: #c7d2fe;
+}
+
+.primary-btn {
+    margin-top: 32px;
+    display: inline-block;
+    padding: 15px 36px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #6366f1, #22d3ee);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(99,102,241,.35);
+    transition: transform .2s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+}
+
+.small-text {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* ================= HERO CARD ================= */
+
+.hero-card {
+    background: linear-gradient(
+        180deg,
+        rgba(15,23,42,.9),
+        rgba(2,6,23,.9)
+    );
+    border: 1px solid #1e293b;
+    border-radius: 22px;
+    padding: 30px 32px;
+    backdrop-filter: blur(12px);
+}
+
+.hero-card h3 {
+    font-size: 19px;
+    margin-bottom: 16px;
+}
+
+.hero-card ul {
+    list-style: none;
+}
+
+.hero-card li {
+    margin-bottom: 11px;
+    font-size: 14px;
+    color: #e5e7eb;
+}
+
+/* ================= EXPLORE ================= */
+
+.explore {
+    padding: 40px 100px 30px;
+}
+
+.explore h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.card {
+    background: rgba(2,6,23,.75);
+    border: 1px solid #1e293b;
+    border-radius: 18px;
+    padding: 22px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.card span {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: #6366f1;
+    box-shadow: 0 14px 40px rgba(0,0,0,.4);
+}
+
+/* ================= SKILLS ================= */
+
+.skills {
+    padding: 50px 100px 90px;
+}
+
+.skills h2 {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.muted {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.skill-buttons {
+    display: flex;
+    gap: 16px;
+    margin: 22px 0 30px;
+}
+
+.skill-buttons .btn {
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.blue {
+    background: #6366f1;
+}
+
+.green {
+    background: #10b981;
+}
+
+/* ================= SKILL LIST ================= */
+
+.skill-list {
+    background: rgba(2,6,23,.75);
+    border: 1px solid #1e293b;
+    border-radius: 22px;
+    padding: 30px 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+}
+
+.skill-list h4 {
+    margin-bottom: 14px;
+    font-size: 17px;
+}
+
+.skill-list ul {
+    list-style: none;
+}
+
+.skill-list li {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #e5e7eb;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1100px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 60px 40px;
+    }
+
+    .explore,
+    .skills {
+        padding: 40px;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-list {
+        grid-template-columns: 1fr;
+    }
+}
