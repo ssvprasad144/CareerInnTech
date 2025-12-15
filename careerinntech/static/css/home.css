@@ -1,0 +1,173 @@
+/* ================= HOME PAGE ================= */
+
+.home-wrapper {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 70px;
+    padding: 90px 110px;
+    align-items: center;
+}
+
+/* CENTER BRAND (matches screenshot feel) */
+.home-brand {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.home-brand h2 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #a5b4fc, #93c5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.home-brand span {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* LEFT CONTENT */
+
+.home-left h1 {
+    font-size: 70px;
+    font-weight: 750;
+    line-height: 1.15;
+}
+
+.home-left h1 span {
+    color: #8b93ff;
+}
+
+.home-desc {
+    margin-top: 20px;
+    font-size: 25px;
+    max-width: 620px;
+    color: #cbd5f5;
+}
+
+.home-points {
+    margin-top: 28px;
+    list-style: none;
+}
+
+.home-points li {
+    margin-bottom: 18px;
+    font-size: 20px;
+    color: #e5e7eb;
+}
+
+/* RIGHT CARD */
+
+.home-card {
+    background: linear-gradient(
+        180deg,
+        rgba(15,23,42,.85),
+        rgba(2,6,23,.85)
+    );
+    border: 1px solid #1e293b;
+    border-radius: 28px;
+    padding: 48px 38px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+}
+
+.home-card h2 {
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+
+.card-sub {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+.card-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    text-align: center;
+    transition: transform .2s ease;
+}
+
+.card-btn:hover {
+    transform: translateY(-2px);
+}
+
+.login-btn {
+    background: #6366f1;
+    color: white;
+}
+
+.signup-btn {
+    background: #10b981;
+    color: white;
+}
+
+.card-note {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+    .home-wrapper {
+        grid-template-columns: 1fr;
+        padding: 60px 30px;
+    }
+
+    .home-left h1 {
+        font-size: 42px;
+    }
+
+    .home-card {
+        margin-top: 30px;
+    }
+}
+
+/* ===== TEXT ANIMATION ===== */
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation */
+.home-left h1 span {
+    display: inline-block;
+    animation: fadeUp 0.9s ease forwards;
+    animation-delay: 0.3s;
+}
+
+/* ===== BUTTON GLOW ===== */
+
+.login-btn,
+.signup-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.login-btn:hover {
+    box-shadow:
+        0 0 0 0 rgba(99,102,241,0.4),
+        0 12px 40px rgba(99,102,241,0.55);
+}
+
+.signup-btn:hover {
+    box-shadow:
+        0 0 0 0 rgba(16,185,129,0.4),
+        0 12px 40px rgba(16,185,129,0.55);
+}

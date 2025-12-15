@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Student Registration | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/welcome.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="welcome-container">
+
+    <!-- HEADING -->
+    <h1 class="welcome-title">Welcome to careerInnTech</h1>
+    <p class="welcome-subtitle">
+        This video help you to understand about careerInnTech
+    </p>
+
+    <!-- VIDEO -->
+    <div class="welcome-video">
+        <video controls>
+            <source src="{% static 'videos/intro.mp4' %}" type="video/mp4">
+            Your browser does not support the video.
+        </video>
+    </div>
+ <h1>Registration FORM </FORm></h1>
+    <!-- FORM -->
+    <form method="post" class="welcome-form">
+        {% csrf_token %}
+
+        <!-- Track -->
+        <select name="track" required>
+            <option value="">Select Track</option>
+            <option value="btech">BTech</option>
+            <option value="hospitality">Hospitality</option>
+        </select>
+
+        <!-- Education -->
+        <input
+            type="text"
+            name="education"
+            placeholder="Current Education (eg: BTech, Diploma, Intermediate)"
+            required
+        >
+
+        <!-- Branch -->
+        <input
+            type="text"
+            name="branch"
+            placeholder="Branch / Specialization (eg: CSE, ECE, Hotel Management)"
+            required
+        >
+
+        <!-- Year -->
+        <select name="year" required>
+            <option value="">Year of Study</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>4th Year</option>
+            <option>Final Year</option>
+        </select>
+
+        <!-- College -->
+        <input
+            type="text"
+            name="college"
+            placeholder="College Name"
+            required
+        >
+
+        <!-- Career Goal -->
+        <input
+            type="text"
+            name="goal"
+            placeholder="Career Goal (eg: Software Engineer, Hotel Manager)"
+            required
+        >
+
+        <!-- About -->
+        <textarea
+            name="about"
+            rows="4"
+            placeholder="Tell us about yourself, your interests & expectations"
+        ></textarea>
+
+        <!-- Location -->
+        <input
+            type="text"
+            name="location"
+            placeholder="Preferred Job Location (eg: Hyderabad, Bangalore)"
+        >
+
+        <!-- Phone -->
+        <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number (optional)"
+        >
+
+        <button type="submit" class="welcome-btn">
+            Complete Registration
+        </button>
+    </form>
+
+</section>
+{% endblock %}

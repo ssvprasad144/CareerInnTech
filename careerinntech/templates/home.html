@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="home-wrapper">
+
+    <!-- LEFT CONTENT -->
+    <div class="home-left">
+        <h1>
+            Build confidence.<br>
+            <span>Shape your career.</span>
+        </h1>
+
+        <p class="home-desc">
+            CareerInnTech helps BTech and Hospitality students choose the
+            right path with structured guidance, mentors, real college data,
+            and AI-powered support.
+        </p>
+
+        <ul class="home-points">
+            <li>✔ Clear career roadmaps</li>
+            <li>✔ Skills that actually matter</li>
+            <li>✔ Colleges, cutoffs & fees</li>
+            <li>✔ Mentors, mock interviews & AI</li>
+        </ul>
+    </div>
+
+    <!-- RIGHT CARD -->
+    <div class="home-card">
+        <h2>Create Account</h2>
+        <p class="card-sub">
+            Create your free CareerInnTech account
+        </p>
+
+        <a href="{% url 'login' %}" class="card-btn login-btn">
+            Login
+        </a>
+
+        <a href="{% url 'signup' %}" class="card-btn signup-btn">
+            Create Account
+        </a>
+
+        <p class="card-note">
+            🎁 One free AI career chat for every new user
+        </p>
+    </div>
+
+</section>
+{% endblock %}
