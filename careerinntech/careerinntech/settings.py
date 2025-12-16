@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("secret_key")
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "careerinntech-1.onrender.com",
+    "*",
 ]
 
 
