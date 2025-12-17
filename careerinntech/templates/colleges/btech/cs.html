@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Computer Science (CS) | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/colleges/btech_branches.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= CS HERO SECTION ================= -->
+<section class="branch-hero cse-theme">
+
+    <!-- Video Section -->
+    <div class="branch-video">
+        <video controls muted>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p class="video-note">
+            ▶ Computer Science overview video (will be updated)
+        </p>
+    </div>
+
+    <!-- Intro -->
+    <div class="branch-intro">
+        <h1>Computer Science (CS)</h1>
+        <p>
+            Computer Science focuses on computation, software systems, algorithms,
+            and the theoretical foundations of modern technology.
+            It is one of the most in-demand and versatile engineering branches.
+        </p>
+    </div>
+
+</section>
+
+<!-- ================= CS CONTENT ================= -->
+<section class="branch-content">
+
+    <div class="content-block">
+        <h2>What You Will Study</h2>
+        <ul>
+            <li>Programming Languages (C, C++, Java, Python)</li>
+            <li>Data Structures and Algorithms</li>
+            <li>Operating Systems</li>
+            <li>Database Management Systems</li>
+            <li>Computer Networks</li>
+            <li>Software Engineering</li>
+        </ul>
+    </div>
+
+    <div class="content-block">
+        <h2>Skills You Will Build</h2>
+        <ul>
+            <li>Strong problem-solving and logical thinking</li>
+            <li>Software development and debugging</li>
+            <li>System design and optimization</li>
+            <li>Understanding large-scale applications</li>
+        </ul>
+    </div>
+
+    <div class="content-block">
+        <h2>Future Scope</h2>
+        <ul>
+            <li>High demand in product-based and service companies</li>
+            <li>Excellent opportunities in startups and MNCs</li>
+            <li>Strong base for AI, ML, Data Science, and Cloud</li>
+            <li>Opportunities for higher studies and research</li>
+        </ul>
+    </div>
+
+    <div class="content-block">
+        <h2>Career Opportunities</h2>
+        <ul>
+            <li>Software Engineer / Developer</li>
+            <li>Backend / Full Stack Engineer</li>
+            <li>Data Scientist</li>
+            <li>AI / ML Engineer</li>
+            <li>Systems Engineer</li>
+            <li>Research Engineer</li>
+        </ul>
+    </div>
+
+</section>
+
+{% endblock %}

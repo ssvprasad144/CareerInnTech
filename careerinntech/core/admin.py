@@ -39,3 +39,11 @@ class StudentProfileAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context['total_students'] = StudentProfile.objects.count()
         return super().changelist_view(request, extra_context=extra_context)
+
+from .models import College
+
+@admin.register(College)
+class CollegeAdmin(admin.ModelAdmin):
+    list_display = ("name", "location", "annual_fee", "exam_type")
+    list_filter = ("exam_type", "location")
+    search_fields = ("name",)

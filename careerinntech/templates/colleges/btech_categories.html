@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}B.Tech Colleges | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/colleges/btech_categories.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="btech-section">
+
+    <h1 class="btech-title">B.Tech Colleges</h1>
+    <p class="btech-subtitle">
+        Choose a category to explore engineering colleges
+    </p>
+
+    <div class="btech-grid">
+
+        <a href="{% url 'ts_eamcet' %}
+" class="btech-card">
+            <h3>TS EAMCET</h3>
+            <p>Telangana Engineering Colleges</p>
+        </a>
+
+<a href="{% url 'ap_eamcet' %}" class="btech-card">
+
+
+    <h3>AP EAMCET</h3>
+    <p>Andhra Pradesh Engineering Colleges</p>
+</a>
+
+
+        <a href="#" class="btech-card">
+            <h3>NITs</h3>
+            <p>National Institutes of Technology</p>
+        </a>
+
+        <a href="#" class="btech-card">
+            <h3>IIITs</h3>
+            <p>Indian Institutes of Information Technology</p>
+        </a>
+
+        <a href="#" class="btech-card">
+            <h3>IITs</h3>
+            <p>Indian Institutes of Technology</p>
+        </a>
+
+        <a href="#" class="btech-card">
+            <h3>BITS</h3>
+            <p>Birla Institute of Technology & Science</p>
+        </a>
+
+        <a href="#" class="btech-card">
+            <h3>Private Universities</h3>
+            <p>Deemed & Private Engineering Universities</p>
+        </a>
+
+    </div>
+
+</section>
+{% endblock %}

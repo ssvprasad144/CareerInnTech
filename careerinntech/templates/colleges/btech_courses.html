@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BTech Courses | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/colleges/btech_courses.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="branches-page">
+
+    <h1>BTech Courses</h1>
+    <p>Select a branch to explore course details</p>
+
+    <div class="branches-grid">
+
+        <!-- Computer Science -->
+        <a href="{% url 'btech_cs' %}" class="branch-card cse">
+            <h3>Computer Science (CS)</h3>
+            <p>
+                Software development, data structures, algorithms,
+                operating systems, and core computing concepts.
+            </p>
+        </a>
+
+        <!-- AI & ML -->
+        <a href="{% url 'btech_aiml' %}" class="branch-card aiml">
+            <h3>AI & Machine Learning</h3>
+            <p>
+                Artificial intelligence, machine learning models,
+                data-driven systems, and automation.
+            </p>
+        </a>
+
+        <!-- ECE -->
+        <a href="{% url 'btech_ece' %}" class="branch-card ece">
+            <h3>Electronics & Communication</h3>
+            <p>
+                Communication systems, VLSI, embedded systems,
+                and electronic circuit design.
+            </p>
+        </a>
+
+        <!-- Electrical -->
+        <a href="{% url 'btech_ee' %}" class="branch-card ee">
+            <h3>Electrical Engineering</h3>
+            <p>
+                Power systems, electrical machines,
+                control engineering, and energy technologies.
+            </p>
+        </a>
+
+        <!-- Mechanical -->
+        <a href="{% url 'btech_mech' %}" class="branch-card mech">
+            <h3>Mechanical Engineering</h3>
+            <p>
+                Design, manufacturing, thermodynamics,
+                and mechanical systems.
+            </p>
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}

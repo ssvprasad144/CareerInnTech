@@ -1,0 +1,47 @@
+.btech-section {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.btech-title {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.btech-subtitle {
+    color: #cbd5f5;
+    margin-bottom: 40px;
+}
+
+.btech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.btech-card {
+    background: rgba(2, 6, 23, 0.75);
+    border: 1px solid #1e293b;
+    border-radius: 18px;
+    padding: 26px;
+    text-decoration: none;
+    color: #e5e7eb;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btech-card h3 {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.btech-card p {
+    font-size: 14px;
+    color: #c7d2fe;
+}
+
+.btech-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(99,102,241,0.25);
+}

@@ -1,0 +1,57 @@
+.track-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    color: #ffffff;
+}
+
+.track-page h1 {
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+
+.track-page p {
+    color: #b5b5c3;
+    margin-bottom: 32px;
+}
+
+.track-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.track-card {
+    background: linear-gradient(180deg, #0f172a, #020617);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 28px 24px;
+    color: #ffffff;
+    transition: all 0.25s ease;
+}
+
+.track-card:hover {
+    transform: translateY(-6px);
+    border-color: #6366f1;
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.25);
+}
+
+.track-card.disabled {
+    opacity: 0.45;
+}
+
+.track-card.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.track-card.disabled span {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: #1f2933;
+    color: #9ca3af;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+}

@@ -1,44 +1,75 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}About | CareerInnTech{% endblock %}
+{% block title %}About Us | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
 
 {% block content %}
-<section class="info-page">
-    <div class="info-container">
-        <h1>About CareerInnTech</h1>
+<section class="about-section">
 
-        <p class="lead">
-            CareerInnTech is a career guidance platform designed for
-            BTech and Hospitality students.
+    <div class="about-header">
+        <h1>About CareerInnTech</h1>
+        <p class="about-tagline">
+            Helping students make smarter career and college decisions.
+        </p>
+    </div>
+
+    <div class="about-content">
+        <p>
+            <strong>CareerInnTech</strong> is a career-focused guidance platform
+            designed primarily for <strong>B.Tech</strong> and
+            <strong>Hospitality</strong> students in India.
         </p>
 
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>🎯 Our Mission</h3>
-                <p>
-                    To help students build confidence, skills, and
-                    real-world readiness through structured guidance.
-                </p>
-            </div>
-
-            <div class="info-card">
-                <h3>🚀 What We Offer</h3>
-                <ul>
-                    <li>Personalized career roadmaps</li>
-                    <li>Industry mentors</li>
-                    <li>Job & internship guidance</li>
-                    <li>Skill-based learning paths</li>
-                </ul>
-            </div>
-
-            <div class="info-card">
-                <h3>🤝 Who We Help</h3>
-                <p>
-                    Engineering and Hospitality students who want
-                    clarity, confidence, and career growth.
-                </p>
-            </div>
-        </div>
+        <p>
+            We bridge the gap between <em>college choices</em>,
+            <em>career goals</em>, and <em>real-world outcomes</em>
+            by providing structured, transparent, and practical guidance.
+        </p>
     </div>
+
+    <div class="about-grid">
+
+        <div class="about-card">
+            <h3>🎯 Our Mission</h3>
+            <p>
+                To empower students with clarity and confidence
+                by connecting education choices with long-term career success.
+            </p>
+        </div>
+
+        <div class="about-card">
+            <h3>🧭 What We Solve</h3>
+            <ul>
+                <li>Confusion while choosing colleges</li>
+                <li>Lack of career-oriented guidance</li>
+                <li>Mismatch between skills and placements</li>
+                <li>Unclear post-graduation pathways</li>
+            </ul>
+        </div>
+
+        <div class="about-card">
+            <h3>🚀 What We Offer</h3>
+            <ul>
+                <li>College exploration (EAMCET, NITs, IITs, Private)</li>
+                <li>Career-based college recommendations</li>
+                <li>Skill and roadmap guidance</li>
+                <li>Future mentor & AI-driven support</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="about-footer">
+        <p>
+            CareerInnTech is built with a long-term vision —
+            to become a trusted companion throughout a student’s academic
+            and professional journey.
+        </p>
+    </div>
+
 </section>
 {% endblock %}

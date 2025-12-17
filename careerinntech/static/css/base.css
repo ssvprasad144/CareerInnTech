@@ -1,4 +1,4 @@
-/* RESET */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
@@ -6,36 +6,50 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* BODY */
+/* ================= BODY ================= */
 body {
     background: radial-gradient(circle at top, #0b1225, #020617);
     color: #e5e7eb;
     min-height: 100vh;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 .header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
     height: 80px;
+    width: 100%;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 18px 40px;
+    justify-content: space-between;
+
+    padding: 0 40px;
+
+    background: rgba(2, 6, 23, 0.95);
+    backdrop-filter: blur(10px);
+
     border-bottom: 1px solid #1e293b;
 }
 
-/* LOGO */
+/* ================= LOGO ================= */
 .logo-box {
     display: flex;
-    gap: 12px;
     align-items: center;
+    gap: 12px;
 }
 
 .logo-box img {
-    height: 38px;
+    height: 40px;
+    width: auto;
 }
 
 .logo-box h3 {
     font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
 }
 
 .logo-box span {
@@ -43,28 +57,35 @@ body {
     color: #94a3b8;
 }
 
-/* NAV */
+/* ================= NAV ================= */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
 .nav a {
-    margin-left: 18px;
     text-decoration: none;
     color: #e5e7eb;
     font-weight: 500;
+    font-size: 14px;
 }
 
-/* BUTTONS */
+/* ================= BUTTONS ================= */
 .btn {
     background: #6366f1;
     padding: 6px 14px;
     border-radius: 20px;
     color: white;
+    font-size: 13px;
 }
 
-.outline {
+.btn.outline {
     background: transparent;
     border: 1px solid #6366f1;
 }
 
-/* USER */
+/* ================= USER ================= */
 .avatar {
     width: 34px;
     height: 34px;
@@ -74,12 +95,12 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    margin-left: 16px;
+    font-size: 14px;
 }
 
 .username {
-    margin-left: 6px;
     color: #c7d2fe;
+    font-size: 14px;
 }
 
 .logout {
@@ -87,16 +108,16 @@ body {
     padding: 6px 14px;
     border-radius: 20px;
     color: white;
-    margin-left: 10px;
+    font-size: 13px;
 }
 
-/* MAIN CONTENT */
+/* ================= MAIN CONTENT ================= */
 .main-content {
     min-height: calc(100vh - 80px);
+    padding: 30px 40px 80px;
 }
 
 /* ================= CHATBOT BUTTON ================= */
-
 .chatbot-btn {
     position: fixed;
     bottom: 24px;
@@ -121,24 +142,16 @@ body {
     transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-/* ONLY ICON ROTATES */
 .chatbot-icon {
     font-size: 26px;
-    display: inline-block;
     animation: iconRotate 6s linear infinite;
 }
 
-/* Rotation animation */
 @keyframes iconRotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-/* Hover polish */
 .chatbot-btn:hover {
     transform: scale(1.08);
     box-shadow:
@@ -146,27 +159,7 @@ body {
         0 0 0 8px rgba(34,211,238,0.18);
 }
 
-
-
-.header, .auth-card, .hero, .card {
-    animation: fadeUp 0.6s ease-in-out;
-}
-
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-.main-content {
-    min-height: calc(100vh - 80px);
-    padding-bottom: 80px;
-}
-/* ===== INFO PAGES (ABOUT / CONTACT) ===== */
+/* ================= INFO PAGES ================= */
 .info-page {
     padding: 60px 40px;
 }
@@ -213,7 +206,7 @@ body {
     margin-bottom: 8px;
 }
 
-/* CONTACT FORM */
+/* ================= CONTACT FORM ================= */
 .contact-form {
     max-width: 520px;
     margin-top: 30px;
@@ -236,14 +229,10 @@ body {
     border-radius: 14px;
     border: none;
     background: linear-gradient(90deg, #6366f1, #22d3ee);
-    font-weight: 600;
+    font-
+
+    .user-circle {
+    text-decoration: none;
+    color: rgb(157, 41, 41);
     cursor: pointer;
 }
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-}
-

@@ -9,109 +9,105 @@
 
 {% block content %}
 
-<div class="dashboard-page">
-
-    <!-- ================= HERO SECTION ================= -->
-    <section class="hero">
-        <div class="hero-left">
-            <h1>CareerInnTech — BTech & Hospitality careers in one platform</h1>
-            <p>
-                Personalized roadmaps, mentors, project bank, interview practice
-                and curated colleges — all in a single student pass.
-            </p>
-
-            <a href="#" class="primary-btn">Start your free AI chat</a>
-
-            <p class="small-text">
-                Every user gets one free full AI chat. Subscribe afterwards.
-            </p>
-        </div>
-
-        <div class="hero-card">
-            <h3>Student Pass — ₹499 / year</h3>
-            <ul>
-                <li>College explorer (courses & fees)</li>
-                <li>Mentor connect & booking</li>
-                <li>100% job & internship guidance</li>
-                <li>AI mock interviews & unlimited chats</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- ================= EXPLORE SECTION ================= -->
-    <section class="explore">
-        <h2>Explore</h2>
-
-        <div class="card-grid">
-            <div class="card">
-                📘 Courses
-                <span>BTech / Hospitality</span>
-            </div>
-
-            <div class="card">
-                🏫 Colleges
-                <span>Budget & rating filters</span>
-            </div>
-
-            <div class="card">
-                🧑‍🏫 Mentors
-                <span>Industry experts</span>
-            </div>
-
-            <div class="card">
-                💼 Jobs & Placements
-                <span>choose track and explore jobs</span>
-            </div>
-
-            <div class="card">
-                📄 Previous Papers
-                <span>curated view-only past papers</span>
-            </div>
-
-            <div class="card">
-                🤖 AI Career Bot
-                <span>one free chat per user</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================= SKILLS SECTION ================= -->
-    <section class="skills">
-        <h2>Skills</h2>
-        <p class="muted">
-            Choose your track to explore structured skill videos with filters.
+<!-- ================= HERO ================= -->
+<section class="hero">
+    <div class="hero-left">
+        <h1>CareerInnTech — Build Your Future in Tech</h1>
+        <p>
+            Personalized roadmaps, curated colleges, mentors, projects,
+            and AI-powered career guidance — all in one platform.
         </p>
 
-        <div class="skill-buttons">
-            <button class="btn blue">🎓 BTech Skills</button>
-            <button class="btn green">🏨 Hospitality Skills</button>
+        <a href="#" class="primary-btn">Start your free AI chat</a>
+
+        <p class="small-text">
+            Every user gets one free full AI chat. Subscribe afterwards.
+        </p>
+    </div>
+
+    <div class="hero-card">
+        <h3>Student Pass — ₹499 / year</h3>
+        <ul>
+            <li>✔ College explorer (courses & fees)</li>
+            <li>✔ Mentor connect & guidance</li>
+            <li>✔ Previous year papers</li>
+            <li>✔ AI career assistant</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ================= EXPLORE ================= -->
+<section class="explore">
+    <h2>Explore</h2>
+
+    <div class="card-grid">
+
+        <a href="{% url 'course_tracks' %}" class="dashboard-card-link">
+            <div class="card courses">
+                <div class="card-title">Courses</div>
+                <span>BTech / Hospitality tracks</span>
+            </div>
+        </a>
+
+        <a href="{% url 'college-track' %}" class="dashboard-card-link">
+            <div class="card colleges">
+                <div class="card-title">Colleges</div>
+                <span>Budget & rating filters</span>
+            </div>
+        </a>
+
+        <a href="#" class="dashboard-card-link">
+            <div class="card mentors">
+                <div class="card-title">Mentors</div>
+                <span>Industry experts</span>
+            </div>
+        </a>
+
+        <a href="#" class="dashboard-card-link">
+            <div class="card papers">
+                <div class="card-title">Previous Papers</div>
+                <span>Curated past papers</span>
+            </div>
+        </a>
+
+        <a href="#" class="dashboard-card-link">
+            <div class="card ai">
+                <div class="card-title">AI Career Bot</div>
+                <span>One free chat per user</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section class="skills">
+    <h2>Build In-Demand Skills</h2>
+    <p class="muted">
+        Choose a path and master skills aligned with industry demand.
+    </p>
+
+    <div class="skill-list">
+        <div>
+            <h4>Core Tech Skills</h4>
+            <ul>
+                <li>Data Structures & Algorithms</li>
+                <li>Web Development</li>
+                <li>Databases & SQL</li>
+                <li>Operating Systems</li>
+            </ul>
         </div>
 
-        <div class="skill-list">
-            <div>
-                <h4>BTech Skills</h4>
-                <ul>
-                    <li>Python, Java, C++</li>
-                    <li>DSA & Problem Solving</li>
-                    <li>Web Development</li>
-                    <li>DBMS, OS, CN</li>
-                    <li>AI / ML Basics</li>
-                </ul>
-            </div>
-
-            <div>
-                <h4>Hospitality Skills</h4>
-                <ul>
-                    <li>Front Office Operations</li>
-                    <li>Food & Beverage Service</li>
-                    <li>Housekeeping Management</li>
-                    <li>Customer Handling</li>
-                    <li>Hotel Management Systems</li>
-                </ul>
-            </div>
+        <div>
+            <h4>Emerging Skills</h4>
+            <ul>
+                <li>Artificial Intelligence</li>
+                <li>Machine Learning</li>
+                <li>Cloud & DevOps</li>
+                <li>System Design</li>
+            </ul>
         </div>
-    </section>
-
-</div>
+    </div>
+</section>
 
 {% endblock %}
