@@ -6,56 +6,90 @@
     <title>{% block title %}CareerInnTech{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Base CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-
-    <!-- Page-specific CSS -->
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="logo-box">
-        <img src="{% static 'images/logo.png' %}" alt="Logo">
-        <div>
-            <h3>CareerInnTech</h3>
+<!-- ================= HEADER ================= -->
+<header class="main-header">
+    <div class="header-left">
+        <div class="logo">
+            CareerInnTech
             <span>BTech • Hospitality • Careers</span>
         </div>
     </div>
 
-    <nav class="nav">
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'about' %}">About</a>
-        <a href="{% url 'contact' %}">Contact</a>
-
-        {% if user.is_authenticated %}
-            <!-- Logged-in user -->
-            <a href="{% url 'dashboard' %}" class="user-circle">
-    {{ user.username|first|upper }}
-</a>
-
-            <span class="username">
-                {{ user.username }}
-            </span>
-            <a href="{% url 'logout' %}" class="logout">Logout</a>
-        {% else %}
-            <!-- Guest user -->
-            <a href="{% url 'login' %}" class="btn">Login</a>
-            <a href="{% url 'signup' %}" class="btn outline">Signup</a>
-        {% endif %}
+    <!-- 🔁 NAV MOVED CLOSER TO PROFILE -->
+    <nav class="header-nav compact">
+        <a href="{% url 'dashboard' %}" class="nav-btn">Home</a>
+        <a href="{% url 'about' %}" class="nav-btn">About</a>
+        <a href="{% url 'contact' %}" class="nav-btn">Contact</a>
+        <a href="#" class="nav-btn">Support</a>
     </nav>
+
+    <div class="header-right">
+        {% if user.is_authenticated %}
+            <div class="profile-circle" onclick="toggleSidebar()">
+                {{ user.username|first|upper }}
+            </div>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="login-btn">Login</a>
+        {% endif %}
+    </div>
 </header>
 
-<!-- MAIN CONTENT -->
+<!-- ================= PROFILE SIDEBAR ================= -->
+<div id="profileSidebar" class="profile-sidebar">
+    <div class="sidebar-header">
+        <h3>My Profile</h3>
+        <span class="close-btn" onclick="toggleSidebar()">✕</span>
+    </div>
+
+    <div class="sidebar-body">
+        <div class="profile-avatar">
+            {{ user.username|first|upper }}
+        </div>
+
+        <p class="profile-name">{{ user.username }}</p>
+        <p class="profile-email">{{ user.email }}</p>
+
+        <!-- 🔁 IMPROVED DETAILS -->
+        <div class="profile-details">
+            <div class="detail-card">
+                <span>Track</span>
+                <strong>{{ user.profile.track|default:"Not selected" }}</strong>
+            </div>
+            <div class="detail-card">
+                <span>Year</span>
+                <strong>{{ user.profile.year|default:"Not selected" }}</strong>
+            </div>
+            <div class="detail-card">
+                <span>Goal</span>
+                <strong>{{ user.profile.goal|default:"Not selected" }}</strong>
+            </div>
+        </div>
+
+        <hr>
+
+        <a href="#" class="sidebar-link">Edit Profile</a>
+        <a href="#" class="sidebar-link">My Subscription</a>
+        <a href="#" class="sidebar-link">Help & Support</a>
+    </div>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
 <main class="main-content">
     {% block content %}{% endblock %}
 </main>
 
-<!-- CHATBOT BUTTON -->
-<div class="chatbot-btn">
-    <span class="chatbot-icon">🤖</span>
-</div>
+<script>
+function toggleSidebar() {
+    document.getElementById("profileSidebar").classList.toggle("open");
+}
+</script>
 
 </body>
 </html>
