@@ -10,104 +10,135 @@
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="hero">
-    <div class="hero-left">
-        <h1>CareerInnTech — Build Your Future in Tech</h1>
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>👋 Welcome back to your Career Space</h1>
         <p>
-            Personalized roadmaps, curated colleges, mentors, projects,
-            and AI-powered career guidance — all in one platform.
+            Explore skills, colleges, projects, jobs, and AI-powered guidance —
+            everything you need to build confidence step by step.
         </p>
 
-        <a href="#" class="primary-btn">Start your free AI chat</a>
-
-        <p class="small-text">
-            Every user gets one free full AI chat. Subscribe afterwards.
-        </p>
+        <a href="#" class="btn-primary">Start your free AI chat</a>
+        <p class="hero-note">One free full AI chat for every user</p>
     </div>
 
-    <div class="hero-card">
-        <h3>Student Pass — ₹499 / year</h3>
+    <!-- 🔁 REPLACED CARD -->
+    <div class="hero-pass">
+        <h3>Mentorship & Benefits</h3>
         <ul>
-            <li>✔ College explorer (courses & fees)</li>
-            <li>✔ Mentor connect & guidance</li>
-            <li>✔ Previous year papers</li>
-            <li>✔ AI career assistant</li>
+            <li>✔ 1-on-1 mentor guidance</li>
+            <li>✔ Career roadmap reviews</li>
+            <li>✔ Mock interviews</li>
+            <li>✔ Project & placement support</li>
+            <li>✔ Personalized AI suggestions</li>
         </ul>
+        <p class="hero-note">Included in Student & Pro plans</p>
     </div>
 </section>
 
-<!-- ================= EXPLORE ================= -->
-<section class="explore">
-    <h2>Explore</h2>
+<!-- ================= QUICK EXPLORE ================= -->
+<section class="explore-section">
+    <div class="explore-grid">
 
-    <div class="card-grid">
-
-        <a href="{% url 'course_tracks' %}" class="dashboard-card-link">
-            <div class="card courses">
-                <div class="card-title">Courses</div>
-                <span>BTech / Hospitality tracks</span>
-            </div>
+        <a href="{% url 'course_tracks' %}" class="explore-card">
+            <h4>📘 Courses</h4>
+            <p>BTech & Hospitality tracks</p>
         </a>
 
-        <a href="{% url 'college-track' %}" class="dashboard-card-link">
-            <div class="card colleges">
-                <div class="card-title">Colleges</div>
-                <span>Budget & rating filters</span>
-            </div>
+        <a href="{% url 'college-track' %}" class="explore-card">
+            <h4>🏫 Colleges</h4>
+            <p>Fees, cutoff & ratings</p>
         </a>
 
-        <a href="#" class="dashboard-card-link">
-            <div class="card mentors">
-                <div class="card-title">Mentors</div>
-                <span>Industry experts</span>
-            </div>
+        <!-- 🔁 REPLACED MENTORS -->
+        <a href="#" class="explore-card">
+            <h4>📄 Previous Year Papers</h4>
+            <p>Curated & branch-wise papers</p>
         </a>
 
-        <a href="#" class="dashboard-card-link">
-            <div class="card papers">
-                <div class="card-title">Previous Papers</div>
-                <span>Curated past papers</span>
-            </div>
+        <a href="#" class="explore-card">
+            <h4>🛠 Projects</h4>
+            <p>Track-wise real projects</p>
         </a>
 
-        <a href="#" class="dashboard-card-link">
-            <div class="card ai">
-                <div class="card-title">AI Career Bot</div>
-                <span>One free chat per user</span>
-            </div>
+        <a href="#" class="explore-card">
+            <h4>💼 Jobs & Placements</h4>
+            <p>Role-based opportunities</p>
+        </a>
+
+        <a href="#" class="explore-card">
+            <h4>🤖 AI Career Bot</h4>
+            <p>Smart career assistant</p>
         </a>
 
     </div>
 </section>
 
 <!-- ================= SKILLS ================= -->
-<section class="skills">
-    <h2>Build In-Demand Skills</h2>
-    <p class="muted">
-        Choose a path and master skills aligned with industry demand.
-    </p>
+<section class="skills-section">
+    <h2>Skills</h2>
 
-    <div class="skill-list">
-        <div>
-            <h4>Core Tech Skills</h4>
+    <div class="skills-box">
+        <p>Choose your track to explore structured skill videos.</p>
+
+        <div class="skills-actions">
+            <a href="#" class="skill-btn btech">🎓 BTech Skills</a>
+            <a href="#" class="skill-btn hospitality">🏨 Hospitality Skills</a>
+        </div>
+
+        <span>Branch-wise skills • Video learning • Filters</span>
+    </div>
+</section>
+
+<!-- ================= PLANS ================= -->
+<section class="plans-section">
+    <h2>Subscription plans designed for every stage</h2>
+
+    <div class="plans-grid">
+
+        <div class="plan-card">
+            <h4>Free</h4>
+            <div class="plan-price">₹0</div>
             <ul>
-                <li>Data Structures & Algorithms</li>
-                <li>Web Development</li>
-                <li>Databases & SQL</li>
-                <li>Operating Systems</li>
+                <li>1 AI career chat</li>
+                <li>Browse colleges & jobs</li>
+                <li>Basic exploration</li>
             </ul>
         </div>
 
-        <div>
-            <h4>Emerging Skills</h4>
+        <div class="plan-card">
+            <h4>Starter</h4>
+            <div class="plan-price">₹299</div>
             <ul>
-                <li>Artificial Intelligence</li>
-                <li>Machine Learning</li>
-                <li>Cloud & DevOps</li>
-                <li>System Design</li>
+                <li>Skill videos</li>
+                <li>Previous year papers</li>
+                <li>Limited mentor insights</li>
             </ul>
         </div>
+
+        <div class="plan-card highlight">
+            <h4>Student Pass</h4>
+            <div class="plan-price">₹499</div>
+            <ul>
+                <li>Unlimited AI guidance</li>
+                <li>Mentor connect</li>
+                <li>Mock interviews</li>
+                <li>Projects & placements</li>
+            </ul>
+        </div>
+
+        <div class="plan-card">
+            <h4>Pro</h4>
+            <div class="plan-price">₹999</div>
+            <ul>
+                <li>Priority mentorship</li>
+                <li>Career roadmap reviews</li>
+                <li>Future premium features</li>
+            </ul>
+        </div>
+
     </div>
 </section>
 
 {% endblock %}
+
