@@ -1,4 +1,4 @@
-/* ================= DASHBOARD BASE ================= */
+/* ================= BASE ================= */
 
 .hero,
 .explore,
@@ -39,12 +39,12 @@
     border-radius: 999px;
     background: linear-gradient(90deg, #6366f1, #22d3ee);
     color: #fff;
-    box-shadow: 0 10px 30px rgba(99,102,241,.35);
-    transition: transform .2s ease;
+    box-shadow: 0 12px 32px rgba(99,102,241,.4);
+    transition: transform .25s ease;
 }
 
 .primary-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 .small-text {
@@ -64,7 +64,6 @@
     border: 1px solid #1e293b;
     border-radius: 22px;
     padding: 30px 32px;
-    backdrop-filter: blur(12px);
 }
 
 .hero-card h3 {
@@ -90,8 +89,10 @@
 
 .explore h2 {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
+
+/* ================= CARDS ================= */
 
 .card-grid {
     display: grid;
@@ -99,29 +100,78 @@
     gap: 22px;
 }
 
+.dashboard-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .card {
-    background: rgba(2,6,23,.75);
-    border: 1px solid #1e293b;
-    border-radius: 18px;
-    padding: 22px 24px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all .25s ease;
+    background: linear-gradient(
+        180deg,
+        rgba(15,23,42,.95),
+        rgba(2,6,23,.95)
+    );
+    border: 1px solid rgba(148,163,184,.15);
+    border-radius: 20px;
+    padding: 26px 28px;
+    transition: all .3s ease;
+    position: relative;
+}
+
+.card-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #f8fafc;
 }
 
 .card span {
     display: block;
-    margin-top: 6px;
-    font-size: 13px;
-    color: #94a3b8;
-    font-weight: 400;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #c7d2fe;
+}
+
+/* Accent border */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: transparent;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
 }
 
 .card:hover {
-    transform: translateY(-6px);
-    border-color: #6366f1;
-    box-shadow: 0 14px 40px rgba(0,0,0,.4);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,.55);
+}
+
+/* ================= CARD COLORS ================= */
+
+.card.courses::before {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.card.colleges::before {
+    background: linear-gradient(90deg, #22d3ee, #38bdf8);
+}
+
+.card.mentors::before {
+    background: linear-gradient(90deg, #10b981, #22c55e);
+}
+
+.card.papers::before {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.card.ai::before {
+    background: linear-gradient(90deg, #ec4899, #a855f7);
 }
 
 /* ================= SKILLS ================= */
@@ -139,30 +189,6 @@
     color: #94a3b8;
     font-size: 14px;
 }
-
-.skill-buttons {
-    display: flex;
-    gap: 16px;
-    margin: 22px 0 30px;
-}
-
-.skill-buttons .btn {
-    padding: 12px 26px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.blue {
-    background: #6366f1;
-}
-
-.green {
-    background: #10b981;
-}
-
-/* ================= SKILL LIST ================= */
 
 .skill-list {
     background: rgba(2,6,23,.75);

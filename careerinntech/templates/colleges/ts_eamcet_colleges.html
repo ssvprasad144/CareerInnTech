@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}TS EAMCET Colleges | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/colleges/ts_eamcet_colleges.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="eamcet-section">
+
+    <!-- PAGE HEADING -->
+    <h1 class="eamcet-title">TS EAMCET Engineering Colleges</h1>
+    <p class="eamcet-subtitle">
+        Explore top engineering colleges in Telangana through TS EAMCET
+    </p>
+
+    <!-- FILTER BAR -->
+    <form method="get" class="filter-bar">
+
+        <div class="filter-group">
+            <label>Location</label>
+            <select name="location">
+                <option value="">All Locations</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Warangal">Warangal</option>
+                <option value="Nizamabad">Nizamabad</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Annual Fee</label>
+            <select name="fee">
+                <option value="">Any</option>
+                <option value="1">Below ₹1 Lakh</option>
+                <option value="2">₹1 – 2 Lakhs</option>
+                <option value="3">Above ₹2 Lakhs</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>EAMCET Rank</label>
+            <input type="number" name="rank" placeholder="Enter your rank">
+        </div>
+
+        <div class="filter-action">
+            <button type="submit">Apply Filters</button>
+        </div>
+
+    </form>
+
+    <!-- COLLEGE LIST -->
+    <div class="college-list">
+
+        <!-- HARDCODED COLLEGES -->
+        {% for c in hardcoded_colleges %}
+        <div class="college-card">
+            <h3>{{ c.name }}</h3>
+            <p>{{ c.location }} • ₹{{ c.annual_fee }}</p>
+        </div>
+        {% endfor %}
+
+        <!-- ADMIN-MANAGED COLLEGES -->
+        {% for college in admin_colleges %}
+        <div class="college-card">
+            <h3>{{ college.name }}</h3>
+            <p>{{ college.location }} • ₹{{ college.annual_fee }}</p>
+        </div>
+        {% endfor %}
+
+        <!-- NO RESULTS -->
+        {% if not hardcoded_colleges and not admin_colleges %}
+        <p style="margin-top:20px; color:#94a3b8;">
+            No colleges found for selected filters.
+        </p>
+        {% endif %}
+
+    </div>
+
+</section>
+{% endblock %}

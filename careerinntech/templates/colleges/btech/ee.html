@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Electrical Engineering | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<!-- Reusing common branch CSS -->
+<link rel="stylesheet" href="{% static 'css/colleges/btech_branch.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="branch-page ee-theme">
+
+    <!-- ===== HEADER ===== -->
+    <div class="branch-header">
+        <h1>Electrical Engineering (EE)</h1>
+        <p>
+            Electrical Engineering deals with the study and application of
+            electricity, power systems, electrical machines, and control systems.
+            It is a core engineering branch essential for energy, infrastructure,
+            and industrial development.
+        </p>
+    </div>
+
+    <!-- ===== STUDY ===== -->
+    <div class="branch-section">
+        <h2>What You Will Study</h2>
+        <ul>
+            <li>Electrical Circuits & Networks</li>
+            <li>Electrical Machines</li>
+            <li>Power Generation & Transmission</li>
+            <li>Power Electronics</li>
+            <li>Control Systems</li>
+            <li>Renewable Energy Systems</li>
+        </ul>
+    </div>
+
+    <!-- ===== SKILLS ===== -->
+    <div class="branch-section">
+        <h2>Skills You Will Build</h2>
+        <ul>
+            <li>Power system analysis</li>
+            <li>Design and testing of electrical machines</li>
+            <li>Working with industrial electrical equipment</li>
+            <li>Understanding control and automation systems</li>
+        </ul>
+    </div>
+
+    <!-- ===== FUTURE ===== -->
+    <div class="branch-section">
+        <h2>Future Scope</h2>
+        <ul>
+            <li>Strong demand in power and energy sectors</li>
+            <li>Key role in renewable energy and smart grids</li>
+            <li>Opportunities in government and PSU jobs</li>
+            <li>Foundation for higher studies and research</li>
+        </ul>
+    </div>
+
+    <!-- ===== CAREERS ===== -->
+    <div class="branch-section">
+        <h2>Career Opportunities</h2>
+        <ul>
+            <li>Electrical Engineer</li>
+            <li>Power Systems Engineer</li>
+            <li>Control & Automation Engineer</li>
+            <li>Energy Analyst</li>
+            <li>Maintenance & Plant Engineer</li>
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}

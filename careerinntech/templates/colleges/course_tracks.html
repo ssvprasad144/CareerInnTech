@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Select Course Track | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/colleges/track_select.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="track-section">
+
+    <h1 class="track-title">Select Course Track</h1>
+    <p class="track-subtitle">
+        Choose the course category you want to explore
+    </p>
+
+    <div class="track-cards">
+
+        <!-- ✅ BTech Track -->
+        <a href="{% url 'btech_courses' %}" class="track-card btech">
+            <h2>BTech</h2>
+            <p>Engineering degree programs</p>
+            <ul>
+                <li>Computer Science (CSE)</li>
+                <li>AI & Machine Learning</li>
+                <li>Electronics (ECE)</li>
+                <li>Electrical & Mechanical</li>
+            </ul>
+        </a>
+
+        <!-- 🚫 Management / Hospitality Track -->
+        <div class="track-card hospitality">
+            <h2>Management</h2>
+            <p>Hospitality & service-oriented programs</p>
+            <ul>
+                <li>Hotel Management</li>
+                <li>Tourism & Travel</li>
+                <li>Culinary Arts</li>
+            </ul>
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

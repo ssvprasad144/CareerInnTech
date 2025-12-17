@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Choose Track | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/colleges/track_select.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="track-section">
+
+    <h1 class="track-title">Choose Your Track</h1>
+
+    <p class="track-subtitle">
+        Select your academic track to explore colleges and career paths
+    </p>
+
+    <div class="track-cards">
+
+        <!-- BTECH CARD -->
+        <a href="{% url 'btech-categories' %}" class="track-card btech">
+            <h2>B.Tech</h2>
+            <p>Engineering & Technology</p>
+            <ul>
+                <li>CSE, ECE, ME, EE, Civil</li>
+                <li>Placements & Cutoffs</li>
+                <li>Career-focused insights</li>
+            </ul>
+        </a>
+
+        <!-- HOSPITALITY CARD -->
+        <a href="#" class="track-card hospitality">
+            <h2>Hospitality</h2>
+            <p>Hotel & Service Industry</p>
+            <ul>
+                <li>Hotel Management</li>
+                <li>Internships & ROI</li>
+                <li>Industry exposure</li>
+            </ul>
+        </a>
+
+    </div>
+
+</section>
+{% endblock %}
