@@ -1,238 +1,178 @@
-/* ================= BASE ================= */
-
-.hero,
-.explore,
-.skills {
-    position: relative;
-    z-index: 1;
-}
-
-/* ================= HERO ================= */
-
-.hero {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 56px;
-    padding: 80px 100px 50px;
-}
-
-.hero-left h1 {
-    font-size: 48px;
-    line-height: 1.25;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-}
-
-.hero-left p {
-    margin-top: 18px;
-    max-width: 700px;
-    font-size: 17px;
-    color: #c7d2fe;
-}
-
-.primary-btn {
-    margin-top: 32px;
-    display: inline-block;
-    padding: 15px 36px;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #6366f1, #22d3ee);
-    color: #fff;
-    box-shadow: 0 12px 32px rgba(99,102,241,.4);
-    transition: transform .25s ease;
-}
-
-.primary-btn:hover {
-    transform: translateY(-3px);
-}
-
-.small-text {
-    margin-top: 12px;
-    font-size: 13px;
-    color: #94a3b8;
-}
-
-/* ================= HERO CARD ================= */
-
-.hero-card {
-    background: linear-gradient(
-        180deg,
-        rgba(15,23,42,.9),
-        rgba(2,6,23,.9)
-    );
-    border: 1px solid #1e293b;
-    border-radius: 22px;
-    padding: 30px 32px;
-}
-
-.hero-card h3 {
-    font-size: 19px;
-    margin-bottom: 16px;
-}
-
-.hero-card ul {
-    list-style: none;
-}
-
-.hero-card li {
-    margin-bottom: 11px;
-    font-size: 14px;
+/* ===== GLOBAL ===== */
+body {
+    background: radial-gradient(circle at top, #020617, #000);
     color: #e5e7eb;
 }
 
-/* ================= EXPLORE ================= */
-
-.explore {
-    padding: 40px 100px 30px;
+/* ===== HERO ===== */
+.hero-section {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 60px;
+    padding: 90px 100px;
 }
 
-.explore h2 {
-    font-size: 24px;
-    margin-bottom: 22px;
+.hero-content h1 {
+    font-size: 44px;
+    font-weight: 800;
 }
 
-/* ================= CARDS ================= */
+.hero-content p {
+    margin: 18px 0;
+    max-width: 620px;
+    color: #cbd5f5;
+}
 
-.card-grid {
+.btn-primary {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 38px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #6366f1, #22d3ee);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 0 35px rgba(99,102,241,.45);
+    transition: .3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 55px rgba(99,102,241,.9);
+}
+
+.hero-pass {
+    background: linear-gradient(180deg, rgba(15,23,42,.9), rgba(2,6,23,.95));
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid #1e293b;
+}
+
+.hero-pass .price {
+    font-size: 30px;
+    margin: 12px 0;
+}
+
+/* ===== EXPLORE ===== */
+.explore-section {
+    padding: 40px 100px;
+}
+
+.explore-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 22px;
 }
 
-.dashboard-card-link {
+.explore-card {
+    padding: 26px;
+    border-radius: 18px;
+    background: rgba(2,6,23,.75);
+    border: 1px solid #1e293b;
+    transition: .3s;
     text-decoration: none;
     color: inherit;
 }
 
-.card {
-    background: linear-gradient(
-        180deg,
-        rgba(15,23,42,.95),
-        rgba(2,6,23,.95)
-    );
-    border: 1px solid rgba(148,163,184,.15);
-    border-radius: 20px;
-    padding: 26px 28px;
-    transition: all .3s ease;
-    position: relative;
+.explore-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(99,102,241,.3);
+    border-color: #6366f1;
 }
 
-.card-title {
-    font-size: 19px;
-    font-weight: 700;
-    color: #f8fafc;
+/* ===== SKILLS ===== */
+.skills-section {
+    padding: 60px 100px;
 }
 
-.card span {
-    display: block;
-    margin-top: 8px;
-    font-size: 14px;
-    color: #c7d2fe;
-}
-
-/* Accent border */
-.card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    padding: 1px;
-    background: transparent;
-    -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(0,0,0,.55);
-}
-
-/* ================= CARD COLORS ================= */
-
-.card.courses::before {
-    background: linear-gradient(90deg, #6366f1, #8b5cf6);
-}
-
-.card.colleges::before {
-    background: linear-gradient(90deg, #22d3ee, #38bdf8);
-}
-
-.card.mentors::before {
-    background: linear-gradient(90deg, #10b981, #22c55e);
-}
-
-.card.papers::before {
-    background: linear-gradient(90deg, #f59e0b, #fbbf24);
-}
-
-.card.ai::before {
-    background: linear-gradient(90deg, #ec4899, #a855f7);
-}
-
-/* ================= SKILLS ================= */
-
-.skills {
-    padding: 50px 100px 90px;
-}
-
-.skills h2 {
-    font-size: 24px;
-    margin-bottom: 6px;
-}
-
-.muted {
-    color: #94a3b8;
-    font-size: 14px;
-}
-
-.skill-list {
+.skills-box {
     background: rgba(2,6,23,.75);
-    border: 1px solid #1e293b;
     border-radius: 22px;
-    padding: 30px 36px;
+    padding: 30px;
+    max-width: 720px;
+    border: 1px solid #1e293b;
+}
+
+.skills-actions {
+    display: flex;
+    gap: 16px;
+    margin: 18px 0;
+}
+
+.skill-btn {
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.skill-btn.btech {
+    background: #6366f1;
+    color: #fff;
+}
+
+.skill-btn.hospitality {
+    background: #10b981;
+    color: #fff;
+}
+
+.skill-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(99,102,241,.6);
+}
+
+/* ===== PLANS ===== */
+.plans-section {
+    padding: 80px 100px;
+}
+
+.plans-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
 }
 
-.skill-list h4 {
-    margin-bottom: 14px;
-    font-size: 17px;
+.plan-card {
+    background: rgba(2,6,23,.75);
+    border-radius: 22px;
+    padding: 28px;
+    border: 1px solid #1e293b;
+    text-align: center;
+    transition: .3s;
 }
 
-.skill-list ul {
-    list-style: none;
+.plan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(0,0,0,.6);
 }
 
-.skill-list li {
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: #e5e7eb;
+.plan-card.highlight {
+    border-color: #6366f1;
+    box-shadow: 0 0 45px rgba(99,102,241,.4);
+    transform: scale(1.05);
 }
 
-/* ================= RESPONSIVE ================= */
+.plan-price {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 12px 0;
+}
 
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1100px) {
-    .hero {
-        grid-template-columns: 1fr;
-        padding: 60px 40px;
-    }
-
-    .explore,
-    .skills {
+    .hero-section,
+    .explore-section,
+    .skills-section,
+    .plans-section {
         padding: 40px;
     }
 
-    .card-grid {
+    .hero-section {
         grid-template-columns: 1fr;
     }
 
-    .skill-list {
+    .explore-grid,
+    .plans-grid {
         grid-template-columns: 1fr;
     }
 }
+
