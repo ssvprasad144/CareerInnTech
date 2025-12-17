@@ -1,19 +1,34 @@
 from pathlib import Path
 import os
 
+# ================= BASE =================
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY
-SECRET_KEY = "django-insecure-local-key"
+# ================= SECURITY =================
 
-import os
+# SECRET KEY
+# - Local: uses fallback
+# - Render: uses environment variable
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-local-dev-key-change-this"
+)
 
+# DEBUG
+# - Local: True
+# - Render: set DEBUG=False in environment
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
+# ALLOWED HOSTS
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    ".onrender.com",
+]
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost","https://careerinntech.onrender.com"]
+# ================= APPLICATIONS =================
 
-# APPLICATIONS
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -25,7 +40,8 @@ INSTALLED_APPS = [
     "college",
 ]
 
-# MIDDLEWARE
+# ================= MIDDLEWARE =================
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -36,7 +52,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# ================= URL / WSGI =================
+
 ROOT_URLCONF = "careerinntech.urls"
+WSGI_APPLICATION = "careerinntech.wsgi.application"
+
+# ================= TEMPLATES =================
 
 TEMPLATES = [
     {
@@ -54,9 +75,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "careerinntech.wsgi.application"
+# ================= DATABASE =================
+# SQLite (local + initial Render deploy)
 
-# DATABASE
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -64,7 +85,8 @@ DATABASES = {
     }
 }
 
-# PASSWORD VALIDATION
+# ================= PASSWORD VALIDATION =================
+
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -72,19 +94,31 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# INTERNATIONALIZATION
+# ================= INTERNATIONALIZATION =================
+
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# AUTH
+# ================= AUTH =================
+
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "home"
 
-# STATIC FILES (LOCAL)
+# ================= STATIC FILES =================
+
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Local static files
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# Render static collection
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# ================= DEFAULT FIELD =================
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
