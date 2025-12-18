@@ -1,0 +1,98 @@
+/* ================= SUPPORT PAGE ================= */
+
+.support-page {
+    min-height: calc(100vh - 80px);
+    padding: 60px 20px;
+    background: radial-gradient(circle at top, #0b1220, #020617);
+    color: #e5e7eb;
+}
+
+.support-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.support-container h1 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: #ffffff;
+}
+
+.support-intro {
+    font-size: 18px;
+    color: #cbd5f5;
+    margin-bottom: 40px;
+}
+
+/* ================= FAQ ================= */
+
+.faq-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.faq-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.faq-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.faq-card p {
+    font-size: 15px;
+    color: #d1d5ff;
+}
+
+/* ================= CONTACT SUPPORT ================= */
+
+.contact-support {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.contact-support h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.contact-support p {
+    font-size: 16px;
+    color: #c7d2fe;
+    margin-bottom: 20px;
+}
+
+.support-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.support-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+    .support-container h1 {
+        font-size: 34px;
+    }
+
+    .support-intro {
+        font-size: 16px;
+    }
+}

@@ -21,27 +21,39 @@ body {
     align-items: center;
     gap: 24px;
     padding: 16px 36px;
-    background: rgba(2,6,23,0.85);
+    background: rgba(2, 6, 23, 0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid #1e293b;
 }
 
+/* LEFT */
 .header-left {
+    display: flex;
+    align-items: center;        /* ✅ FIX */
+    gap: 12px;                  /* ✅ FIX */
     flex: 1;
+}
+
+/* LOGO */
+#logomain {
+    height: 46.5px;
+    width: auto;
 }
 
 .logo {
     font-size: 22px;
     font-weight: 800;
+    line-height: 1.1;
 }
 
 .logo span {
     display: block;
     font-size: 12px;
     color: #94a3b8;
+    font-weight: 500;
 }
 
-/* 🔁 COMPACT NAV */
+/* ================= NAV ================= */
 .header-nav.compact {
     display: flex;
     gap: 10px;
@@ -53,15 +65,15 @@ body {
     font-size: 13px;
     text-decoration: none;
     color: #e5e7eb;
-    background: rgba(15,23,42,0.6);
+    background: rgba(15, 23, 42, 0.6);
     border: 1px solid #1e293b;
     transition: all 0.25s ease;
 }
 
 .nav-btn:hover {
-    background: rgba(99,102,241,0.15);
+    background: rgba(99, 102, 241, 0.15);
     border-color: #6366f1;
-    box-shadow: 0 0 18px rgba(99,102,241,0.4);
+    box-shadow: 0 0 18px rgba(99, 102, 241, 0.4);
 }
 
 /* ================= RIGHT ================= */
@@ -81,7 +93,7 @@ body {
     justify-content: center;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(99,102,241,0.45);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.45);
 }
 
 .logout-btn,
@@ -144,7 +156,7 @@ body {
     margin-bottom: 22px;
 }
 
-/* 🔁 DETAILS */
+/* DETAILS */
 .profile-details {
     display: grid;
     gap: 14px;
@@ -152,7 +164,7 @@ body {
 }
 
 .detail-card {
-    background: rgba(15,23,42,0.65);
+    background: rgba(15, 23, 42, 0.65);
     border: 1px solid #1e293b;
     border-radius: 14px;
     padding: 12px 16px;
@@ -186,7 +198,7 @@ body {
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
-    .header-nav {
+    .header-nav.compact {      /* ✅ FIX */
         display: none;
     }
 

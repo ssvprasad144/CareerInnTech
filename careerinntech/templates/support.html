@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Support | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/support.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="support-page">
+    <div class="support-container">
+
+        <h1>Support & Help</h1>
+        <p class="support-intro">
+            We’re here to help you at every step of your career journey.
+            Find answers below or reach out to us directly.
+        </p>
+
+        <!-- ================= FAQ SECTION ================= -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-card">
+                <h3>How does CareerInnTech help students?</h3>
+                <p>
+                    We provide structured roadmaps, mentor guidance, college data,
+                    mock interviews, and AI-powered career assistance.
+                </p>
+            </div>
+
+            <div class="faq-card">
+                <h3>Is CareerInnTech free?</h3>
+                <p>
+                    Every new user gets one free AI career chat.
+                    Premium features are available via subscription.
+                </p>
+            </div>
+
+            <div class="faq-card">
+                <h3>Can I change my track or goal later?</h3>
+                <p>
+                    Yes. You can update your track, year, and career goals
+                    anytime from your profile.
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= CONTACT SUPPORT ================= -->
+        <div class="contact-support">
+            <h2>Still need help?</h2>
+            <p>
+                Reach out to our support team and we’ll get back to you as soon as possible.
+            </p>
+
+            <a href="{% url 'contact' %}" class="support-btn">
+                Contact Support
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

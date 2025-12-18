@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Jobs & Placements | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/jobs.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="jobs-page">
+    <div class="jobs-container">
+
+        <h1>Jobs & Internships</h1>
+        <p class="jobs-intro">
+            Discover live job opportunities, internships,
+            and placement drives curated for your career path.
+        </p>
+
+        <div class="jobs-grid">
+
+            {% for job in jobs %}
+            <div class="job-card">
+
+                <div class="job-header">
+                    <h3>{{ job.title }}</h3>
+                    <div class="badges">
+                        <span class="type-badge {{ job.opportunity_type }}">
+                            {{ job.opportunity_type|capfirst }}
+                        </span>
+                        <span class="status {{ job.status }}">
+                            {{ job.status|capfirst }}
+                        </span>
+                    </div>
+                </div>
+
+                <p class="company">{{ job.companies }}</p>
+
+                <p class="details">
+                    <strong>Eligibility:</strong> {{ job.eligibility }}<br>
+                    <strong>Package:</strong> {{ job.package }}
+                </p>
+
+                <a href="#" class="job-btn">
+                    View & Prepare
+                </a>
+
+            </div>
+
+            {% empty %}
+            <div class="empty-state">
+                <h3>No opportunities available</h3>
+                <p>
+                    New jobs and internships will be posted soon.
+                    Please check back later.
+                </p>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

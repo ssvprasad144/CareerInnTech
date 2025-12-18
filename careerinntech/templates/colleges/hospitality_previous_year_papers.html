@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hospitality Previous Year Papers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/papers.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="papers-page">
+    <h1>Hospitality Previous Year Question Papers</h1>
+    <p class="papers-subtitle">
+        Hotel management, tourism, food production & service exams.
+    </p>
+
+    <ul class="paper-list">
+        <li>Hotel Operations – 2023</li>
+        <li>Food & Beverage Management – 2022</li>
+        <li>Front Office Operations – 2021</li>
+        <li>Tourism Studies – 2020</li>
+    </ul>
+</section>
+
+{% endblock %}
