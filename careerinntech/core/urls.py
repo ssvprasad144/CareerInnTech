@@ -23,6 +23,12 @@ path("courses/btech/aiml/", views.btech_aiml, name="btech_aiml"),
  path("courses/btech/ece/", views.btech_ece, name="btech_ece"),
 path("courses/btech/ee/", views.btech_ee, name="btech_ee"),
 path("courses/btech/mech/", views.btech_mech, name="btech_mech"),
+path("support/", views.support, name="support"),
+path("dashboard/jobs/", views.jobs, name="jobs"),
+path("dashboard/projects/", views.projects, name="projects"),
+path("previous-papers/", views.paper_select, name="paper_select"),
+path("previous-papers/btech/", views.btech_previous_year_papers, name="btech_papers"),
+path("previous-papers/hospitality/", views.hospitality_previous_year_papers, name="hospitality_papers"),
 
 ]    
 

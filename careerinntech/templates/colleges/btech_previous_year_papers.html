@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BTech Previous Year Papers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/papers.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="papers-page">
+    <h1>BTech Previous Year Question Papers</h1>
+    <p class="papers-subtitle">
+        JEE, GATE, EAMCET and semester-wise engineering papers.
+    </p>
+
+    <ul class="paper-list">
+        <li>JEE Main 2023 – Mathematics</li>
+        <li>GATE ECE 2022 – Question Paper</li>
+        <li>BTech 2nd Year – Signals & Systems</li>
+        <li>BTech Final Year – VLSI Design</li>
+    </ul>
+</section>
+
+{% endblock %}

@@ -141,53 +141,9 @@ def course_tracks(request):
     return render(request, "colleges/course_tracks.html", {
         "tracks": tracks
     })
-
-from django.shortcuts import render
-
 def btech_courses(request):
-    branches = [
-        {
-            "code": "cse",
-            "title": "Computer Science & Engineering",
-            "desc": "Software, systems, algorithms, core computing",
-        },
-        {
-            "code": "aiml",
-            "title": "Artificial Intelligence & Machine Learning",
-            "desc": "AI systems, ML models, data intelligence",
-        },
-        {
-            "code": "ds",
-            "title": "Data Science",
-            "desc": "Big data, analytics, statistics, ML",
-        },
-        {
-            "code": "ece",
-            "title": "Electronics & Communication Engineering",
-            "desc": "Communication, VLSI, embedded systems",
-        },
-        {
-            "code": "ee",
-            "title": "Electrical Engineering",
-            "desc": "Power systems, machines, control",
-        },
-        {
-            "code": "me",
-            "title": "Mechanical Engineering",
-            "desc": "Design, manufacturing, thermal systems",
-        },
-        {
-            "code": "ce",
-            "title": "Civil Engineering",
-            "desc": "Structures, construction, infrastructure",
-        },
-    ]
+    return render(request, "colleges/btech_courses.html")
 
-    return render(
-        request,
-        "colleges/btech_courses.html",
-        {"branches": branches}
-    )
 def btech_cs(request):
     return render(request, "colleges/btech/cs.html")
 
@@ -202,3 +158,60 @@ def btech_ee(request):
 
 def btech_mech(request):
     return render(request, "colleges/btech/mech.html")
+
+from django.contrib.auth.decorators import login_required
+from .models import UserProfile
+
+@login_required
+def welcome(request):
+    if request.method == "POST":
+        track = request.POST.get("track")
+        year = request.POST.get("year")
+        goal = request.POST.get("goal")
+
+        UserProfile.objects.update_or_create(
+            user=request.user,
+            defaults={
+                "track": track,
+                "year": year,
+                "goal": goal
+            }
+        )
+
+        return redirect("dashboard")
+
+    return render(request, "welcome.html")
+
+def support(request):
+    return render(request, "support.html")
+def jobs(request):
+    return render(request, "jobs.html")
+
+from .models import Opportunity
+def jobs(request):
+    opportunities = Opportunity.objects.filter(is_active=True)
+    return render(
+        request,
+        "jobs.html",
+        {"jobs": opportunities}
+    )
+
+from .models import Project
+
+
+def projects(request):
+    projects = Project.objects.filter(is_active=True)
+    return render(
+        request,
+        "projects.html",
+        {"projects": projects}
+    )
+
+def paper_select(request):
+    return render(request, "colleges/paper_select.html")
+
+def btech_previous_year_papers(request):
+    return render(request, "colleges/btech_previous_year_papers.html")
+
+def hospitality_previous_year_papers(request):
+    return render(request, "colleges/hospitality_previous_year_papers.html")

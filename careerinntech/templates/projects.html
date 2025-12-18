@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Projects | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/projects.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="projects-page">
+    <div class="projects-container">
+
+        <h1>Projects</h1>
+        <p class="projects-intro">
+            Hands-on projects designed to build real-world skills
+            and strengthen your portfolio.
+        </p>
+
+        <div class="projects-grid">
+
+            {% for project in projects %}
+            <div class="project-card">
+
+                <div class="project-header">
+                    <h3>{{ project.title }}</h3>
+                    <span class="difficulty {{ project.difficulty }}">
+                        {{ project.difficulty|capfirst }}
+                    </span>
+                </div>
+
+                <p class="project-desc">
+                    {{ project.description }}
+                </p>
+
+                <p class="project-tech">
+                    <strong>Tech Stack:</strong> {{ project.tech_stack }}
+                </p>
+
+                <div class="project-actions">
+                    {% if project.github_link %}
+                        <a href="{{ project.github_link }}" target="_blank" class="project-btn secondary">
+                            GitHub
+                        </a>
+                    {% endif %}
+                    <a href="#" class="project-btn">
+                        Start Project
+                    </a>
+                </div>
+
+            </div>
+
+            {% empty %}
+            <div class="empty-state">
+                <h3>No projects available</h3>
+                <p>
+                    New projects will be added soon.
+                    Please check back later.
+                </p>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

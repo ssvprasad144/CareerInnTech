@@ -20,6 +20,7 @@ SECRET_KEY = os.environ.get(
 # - Render: set DEBUG=False in environment
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
+
 # ALLOWED HOSTS
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -71,6 +72,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "core.context_processors.user_profile",
             ],
         },
     },
@@ -119,8 +121,11 @@ STATICFILES_DIRS = [
 
 # Render static collection
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+if DEBUG:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+else:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ================= DEFAULT FIELD =================
 

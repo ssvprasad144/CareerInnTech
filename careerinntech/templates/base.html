@@ -6,27 +6,30 @@
     <title>{% block title %}CareerInnTech{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Global CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <!-- Page-level CSS -->
     {% block extra_css %}{% endblock %}
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
 <header class="main-header">
     <div class="header-left">
+        <img id="logomain" src="{% static 'images/logomain.png' %}" alt="CareerInnTech Logo">
+
         <div class="logo">
             CareerInnTech
             <span>BTech • Hospitality • Careers</span>
         </div>
     </div>
 
-    <!-- 🔁 NAV MOVED CLOSER TO PROFILE -->
     <nav class="header-nav compact">
         <a href="{% url 'dashboard' %}" class="nav-btn">Home</a>
         <a href="{% url 'about' %}" class="nav-btn">About</a>
         <a href="{% url 'contact' %}" class="nav-btn">Contact</a>
-        <a href="#" class="nav-btn">Support</a>
+        <a href="{% url 'support' %}" class="nav-btn">Support</a>
     </nav>
 
     <div class="header-right">
@@ -41,7 +44,6 @@
     </div>
 </header>
 
-<!-- ================= PROFILE SIDEBAR ================= -->
 <div id="profileSidebar" class="profile-sidebar">
     <div class="sidebar-header">
         <h3>My Profile</h3>
@@ -56,19 +58,18 @@
         <p class="profile-name">{{ user.username }}</p>
         <p class="profile-email">{{ user.email }}</p>
 
-        <!-- 🔁 IMPROVED DETAILS -->
         <div class="profile-details">
             <div class="detail-card">
                 <span>Track</span>
-                <strong>{{ user.profile.track|default:"Not selected" }}</strong>
+                <strong>{{ user_profile.track|default:"Not selected" }}</strong>
             </div>
             <div class="detail-card">
                 <span>Year</span>
-                <strong>{{ user.profile.year|default:"Not selected" }}</strong>
+                <strong>{{ user_profile.year|default:"Not selected" }}</strong>
             </div>
             <div class="detail-card">
                 <span>Goal</span>
-                <strong>{{ user.profile.goal|default:"Not selected" }}</strong>
+                <strong>{{ user_profile.goal|default:"Not selected" }}</strong>
             </div>
         </div>
 
@@ -80,7 +81,6 @@
     </div>
 </div>
 
-<!-- ================= MAIN CONTENT ================= -->
 <main class="main-content">
     {% block content %}{% endblock %}
 </main>

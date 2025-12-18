@@ -47,3 +47,68 @@ class CollegeAdmin(admin.ModelAdmin):
     list_display = ("name", "location", "annual_fee", "exam_type")
     list_filter = ("exam_type", "location")
     search_fields = ("name",)
+
+from django.contrib import admin
+from .models import UserProfile
+
+admin.site.register(UserProfile)
+
+
+from .models import Opportunity
+
+
+@admin.register(Opportunity)
+class OpportunityAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "opportunity_type",
+        "status",
+        "package",
+        "is_active",
+        "created_at",
+    )
+
+    list_filter = (
+        "opportunity_type",
+        "status",
+        "is_active",
+    )
+
+    search_fields = (
+        "title",
+        "companies",
+    )
+
+    list_editable = (
+        "status",
+        "is_active",
+    )
+
+from .models import Project
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "difficulty",
+        "tech_stack",
+        "is_active",
+        "created_at",
+    )
+
+    list_filter = (
+        "difficulty",
+        "is_active",
+    )
+
+    search_fields = (
+        "title",
+        "tech_stack",
+    )
+
+    list_editable = (
+        "difficulty",
+        "is_active",
+    )
+
