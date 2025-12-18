@@ -23,6 +23,10 @@ DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # ALLOWED HOSTS
 ALLOWED_HOSTS = [
+    "careerinntech.onrender.com",
+    "careerinntech.com",
+    "www.careerinntech.com",
+
     "127.0.0.1",
     "localhost",
     ".onrender.com",
