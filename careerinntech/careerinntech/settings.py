@@ -107,7 +107,7 @@ USE_TZ = True
 # ================= AUTH =================
 
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "dashboard"
+LOGIN_REDIRECT_URL = "post_login"
 LOGOUT_REDIRECT_URL = "home"
 
 # ================= STATIC FILES =================
