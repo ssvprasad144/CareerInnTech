@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
+from django.contrib import messages
 from .models import StudentProfile
 
 
@@ -74,18 +74,23 @@ def logout_view(request):
 # ---------- DASHBOARD FLOW ----------
 @login_required(login_url='login')
 def dashboard(request):
-    if not StudentProfile.objects.filter(user=request.user).exists():
-        return redirect('welcome')
-
+    
     return render(request, 'dashboard.html')
 
 
 @login_required(login_url='login')
 def welcome(request):
+    # If profile already exists, skip welcome page
     if StudentProfile.objects.filter(user=request.user).exists():
         return redirect('dashboard')
 
     if request.method == "POST":
+
+        # Safety check (prevents double submit edge cases)
+        if StudentProfile.objects.filter(user=request.user).exists():
+            messages.info(request, "Profile already completed.")
+            return redirect('dashboard')
+
         StudentProfile.objects.create(
             user=request.user,
             track=request.POST.get("track"),
@@ -98,10 +103,13 @@ def welcome(request):
             location=request.POST.get("location"),
             phone=request.POST.get("phone"),
         )
+
+        # Success alert
+        messages.success(request, "Registration completed successfully 🎉")
+
         return redirect('dashboard')
 
     return render(request, 'welcome.html')
-
 
 # ---------- COLLEGE NAVIGATION ONLY ----------
 @login_required(login_url='login')
@@ -215,3 +223,11 @@ def btech_previous_year_papers(request):
 
 def hospitality_previous_year_papers(request):
     return render(request, "colleges/hospitality_previous_year_papers.html")
+@login_required
+def post_login(request):
+    """
+    Decides where the user should go after login
+    """
+    if StudentProfile.objects.filter(user=request.user).exists():
+        return redirect("dashboard")
+    return redirect("welcome")

@@ -14,6 +14,16 @@
 </head>
 
 <body>
+    {% if messages %}
+<div class="alert-container">
+    {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 
 <header class="main-header">
     <div class="header-left">
@@ -90,6 +100,35 @@ function toggleSidebar() {
     document.getElementById("profileSidebar").classList.toggle("open");
 }
 </script>
+<!-- ================= AI CHATBOT ================= -->
+<div id="aiChatbot">
+
+    <!-- Floating Button -->
+    <div id="chatbotToggle" onclick="toggleChatbot()">
+        🤖
+    </div>
+
+    <!-- Chat Window -->
+    <div id="chatbotWindow">
+        <div class="chatbot-header">
+            <span>CareerInnTech AI</span>
+            <button onclick="toggleChatbot()">✕</button>
+        </div>
+
+        <div class="chatbot-body">
+            <div class="bot-msg">
+                Hi 👋 I'm your Career Assistant.<br>
+                Ask me about careers, colleges, jobs, or exams.
+            </div>
+        </div>
+
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your question..." disabled>
+            <button disabled>Send</button>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
