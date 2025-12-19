@@ -49,9 +49,9 @@ class CollegeAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 from django.contrib import admin
-from .models import UserProfile
 
-admin.site.register(UserProfile)
+
+
 
 
 from .models import Opportunity

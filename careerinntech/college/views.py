@@ -62,3 +62,15 @@ def ap_eamcet_colleges(request):
         "hardcoded_colleges": colleges,
         "admin_colleges": []
     })
+
+from .models import BranchVideo
+
+def cse_branch(request):
+    video = BranchVideo.objects.filter(
+        branch="cse",
+        is_active=True
+    ).first()
+
+    return render(request, "colleges/branches/cse.html", {
+        "video": video
+    })

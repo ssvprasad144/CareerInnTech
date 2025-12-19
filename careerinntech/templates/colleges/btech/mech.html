@@ -9,64 +9,91 @@
 
 {% block content %}
 
-<div class="branch-page mech-theme">
+<div class="branch-page branch-theme-me">
 
-    <!-- ===== HEADER ===== -->
-    <div class="branch-header">
-        <h1>Mechanical Engineering (ME)</h1>
-        <p>
+    <!-- ================= MEDIA (VIDEO) ================= -->
+    <section class="branch-media">
+        <div class="media-box">
+
+            {% comment %}
+            <video controls>
+                <source src="{% static 'videos/branches/me.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            {% endcomment %}
+
+            <div class="video-placeholder">
+                🎥 Branch introduction video coming soon
+            </div>
+
+        </div>
+
+        <p class="media-note">
+            Short overview of the branch, syllabus, careers & future scope
+        </p>
+    </section>
+
+    <!-- ================= HERO ================= -->
+    <section class="branch-hero">
+        <h1 class="branch-title">Mechanical Engineering (ME)</h1>
+
+        <p class="branch-description">
             Mechanical Engineering deals with the design, analysis, manufacturing,
             and maintenance of mechanical systems. It is one of the oldest and
             broadest engineering disciplines, forming the backbone of core industries.
         </p>
-    </div>
+    </section>
 
-    <!-- ===== STUDY ===== -->
-    <div class="branch-section">
-        <h2>What You Will Study</h2>
-        <ul>
-            <li>Engineering Mechanics</li>
-            <li>Thermodynamics</li>
-            <li>Strength of Materials</li>
-            <li>Manufacturing Processes</li>
-            <li>Machine Design</li>
-            <li>Heat Transfer</li>
-        </ul>
-    </div>
+    <!-- ================= STUDY ================= -->
+    <section class="branch-section">
+        <h2 class="section-title">What You Will Study</h2>
 
-    <!-- ===== SKILLS ===== -->
-    <div class="branch-section">
-        <h2>Skills You Will Build</h2>
-        <ul>
-            <li>Mechanical system design and analysis</li>
-            <li>Problem-solving using engineering principles</li>
-            <li>Understanding manufacturing and production systems</li>
-            <li>Working with CAD/CAM tools</li>
-        </ul>
-    </div>
+        <div class="branch-grid">
+            <div class="branch-card">Engineering Mechanics</div>
+            <div class="branch-card">Thermodynamics</div>
+            <div class="branch-card">Strength of Materials</div>
+            <div class="branch-card">Manufacturing Processes</div>
+            <div class="branch-card">Machine Design</div>
+            <div class="branch-card">Heat Transfer</div>
+        </div>
+    </section>
 
-    <!-- ===== FUTURE ===== -->
-    <div class="branch-section">
-        <h2>Future Scope</h2>
-        <ul>
-            <li>Strong demand in core manufacturing industries</li>
-            <li>Key role in automotive, aerospace, and energy sectors</li>
-            <li>Opportunities in PSUs and government organizations</li>
-            <li>Foundation for higher studies and research</li>
-        </ul>
-    </div>
+    <!-- ================= SKILLS ================= -->
+    <section class="branch-section">
+        <h2 class="section-title">Skills You Will Build</h2>
 
-    <!-- ===== CAREERS ===== -->
-    <div class="branch-section">
-        <h2>Career Opportunities</h2>
-        <ul>
-            <li>Mechanical Engineer</li>
-            <li>Design Engineer</li>
-            <li>Manufacturing / Production Engineer</li>
-            <li>Automotive Engineer</li>
-            <li>Maintenance & Plant Engineer</li>
-        </ul>
-    </div>
+        <div class="branch-grid">
+            <div class="branch-card">Mechanical system design and analysis</div>
+            <div class="branch-card">Problem-solving using engineering principles</div>
+            <div class="branch-card">Understanding manufacturing and production systems</div>
+            <div class="branch-card">Working with CAD/CAM tools</div>
+        </div>
+    </section>
+
+    <!-- ================= FUTURE ================= -->
+    <section class="branch-section">
+        <h2 class="section-title">Future Scope</h2>
+
+        <div class="branch-grid">
+            <div class="branch-card">Strong demand in core manufacturing industries</div>
+            <div class="branch-card">Key role in automotive, aerospace, and energy sectors</div>
+            <div class="branch-card">Opportunities in PSUs and government organizations</div>
+            <div class="branch-card">Foundation for higher studies and research</div>
+        </div>
+    </section>
+
+    <!-- ================= CAREERS ================= -->
+    <section class="branch-section">
+        <h2 class="section-title">Career Opportunities</h2>
+
+        <div class="branch-grid">
+            <div class="branch-card">Mechanical Engineer</div>
+            <div class="branch-card">Design Engineer</div>
+            <div class="branch-card">Manufacturing / Production Engineer</div>
+            <div class="branch-card">Automotive Engineer</div>
+            <div class="branch-card">Maintenance & Plant Engineer</div>
+        </div>
+    </section>
 
 </div>
 

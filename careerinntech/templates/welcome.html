@@ -11,9 +11,9 @@
 <section class="welcome-container">
 
     <!-- HEADING -->
-    <h1 class="welcome-title">Welcome to careerInnTech</h1>
+    <h1 class="welcome-title">Welcome to CareerInnTech</h1>
     <p class="welcome-subtitle">
-        This video help you to understand about careerInnTech
+        This video helps you understand about CareerInnTech
     </p>
 
     <!-- VIDEO -->
@@ -23,7 +23,9 @@
             Your browser does not support the video.
         </video>
     </div>
- <h1>Registration FORM </FORm></h1>
+
+    <h1>Registration Form</h1>
+
     <!-- FORM -->
     <form method="post" class="welcome-form">
         {% csrf_token %}
@@ -67,6 +69,13 @@
             name="college"
             placeholder="College Name"
             required
+        >
+
+        <!-- University (OPTIONAL) -->
+        <input
+            type="text"
+            name="university"
+            placeholder="University / Board (optional)"
         >
 
         <!-- Career Goal -->
