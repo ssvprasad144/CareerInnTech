@@ -5,6 +5,8 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+
 {% endblock %}
 
 {% block content %}
@@ -23,17 +25,42 @@
     </div>
 
     <!-- 🔁 REPLACED CARD -->
-    <div class="hero-pass">
-        <h3>Mentorship & Benefits</h3>
-        <ul>
-            <li>✔ 1-on-1 mentor guidance</li>
-            <li>✔ Career roadmap reviews</li>
-            <li>✔ Mock interviews</li>
-            <li>✔ Project & placement support</li>
-            <li>✔ Personalized AI suggestions</li>
-        </ul>
-        <p class="hero-note">Included in Student & Pro plans</p>
+   <div class="hero-pass">
+    <h3>Mentorship & Benefits</h3>
+
+    <div class="benefits-grid">
+        <div class="benefit-item">
+            <span class="benefit-icon">🎯</span>
+            <span>1-on-1 mentor guidance</span>
+        </div>
+
+        <div class="benefit-item">
+            <span class="benefit-icon">🧭</span>
+            <span>Career roadmap reviews</span>
+        </div>
+
+        <div class="benefit-item">
+            <span class="benefit-icon">🎤</span>
+            <span>Mock interviews & feedback</span>
+        </div>
+
+        <div class="benefit-item">
+            <span class="benefit-icon">🛠</span>
+            <span>Project & placement support</span>
+        </div>
+
+        <div class="benefit-item">
+            <span class="benefit-icon">🤖</span>
+            <span>Personalized AI suggestions</span>
+        </div>
     </div>
+
+    <div class="plan-note">
+        Available with <strong>Student</strong> & <strong>Pro</strong> plans
+    </div>
+</div>
+
+
 </section>
 
 <!-- ================= QUICK EXPLORE ================= -->
@@ -116,16 +143,19 @@
             </ul>
         </div>
 
-        <div class="plan-card highlight">
-            <h4>Student Pass</h4>
-            <div class="plan-price">₹499</div>
-            <ul>
-                <li>Unlimited AI guidance</li>
-                <li>Mentor connect</li>
-                <li>Mock interviews</li>
-                <li>Projects & placements</li>
-            </ul>
-        </div>
+        <a href="#" class="plan-card highlight clickable-plan">
+    <h4>Student Pass</h4>
+    <div class="plan-price">₹499</div>
+    <ul>
+        <li>Unlimited AI guidance</li>
+        <li>Mentor connect</li>
+        <li>Mock interviews</li>
+        <li>Projects & placements</li>
+    </ul>
+
+    <span class="plan-cta">Upgrade Now →</span>
+</a>
+
 
         <div class="plan-card">
             <h4>Pro</h4>

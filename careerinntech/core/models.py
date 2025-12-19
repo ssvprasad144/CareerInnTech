@@ -10,6 +10,7 @@ class StudentProfile(models.Model):
     year = models.CharField(max_length=50)
     college = models.CharField(max_length=200)
     career_goal = models.CharField(max_length=200)
+    university = models.CharField(max_length=150, blank=True)
 
     about = models.TextField(blank=True)
     location = models.CharField(max_length=100, blank=True)
@@ -32,14 +33,7 @@ class College(models.Model):
     def __str__(self):
         return self.name
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    track = models.CharField(max_length=50)
-    year = models.CharField(max_length=20)
-    goal = models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.user.username
 
 
 class Opportunity(models.Model):

@@ -9,64 +9,93 @@
 
 {% block content %}
 
-<div class="branch-page ece-theme">
+<div class="branch-page branch-theme-ece">
 
-    <!-- ===== HEADER ===== -->
-    <div class="branch-header">
-        <h1>Electronics & Communication Engineering (ECE)</h1>
-        <p>
+    <!-- ================= MEDIA (VIDEO) ================= -->
+    <section class="branch-media">
+        <div class="media-box">
+
+            {% comment %}
+            <video controls>
+                <source src="{% static 'videos/branches/ece.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            {% endcomment %}
+
+            <div class="video-placeholder">
+                🎥 Branch introduction video coming soon
+            </div>
+
+        </div>
+
+        <p class="media-note">
+            Short overview of the branch, syllabus, careers & future scope
+        </p>
+    </section>
+
+    <!-- ================= HERO ================= -->
+    <section class="branch-hero">
+        <h1 class="branch-title">
+            Electronics & Communication Engineering (ECE)
+        </h1>
+
+        <p class="branch-description">
             Electronics and Communication Engineering focuses on electronic devices,
             communication systems, signal processing, and embedded technologies.
             It forms the backbone of modern communication and hardware systems.
         </p>
-    </div>
+    </section>
 
-    <!-- ===== STUDY ===== -->
-    <div class="branch-section">
-        <h2>What You Will Study</h2>
-        <ul>
-            <li>Electronic Devices & Circuits</li>
-            <li>Analog & Digital Communication</li>
-            <li>Signals and Systems</li>
-            <li>Microprocessors & Microcontrollers</li>
-            <li>VLSI Design</li>
-            <li>Embedded Systems</li>
-        </ul>
-    </div>
+    <!-- ================= STUDY ================= -->
+    <section class="branch-section">
+        <h2 class="section-title">What You Will Study</h2>
 
-    <!-- ===== SKILLS ===== -->
-    <div class="branch-section">
-        <h2>Skills You Will Build</h2>
-        <ul>
-            <li>Circuit analysis and debugging</li>
-            <li>Embedded system programming</li>
-            <li>Hardware–software integration</li>
-            <li>Signal processing techniques</li>
-        </ul>
-    </div>
+        <div class="branch-grid">
+            <div class="branch-card">Electronic Devices & Circuits</div>
+            <div class="branch-card">Analog & Digital Communication</div>
+            <div class="branch-card">Signals and Systems</div>
+            <div class="branch-card">Microprocessors & Microcontrollers</div>
+            <div class="branch-card">VLSI Design</div>
+            <div class="branch-card">Embedded Systems</div>
+        </div>
+    </section>
 
-    <!-- ===== FUTURE ===== -->
-    <div class="branch-section">
-        <h2>Future Scope</h2>
-        <ul>
-            <li>Strong demand in telecom and semiconductor industries</li>
-            <li>Core role in IoT, 5G, and automation</li>
-            <li>Foundation for VLSI, Robotics, and Embedded domains</li>
-            <li>Opportunities in both core and software roles</li>
-        </ul>
-    </div>
+    <!-- ================= SKILLS ================= -->
+    <section class="branch-section">
+        <h2 class="section-title">Skills You Will Build</h2>
 
-    <!-- ===== CAREERS ===== -->
-    <div class="branch-section">
-        <h2>Career Opportunities</h2>
-        <ul>
-            <li>Electronics Engineer</li>
-            <li>Embedded Systems Engineer</li>
-            <li>VLSI Design Engineer</li>
-            <li>Telecommunication Engineer</li>
-            <li>Hardware Engineer</li>
-        </ul>
-    </div>
+        <div class="branch-grid">
+            <div class="branch-card">Circuit analysis and debugging</div>
+            <div class="branch-card">Embedded system programming</div>
+            <div class="branch-card">Hardware–software integration</div>
+            <div class="branch-card">Signal processing techniques</div>
+        </div>
+    </section>
+
+    <!-- ================= FUTURE ================= -->
+    <section class="branch-section">
+        <h2 class="section-title">Future Scope</h2>
+
+        <div class="branch-grid">
+            <div class="branch-card">Strong demand in telecom and semiconductor industries</div>
+            <div class="branch-card">Core role in IoT, 5G, and automation</div>
+            <div class="branch-card">Foundation for VLSI, Robotics, and Embedded domains</div>
+            <div class="branch-card">Opportunities in both core and software roles</div>
+        </div>
+    </section>
+
+    <!-- ================= CAREERS ================= -->
+    <section class="branch-section">
+        <h2 class="section-title">Career Opportunities</h2>
+
+        <div class="branch-grid">
+            <div class="branch-card">Electronics Engineer</div>
+            <div class="branch-card">Embedded Systems Engineer</div>
+            <div class="branch-card">VLSI Design Engineer</div>
+            <div class="branch-card">Telecommunication Engineer</div>
+            <div class="branch-card">Hardware Engineer</div>
+        </div>
+    </section>
 
 </div>
 

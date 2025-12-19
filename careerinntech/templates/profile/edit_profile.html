@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="edit-profile-page">
+
+    <h1 class="edit-title">Edit Your Profile</h1>
+    <p class="edit-subtitle">
+        Keep your details updated for better mentorship and recommendations
+    </p>
+
+    <form method="post" class="edit-profile-form">
+        {% csrf_token %}
+
+       <select name="track" required>
+    <option value="">Select Track</option>
+    <option value="btech" {% if profile.track == "btech" %}selected{% endif %}>
+        BTech
+    </option>
+    <option value="hospitality" {% if profile.track == "hospitality" %}selected{% endif %}>
+        Hospitality
+    </option>
+</select>
+
+        <input type="text" name="education" value="{{ profile.education }}" placeholder="Education" required>
+        <input type="text" name="branch" value="{{ profile.branch }}" placeholder="Branch" required>
+
+     <select name="year" required>
+    <option value="">Year of Study</option>
+    <option {% if profile.year == "1st Year" %}selected{% endif %}>1st Year</option>
+    <option {% if profile.year == "2nd Year" %}selected{% endif %}>2nd Year</option>
+    <option {% if profile.year == "3rd Year" %}selected{% endif %}>3rd Year</option>
+    <option {% if profile.year == "4th Year" %}selected{% endif %}>4th Year</option>
+    <option {% if profile.year == "Final Year" %}selected{% endif %}>Final Year</option>
+</select>
+   <input type="text" name="college" value="{{ profile.college }}" placeholder="College" required>
+
+        <input type="text" name="university" value="{{ profile.university }}" placeholder="University (optional)">
+
+        <input type="text" name="goal" value="{{ profile.career_goal }}" placeholder="Career Goal" required>
+
+        <textarea name="about" rows="4" placeholder="About you">{{ profile.about }}</textarea>
+
+        <input type="text" name="location" value="{{ profile.location }}" placeholder="Preferred Location">
+        <input type="tel" name="phone" value="{{ profile.phone }}" placeholder="Phone Number">
+
+        <button type="submit" class="save-btn">
+            Save Changes
+        </button>
+    </form>
+
+</section>
+
+{% endblock %}

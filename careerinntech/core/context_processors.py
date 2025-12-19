@@ -1,9 +1,13 @@
-from .models import UserProfile
+from .models import StudentProfile
 
-def user_profile(request):
+def student_profile(request):
     if request.user.is_authenticated:
         try:
-            return {"user_profile": request.user.userprofile}
-        except UserProfile.DoesNotExist:
-            return {"user_profile": None}
+            return {
+                "student_profile": request.user.studentprofile
+            }
+        except StudentProfile.DoesNotExist:
+            return {
+                "student_profile": None
+            }
     return {}

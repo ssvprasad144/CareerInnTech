@@ -1,10 +1,10 @@
-/* ===== GLOBAL ===== */
+/* ================= GLOBAL ================= */
 body {
     background: radial-gradient(circle at top, #020617, #000);
     color: #e5e7eb;
 }
 
-/* ===== HERO ===== */
+/* ================= HERO ================= */
 .hero-section {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
@@ -32,7 +32,7 @@ body {
     color: #fff;
     font-weight: 600;
     box-shadow: 0 0 35px rgba(99,102,241,.45);
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .btn-primary:hover {
@@ -40,19 +40,57 @@ body {
     box-shadow: 0 0 55px rgba(99,102,241,.9);
 }
 
+/* ================= MENTORSHIP CARD ================= */
 .hero-pass {
     background: linear-gradient(180deg, rgba(15,23,42,.9), rgba(2,6,23,.95));
     border-radius: 24px;
-    padding: 32px;
+    padding: 40px 36px; /* breathing space */
     border: 1px solid #1e293b;
+    text-align: center;
 }
 
-.hero-pass .price {
-    font-size: 30px;
-    margin: 12px 0;
+.hero-pass h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 22px; /* space below heading */
 }
 
-/* ===== EXPLORE ===== */
+/* ---- Mentorship benefits ---- */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px; /* more spacing */
+    margin-top: 10px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.06),
+        rgba(255, 255, 255, 0.02)
+    );
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.benefit-icon {
+    font-size: 18px;
+}
+
+.plan-note {
+    margin-top: 22px;
+    font-size: 13px;
+    color: #cbd5f5;
+    opacity: 0.9;
+}
+
+/* ================= EXPLORE ================= */
 .explore-section {
     padding: 40px 100px;
 }
@@ -68,7 +106,7 @@ body {
     border-radius: 18px;
     background: rgba(2,6,23,.75);
     border: 1px solid #1e293b;
-    transition: .3s;
+    transition: 0.3s;
     text-decoration: none;
     color: inherit;
 }
@@ -79,7 +117,7 @@ body {
     border-color: #6366f1;
 }
 
-/* ===== SKILLS ===== */
+/* ================= SKILLS ================= */
 .skills-section {
     padding: 60px 100px;
 }
@@ -102,7 +140,8 @@ body {
     padding: 12px 28px;
     border-radius: 999px;
     font-weight: 600;
-    transition: .3s;
+    transition: 0.3s;
+    text-decoration: none;
 }
 
 .skill-btn.btech {
@@ -120,7 +159,7 @@ body {
     box-shadow: 0 0 30px rgba(99,102,241,.6);
 }
 
-/* ===== PLANS ===== */
+/* ================= PLANS ================= */
 .plans-section {
     padding: 80px 100px;
 }
@@ -131,33 +170,80 @@ body {
     gap: 22px;
 }
 
+/* Base plan card */
 .plan-card {
     background: rgba(2,6,23,.75);
     border-radius: 22px;
     padding: 28px;
     border: 1px solid #1e293b;
     text-align: center;
-    transition: .3s;
+    transition: 0.3s;
+    color: inherit;
 }
 
+/* Hover for ALL cards */
 .plan-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 20px 45px rgba(0,0,0,.6);
-}
-
-.plan-card.highlight {
     border-color: #6366f1;
-    box-shadow: 0 0 45px rgba(99,102,241,.4);
-    transform: scale(1.05);
 }
 
+/* Highlighted ₹499 plan (SAME COLOR, subtle emphasis) */
+.plan-card.highlight {
+    background: rgba(2,6,23,.75);
+    border-color: #6366f1;
+}
+
+/* Hover for highlighted */
+.plan-card.highlight:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(99,102,241,.45);
+}
+
+/* Clickable wrapper */
+.clickable-plan {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Price */
 .plan-price {
     font-size: 32px;
     font-weight: 700;
     margin: 12px 0;
 }
 
-/* ===== RESPONSIVE ===== */
+/* CTA */
+.plan-cta {
+    display: inline-block;
+    margin-top: 14px;
+    font-weight: 600;
+    color: #38bdf8;
+}
+
+/* ================= PROFILE BADGE ================= */
+.profile-badge {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 14px 18px;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.profile-badge.success {
+    background: #022c22;
+    color: #34d399;
+    border: 1px solid #064e3b;
+}
+
+.profile-badge.warning {
+    background: #2e1b05;
+    color: #facc15;
+    border: 1px solid #92400e;
+}
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 1100px) {
     .hero-section,
     .explore-section,
@@ -175,4 +261,3 @@ body {
         grid-template-columns: 1fr;
     }
 }
-
