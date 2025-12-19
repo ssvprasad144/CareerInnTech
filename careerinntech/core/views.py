@@ -9,7 +9,7 @@ from .models import StudentProfile, Opportunity, Project
 
 # ---------- PUBLIC PAGES ----------
 def home(request):
-    return render(request, "home.html")
+    return render(request, "colleges/home.html")
 
 
 def about(request):
