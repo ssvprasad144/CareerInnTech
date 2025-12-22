@@ -1,25 +1,28 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User 
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    track = models.CharField(max_length=50)
-    education = models.CharField(max_length=100)
-    branch = models.CharField(max_length=100)
-    year = models.CharField(max_length=50)
-    college = models.CharField(max_length=200)
-    career_goal = models.CharField(max_length=200)
+    track = models.CharField(max_length=50, blank=True)
+    education = models.CharField(max_length=100, blank=True)
+    branch = models.CharField(max_length=100, blank=True)
+    year = models.CharField(max_length=50, blank=True)
+    college = models.CharField(max_length=200, blank=True)
     university = models.CharField(max_length=150, blank=True)
-
+    career_goal = models.CharField(max_length=200, blank=True)
     about = models.TextField(blank=True)
     location = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=20, blank=True)
+
+    is_profile_complete = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.user.username
+
+
 
 class College(models.Model):
     name = models.CharField(max_length=200)
@@ -32,8 +35,6 @@ class College(models.Model):
 
     def __str__(self):
         return self.name
-
-
 
 
 class Opportunity(models.Model):
@@ -86,8 +87,6 @@ class Opportunity(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.opportunity_type})"
-
-
 
 
 class Project(models.Model):

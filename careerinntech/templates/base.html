@@ -6,15 +6,16 @@
     <title>{% block title %}CareerInnTech{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Global CSS -->
+    <!-- ================= GLOBAL CSS ================= -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-    <!-- Page-level CSS -->
+    <!-- ================= PAGE LEVEL CSS ================= -->
     {% block extra_css %}{% endblock %}
 </head>
 
 <body>
 
+<!-- ================= ALERT MESSAGES ================= -->
 {% if messages %}
 <div class="alert-container">
     {% for message in messages %}
@@ -37,7 +38,7 @@
     </div>
 
     <nav class="header-nav compact">
-        <a href="{% url 'dashboard' %}" id="homeLink" class="nav-btn">Home</a>
+        <a href="{% url 'dashboard' %}" class="nav-btn">Home</a>
         <a href="{% url 'about' %}" class="nav-btn">About</a>
         <a href="{% url 'contact' %}" class="nav-btn">Contact</a>
         <a href="{% url 'support' %}" class="nav-btn">Support</a>
@@ -48,62 +49,84 @@
             <div class="profile-circle" onclick="toggleSidebar()">
                 {{ user.username|first|upper }}
             </div>
+
+            {% if not user.studentprofile.is_profile_complete %}
+                <a href="{% url 'welcome' %}" class="primary-btn pulse-btn">
+                    Complete Profile
+                </a>
+            {% else %}
+                <a href="{% url 'edit_profile' %}" class="secondary-btn">
+                    Edit Profile
+                </a>
+            {% endif %}
+
             <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
         {% else %}
             <a href="{% url 'login' %}" class="login-btn">Login</a>
+            <a href="{% url 'register' %}" class="primary-btn">Sign Up</a>
         {% endif %}
     </div>
 </header>
 
 <!-- ================= PROFILE SIDEBAR ================= -->
+{% if user.is_authenticated %}
 <div id="profileSidebar" class="profile-sidebar">
     <div class="sidebar-header">
         <h3>My Profile</h3>
         <span class="close-btn" onclick="toggleSidebar()">✕</span>
     </div>
 
-   <div class="sidebar-body">
+    <div class="sidebar-body">
 
-    <div class="profile-avatar">
-        {{ user.username|first|upper }}
-    </div>
-
-    <p class="profile-name">{{ user.username }}</p>
-    <p class="profile-email">{{ user.email }}</p>
-
-    {% if student_profile %}
-        <div class="profile-details">
-            <div class="detail-card">
-                <span>Track</span>
-                <strong>{{ student_profile.track|title }}</strong>
-            </div>
-
-            <div class="detail-card">
-                <span>Year</span>
-                <strong>{{ student_profile.year }}</strong>
-            </div>
-
-            <div class="detail-card">
-                <span>Goal</span>
-                <strong>{{ student_profile.career_goal }}</strong>
-            </div>
+        <div class="profile-avatar">
+            {{ user.username|first|upper }}
         </div>
-    {% else %}
-        <p class="profile-warning">
-            Please complete your profile
-        </p>
-    {% endif %}
 
-    <hr>
+        <p class="profile-name">{{ user.username }}</p>
+        <p class="profile-email">{{ user.email }}</p>
 
+        {% if user.studentprofile.is_profile_complete %}
+            <div class="profile-details">
+                <div class="detail-card">
+                    <span>Track</span>
+                    <strong>{{ user.studentprofile.track|title }}</strong>
+                </div>
 
-        <a href="{% url 'edit_profile' %}" class="sidebar-link">
-            ✏️ Edit Profile
-        </a>
+                <div class="detail-card">
+                    <span>Year</span>
+                    <strong>{{ user.studentprofile.year }}</strong>
+                </div>
+
+                <div class="detail-card">
+                    <span>Goal</span>
+                    <strong>{{ user.studentprofile.career_goal }}</strong>
+                </div>
+            </div>
+        {% else %}
+            <p class="profile-warning">
+                Your profile is incomplete.<br>
+                Complete it to unlock personalized features.
+            </p>
+        {% endif %}
+
+        <hr>
+
+        {% if not user.studentprofile.is_profile_complete %}
+            <a href="{% url 'welcome' %}" class="sidebar-link highlight-link">
+                ⚠️ Complete Profile
+            </a>
+        {% else %}
+            <a href="{% url 'edit_profile' %}" class="sidebar-link">
+                ✏️ Edit Profile
+            </a>
+        {% endif %}
+
         <a href="#" class="sidebar-link">My Subscription</a>
         <a href="{% url 'support' %}" class="sidebar-link">Help & Support</a>
+
     </div>
 </div>
+{% endif %}
 
 <!-- ================= MAIN CONTENT ================= -->
 <main class="main-content">
@@ -120,12 +143,8 @@ function toggleSidebar() {
 <!-- ================= AI CHATBOT ================= -->
 <div id="aiChatbot">
 
-    <!-- Floating Button -->
-    <div id="chatbotToggle" onclick="toggleChatbot()">
-        🤖
-    </div>
+    <div id="chatbotToggle" onclick="toggleChatbot()">🤖</div>
 
-    <!-- Chat Window -->
     <div id="chatbotWindow">
         <div class="chatbot-header">
             <span>CareerInnTech AI</span>
@@ -146,6 +165,12 @@ function toggleSidebar() {
     </div>
 
 </div>
+
+<script>
+function toggleChatbot() {
+    document.getElementById("chatbotWindow").classList.toggle("open");
+}
+</script>
 
 </body>
 </html>
