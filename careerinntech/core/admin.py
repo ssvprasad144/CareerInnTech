@@ -12,8 +12,7 @@ class StudentProfileAdmin(admin.ModelAdmin):
         'year',
         'college',
         'career_goal',
-        'location',
-        'created_at',
+        
     )
 
     list_filter = (

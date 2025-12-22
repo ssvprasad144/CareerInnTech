@@ -25,27 +25,47 @@ def contact(request):
 
 
 # ---------- AUTH ----------
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
+
+
 def signup_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
 
+        # 1️⃣ Password mismatch
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match")
+            return redirect("signup")
+
+        # 2️⃣ Username already exists
         if User.objects.filter(username=username).exists():
-            return render(request, "signup.html", {
-                "error": "Username already exists"
-            })
+            messages.error(request, "Username already exists")
+            return redirect("signup")
 
+        # 3️⃣ Email already exists (CRITICAL FIX)
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already registered")
+            return redirect("signup")
+
+        # 4️⃣ Create user
         user = User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
 
-        login(request, user)
-        return redirect("welcome")
+        # 5️⃣ Do NOT auto-login (recommended)
+        messages.success(request, "Registration successful. Please login.")
+        return redirect("login")
 
     return render(request, "signup.html")
+
 
 
 def login_view(request):
@@ -96,7 +116,7 @@ def dashboard(request):
             request,
             "⚠️ Please complete your registration for better mentorship."
         )
-        return redirect("welcome")
+        
 
     return render(request, "dashboard.html", {
         "profile_completed": profile_completed
@@ -141,34 +161,43 @@ def edit_profile(request):
 @login_required(login_url="login")
 def welcome(request):
 
-    # ✅ If profile already exists, skip welcome
-    if StudentProfile.objects.filter(user=request.user).exists():
+    # Always get or create profile
+    profile, created = StudentProfile.objects.get_or_create(
+        user=request.user
+    )
+
+    # If profile already completed, skip welcome
+    if profile.is_profile_complete:
         return redirect("dashboard")
 
     if request.method == "POST":
 
-        StudentProfile.objects.create(
-            user=request.user,
-            track=request.POST.get("track"),
-            education=request.POST.get("education"),
-            branch=request.POST.get("branch"),
-            year=request.POST.get("year"),
-            college=request.POST.get("college"),
-            university=request.POST.get("university", ""),
-            career_goal=request.POST.get("goal"),
-            about=request.POST.get("about"),
-            location=request.POST.get("location"),
-            phone=request.POST.get("phone"),
-        )
+        profile.track = request.POST.get("track")
+        profile.education = request.POST.get("education")
+        profile.branch = request.POST.get("branch")
+        profile.year = request.POST.get("year")
+        profile.college = request.POST.get("college")
+        profile.university = request.POST.get("university", "")
+        profile.career_goal = request.POST.get("goal")
+        profile.about = request.POST.get("about")
+        profile.location = request.POST.get("location")
+        profile.phone = request.POST.get("phone")
+
+        # ✅ THIS IS THE KEY CHANGE
+        profile.is_profile_complete = True
+
+        profile.save()
 
         messages.success(
             request,
-            "Registration completed successfully 🎉"
+            "Profile completed successfully 🎉"
         )
 
         return redirect("dashboard")
 
-    return render(request, "welcome.html")
+    return render(request, "welcome.html", {
+        "profile": profile
+    })
 
 
 # ---------- COLLEGES ----------
