@@ -143,34 +143,44 @@ function toggleSidebar() {
 <!-- ================= AI CHATBOT ================= -->
 <div id="aiChatbot">
 
-    <div id="chatbotToggle" onclick="toggleChatbot()">🤖</div>
+  <!-- Floating Toggle -->
+  <div id="chatbotToggle" onclick="toggleChatbot()">
+    🤖
+  </div>
 
-    <div id="chatbotWindow">
-        <div class="chatbot-header">
-            <span>CareerInnTech AI</span>
-            <button onclick="toggleChatbot()">✕</button>
-        </div>
-
-        <div class="chatbot-body">
-            <div class="bot-msg">
-                Hi 👋 I'm your Career Assistant.<br>
-                Ask me about careers, colleges, jobs, or exams.
-            </div>
-        </div>
-
-        <div class="chatbot-input">
-            <input type="text" placeholder="Type your question..." disabled>
-            <button disabled>Send</button>
-        </div>
+  <!-- AI Assistant Panel -->
+  <div id="chatbotWindow">
+    <div class="chatbot-header">
+      <span>CareerInnTech AI</span>
+      <button onclick="toggleChatbot()">✕</button>
     </div>
+
+    <div class="chatbot-body">
+      <p class="ai-subtitle">
+        Smart AI-powered career guidance
+      </p>
+
+      <ul class="ai-points">
+        <li>✔ Skills & roadmaps</li>
+        <li>✔ Colleges & cutoffs</li>
+        <li>✔ Jobs, exams & planning</li>
+      </ul>
+
+      <button class="ai-start-btn">
+        Start AI Chat
+      </button>
+    </div>
+  </div>
 
 </div>
 
 <script>
 function toggleChatbot() {
-    document.getElementById("chatbotWindow").classList.toggle("open");
+    const bot = document.getElementById("chatbotWindow");
+    bot.classList.toggle("open");
 }
 </script>
+
 
 </body>
 </html>
