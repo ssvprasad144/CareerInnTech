@@ -12,6 +12,12 @@ from django.conf import settings
 settings.GROK_API_KEY
 
 
+@login_required
+def ai_page(request):
+    return render(request, "ai/ai_chat.html")
+
+
+
 def apply_filters(colleges, request):
     location = request.GET.get("location", "").strip()
     fee = request.GET.get("fee", "").strip()
