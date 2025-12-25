@@ -1,8 +1,7 @@
-﻿Django>=4.2,<5.0
+Django>=4.2,<5.0
 asgiref>=3.7
 sqlparse>=0.4
 tzdata
 requests
 gunicorn
 whitenoise
-
