@@ -7,7 +7,7 @@ import requests
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-
+from . import views 
 
 settings.GROK_API_KEY
 
