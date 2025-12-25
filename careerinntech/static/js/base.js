@@ -65,5 +65,8 @@ function startAIChat() {
     document.querySelector(".ai-start-btn").style.display = "none";
     document.getElementById("chatInput").focus();
 }
+function openAIBotPage() {
+    window.location.href = "/ai/";
+}
 
 
