@@ -19,6 +19,10 @@ SECRET_KEY = os.environ.get(
 
 
 GROK_API_KEY = os.getenv("GROK_API_KEY")
+if not GROK_API_KEY:
+    print("❌ GROK_API_KEY NOT FOUND")
+else:
+    print("✅ GROK_API_KEY LOADED")
 
 
 # DEBUG
