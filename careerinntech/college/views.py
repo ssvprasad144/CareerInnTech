@@ -91,11 +91,9 @@ def cse_branch(request):
     })
 @csrf_exempt
 def ai_chat(request):
-    # 🚫 Only JSON, never HTML
     if request.method != "POST":
         return JsonResponse({"reply": "Invalid request"}, status=400)
 
-    # 🔐 Manual auth (NO redirects)
     if not request.user.is_authenticated:
         return JsonResponse(
             {"reply": "Please login to use AI Career Bot."},
@@ -106,7 +104,7 @@ def ai_chat(request):
     if not user_message:
         return JsonResponse({"reply": "Please ask a valid question."})
 
-    # 🧠 Safe profile access
+    # Safe profile access
     profile = getattr(request.user, "profile", None)
 
     if profile:
@@ -172,5 +170,4 @@ Rules:
     except Exception as e:
         return JsonResponse({
             "reply": f"AI error: {str(e)}"
-        })
         })
