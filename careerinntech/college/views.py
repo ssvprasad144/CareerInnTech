@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-@login_required
+
 def ai_page(request):
     return render(request, "ai/ai_chat.html")
 
@@ -90,36 +90,57 @@ def cse_branch(request):
         "video": video
     })
 @csrf_exempt
-
 def ai_chat(request):
+    # 🚫 Only JSON, never HTML
     if request.method != "POST":
         return JsonResponse({"reply": "Invalid request"}, status=400)
+
+    # 🔐 Manual auth (NO redirects)
+    if not request.user.is_authenticated:
+        return JsonResponse(
+            {"reply": "Please login to use AI Career Bot."},
+            status=401
+        )
 
     user_message = request.POST.get("message", "").strip()
     if not user_message:
         return JsonResponse({"reply": "Please ask a valid question."})
 
-    profile = request.user.profile
+    # 🧠 Safe profile access
+    profile = getattr(request.user, "profile", None)
 
-    system_prompt = f"""
-You are an AI Career Assistant.
-
-Student:
+    if profile:
+        student_context = f"""
 Name: {profile.name}
 College: {profile.college}
 Branch: {profile.branch}
 Year: {profile.year}
 Interests: {profile.interests}
+"""
+    else:
+        student_context = f"""
+Name: {request.user.username}
+College: Not provided
+Branch: Not provided
+Year: Not provided
+Interests: Not provided
+"""
+
+    system_prompt = f"""
+You are an AI Career Assistant.
+
+Student details:
+{student_context}
 
 Rules:
-- Answer career-related questions only
+- Answer ONLY student-related questions
 - Be simple and practical
-- End with:
+- ALWAYS end with:
 "👉 Please connect with mentors for personalized guidance."
 """
 
     payload = {
-        "model": "grok-2",   # ✅ SAFE MODEL
+        "model": "grok-2",
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message}
@@ -138,12 +159,9 @@ Rules:
             timeout=30
         )
 
-        print("GROK STATUS:", response.status_code)
-        print("GROK RESPONSE:", response.text)
-
         if response.status_code != 200:
             return JsonResponse({
-                "reply": f"Grok API error {response.status_code}: {response.text}"
+                "reply": f"Grok error {response.status_code}: {response.text}"
             })
 
         data = response.json()
@@ -154,4 +172,5 @@ Rules:
     except Exception as e:
         return JsonResponse({
             "reply": f"AI error: {str(e)}"
+        })
         })
