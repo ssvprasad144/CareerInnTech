@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 
+settings.GROK_API_KEY
+
 
 def apply_filters(colleges, request):
     location = request.GET.get("location", "").strip()
