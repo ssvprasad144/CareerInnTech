@@ -3,6 +3,11 @@ from django.shortcuts import render
 # import hardcoded data
 from .data.ts_eamcet import HARDCODED_TS_EAMCET_COLLEGES
 from .data.ap_eamcet import HARDCODED_AP_EAMCET_COLLEGES
+import requests
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
 
 
 def apply_filters(colleges, request):
@@ -74,3 +79,61 @@ def cse_branch(request):
     return render(request, "colleges/branches/cse.html", {
         "video": video
     })
+
+@login_required
+def ai_chat(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Invalid request"}, status=400)
+
+    user_message = request.POST.get("message", "").strip()
+    if not user_message:
+        return JsonResponse({"reply": "Please ask a valid question."})
+
+    # Assuming you already have Profile linked to User
+    profile = request.user.profile
+
+    system_prompt = f"""
+You are an AI assistant for students.
+
+Student details:
+Name: {profile.name}
+College: {profile.college}
+Branch: {profile.branch}
+Year: {profile.year}
+Interests: {profile.interests}
+
+Rules:
+- Answer ONLY student-related questions (career, exams, skills, internships)
+- Be clear and simple
+- Avoid complex jargon
+- ALWAYS end with:
+"👉 Please connect with mentors for personalized guidance."
+"""
+
+    payload = {
+        "model": "grok-beta",
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_message}
+        ]
+    }
+
+    try:
+        response = requests.post(
+            "https://api.x.ai/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {settings.GROK_API_KEY}",
+                "Content-Type": "application/json"
+            },
+            json=payload,
+            timeout=20
+        )
+
+        ai_reply = response.json()["choices"][0]["message"]["content"]
+        return JsonResponse({"reply": ai_reply})
+
+    except Exception as e:
+        return JsonResponse({
+            "reply": "AI is currently busy. Please try again later."
+        })
+
