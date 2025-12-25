@@ -155,21 +155,35 @@ function toggleSidebar() {
       <button onclick="toggleChatbot()">✕</button>
     </div>
 
-    <div class="chatbot-body">
-      <p class="ai-subtitle">
-        Smart AI-powered career guidance
-      </p>
+   <div class="chatbot-body">
 
-      <ul class="ai-points">
-        <li>✔ Skills & roadmaps</li>
-        <li>✔ Colleges & cutoffs</li>
-        <li>✔ Jobs, exams & planning</li>
-      </ul>
+  <div id="chatMessages" style="max-height:300px; overflow-y:auto;"></div>
 
-      <button class="ai-start-btn">
-        Start AI Chat
-      </button>
-    </div>
+  <div style="display:flex; gap:8px; margin-top:12px;">
+    <input
+      id="chatInput"
+      type="text"
+      placeholder="Ask your question..."
+      style="flex:1; padding:10px; border-radius:10px; border:none;"
+      onkeydown="if(event.key==='Enter') sendMessage()"
+    />
+
+    <button
+      onclick="sendMessage()"
+      style="padding:10px 14px; border-radius:10px; background:#6366f1; color:#fff; border:none;">
+      Send
+    </button>
+  </div>
+
+  <ul class="ai-points" style="margin-top:12px;">
+    <li>✔ Skills & roadmaps</li>
+    <li>✔ Colleges & cutoffs</li>
+    <li>✔ Jobs, exams & planning</li>
+  </ul>
+
+  <button class="ai-start-btn">
+    Start AI Chat
+  </button>
   </div>
 
 </div>
@@ -180,6 +194,7 @@ function toggleChatbot() {
     bot.classList.toggle("open");
 }
 </script>
+<script src="{% static 'js/base.js' %}"></script>
 
 
 </body>
