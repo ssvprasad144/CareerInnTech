@@ -90,7 +90,7 @@ def cse_branch(request):
         "video": video
     })
 @csrf_exempt
-@login_required
+
 def ai_chat(request):
     if request.method != "POST":
         return JsonResponse({"reply": "Invalid request"}, status=400)
