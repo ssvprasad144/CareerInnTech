@@ -7,6 +7,8 @@ import requests
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 settings.GROK_API_KEY
