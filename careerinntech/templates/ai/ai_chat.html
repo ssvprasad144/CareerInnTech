@@ -93,11 +93,10 @@ async function sendMessage() {
   if (!msg) return;
 
   const box = document.getElementById("chatMessages");
-
   box.innerHTML += `<div class="msg user">${msg}</div>`;
   input.value = "";
 
-  const res = await fetch("/ai/chat/", {
+  const res = await fetch("/colleges/btech/ai/chat/", {
     method: "POST",
     headers: {
       "X-CSRFToken": getCSRFToken(),
@@ -106,15 +105,11 @@ async function sendMessage() {
     body: `message=${encodeURIComponent(msg)}`
   });
 
-  if (!res.ok) {
-    box.innerHTML += `<div class="msg bot">❌ Error talking to AI</div>`;
-    return;
-  }
-
   const data = await res.json();
   box.innerHTML += `<div class="msg bot">${data.reply}</div>`;
   box.scrollTop = box.scrollHeight;
 }
 </script>
+
 
 {% endblock %}
