@@ -119,7 +119,7 @@ Rules:
 """
 
     payload = {
-        "model": "grok-beta",
+        "model": "grok-2",   # ✅ SAFE MODEL
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message}
@@ -127,26 +127,31 @@ Rules:
         "temperature": 0.7
     }
 
-    response = requests.post(
-    "https://api.x.ai/v1/chat/completions",
-    headers={
-        "Authorization": f"Bearer {settings.GROK_API_KEY}",
-        "Content-Type": "application/json"
-    },
-    json=payload,
-    timeout=30
-)
+    try:
+        response = requests.post(
+            "https://api.x.ai/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {settings.GROK_API_KEY}",
+                "Content-Type": "application/json"
+            },
+            json=payload,
+            timeout=30
+        )
 
-# 🔥 TEMP DEBUG (VERY IMPORTANT)
-print("GROK STATUS:", response.status_code)
-print("GROK RESPONSE:", response.text)
+        print("GROK STATUS:", response.status_code)
+        print("GROK RESPONSE:", response.text)
 
-if response.status_code != 200:
-    return JsonResponse({
-        "reply": f"Grok API error {response.status_code}: {response.text}"
-    })
+        if response.status_code != 200:
+            return JsonResponse({
+                "reply": f"Grok API error {response.status_code}: {response.text}"
+            })
 
-data = response.json()
-reply = data["choices"][0]["message"]["content"]
+        data = response.json()
+        reply = data["choices"][0]["message"]["content"]
 
-return JsonResponse({"reply": reply})
+        return JsonResponse({"reply": reply})
+
+    except Exception as e:
+        return JsonResponse({
+            "reply": f"AI error: {str(e)}"
+        })
