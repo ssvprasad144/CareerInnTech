@@ -54,7 +54,6 @@
   btn.addEventListener("click", sendMessage);
 
   function sendMessage() {
-    alert("SEND CLICKED"); // 🔥 PROOF
 
     const input = document.getElementById("chatInput");
     const msg = input.value.trim();
@@ -65,11 +64,12 @@
     input.value = "";
 
     fetch("/ai/chat/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: `message=${encodeURIComponent(msg)}`
+    method: "POST",
+    credentials: "same-origin",   // 🔥 REQUIRED for login_required
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: `message=${encodeURIComponent(msg)}`
     })
     .then(res => res.json())
     .then(data => {
