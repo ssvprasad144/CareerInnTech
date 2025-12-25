@@ -17,6 +17,10 @@ SECRET_KEY = os.environ.get(
     "django-insecure-local-dev-key-change-this"
 )
 
+
+GROK_API_KEY = os.getenv("GROK_API_KEY")
+
+
 # DEBUG
 # - Local: True
 # - Render: set DEBUG=False in environment
