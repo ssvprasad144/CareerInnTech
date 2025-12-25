@@ -1,51 +1,30 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div id="aiRoot"
-     style="
-       position: relative;
-       z-index: 99999;
-       max-width: 800px;
-       margin: 40px auto;
-       color: white;
-     ">
+
+<div id="aiRoot" style="max-width:800px;margin:40px auto;color:white;">
 
   <h2>👋 Welcome to AI Career Bot</h2>
 
   <div id="chatMessages"
-       style="
-         height: 400px;
-         overflow-y: auto;
-         background: #0f172a;
-         padding: 16px;
-         border-radius: 10px;
-         margin-bottom: 12px;
-       ">
+       style="height:400px;overflow-y:auto;background:#0f172a;
+              padding:16px;border-radius:10px;margin-bottom:12px;">
     <div><b>AI:</b> Ask me anything.</div>
   </div>
 
+  <!-- CSRF TOKEN -->
+  <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
   <div style="display:flex;gap:10px;">
     <input id="chatInput"
-           style="
-             flex:1;
-             padding:12px;
-             border-radius:6px;
-             pointer-events:auto;
-           "
-           placeholder="Type your question..." />
+           placeholder="Type your question..."
+           style="flex:1;padding:12px;border-radius:6px;"/>
 
     <button id="sendBtn"
             type="button"
-            style="
-              padding:12px 20px;
-              border-radius:6px;
-              cursor:pointer;
-              pointer-events:auto;
-            ">
+            style="padding:12px 20px;border-radius:6px;cursor:pointer;">
       Send
     </button>
   </div>
-
 </div>
 
 <script>
@@ -55,26 +34,35 @@ function sendMessage() {
   if (!msg) return;
 
   const box = document.getElementById("chatMessages");
-  box.innerHTML += `<div class="msg user">You: ${msg}</div>`;
+  box.innerHTML += `<div><b>You:</b> ${msg}</div>`;
   input.value = "";
 
   fetch("/ai/chat/", {
     method: "POST",
     credentials: "same-origin",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
+      "X-CSRFToken": document.getElementById("csrfToken").value
     },
     body: `message=${encodeURIComponent(msg)}`
   })
-  .then(async res => {
-    const text = await res.text();   // 🔥 READ RAW RESPONSE
-    box.innerHTML += `<div class="msg bot">RAW RESPONSE: ${text}</div>`;
+  .then(res => res.text())
+  .then(text => {
+    box.innerHTML += `<div><b>AI:</b> ${text}</div>`;
     box.scrollTop = box.scrollHeight;
   })
   .catch(err => {
-    box.innerHTML += `<div class="msg bot">JS ERROR: ${err}</div>`;
+    box.innerHTML += `<div style="color:red;">ERROR: ${err}</div>`;
   });
 }
+
+// Button click
+document.getElementById("sendBtn").addEventListener("click", sendMessage);
+
+// Enter key
+document.getElementById("chatInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") sendMessage();
+});
 </script>
 
 {% endblock %}
