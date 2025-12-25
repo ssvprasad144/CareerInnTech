@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-settings.GROK_API_KEY
+
 
 
 @login_required
@@ -93,22 +93,18 @@ def cse_branch(request):
 @login_required
 def ai_chat(request):
     if request.method != "POST":
-        return JsonResponse({"error": "Invalid request"}, status=400)
-
-    if not request.user.is_authenticated:
-        return JsonResponse({"reply": "Please login to use AI Career Bot."})
+        return JsonResponse({"reply": "Invalid request"}, status=400)
 
     user_message = request.POST.get("message", "").strip()
     if not user_message:
         return JsonResponse({"reply": "Please ask a valid question."})
 
-    # Assuming you already have Profile linked to User
     profile = request.user.profile
 
     system_prompt = f"""
-You are an AI assistant for students.
+You are an AI Career Assistant.
 
-Student details:
+Student:
 Name: {profile.name}
 College: {profile.college}
 Branch: {profile.branch}
@@ -116,10 +112,9 @@ Year: {profile.year}
 Interests: {profile.interests}
 
 Rules:
-- Answer ONLY student-related questions (career, exams, skills, internships)
-- Be clear and simple
-- Avoid complex jargon
-- ALWAYS end with:
+- Answer career-related questions only
+- Be simple and practical
+- End with:
 "👉 Please connect with mentors for personalized guidance."
 """
 
@@ -128,7 +123,8 @@ Rules:
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message}
-        ]
+        ],
+        "temperature": 0.7
     }
 
     try:
@@ -139,14 +135,26 @@ Rules:
                 "Content-Type": "application/json"
             },
             json=payload,
-            timeout=20
+            timeout=30
         )
 
-        ai_reply = response.json()["choices"][0]["message"]["content"]
-        return JsonResponse({"reply": ai_reply})
+        # 🔴 ADD THIS CHECK
+        if response.status_code != 200:
+            return JsonResponse({
+                "reply": f"Grok API error: {response.text}"
+            })
+
+        data = response.json()
+
+        # 🔴 SAFE PARSING
+        reply = data.get("choices", [{}])[0].get("message", {}).get("content")
+
+        if not reply:
+            return JsonResponse({"reply": "No response from Grok."})
+
+        return JsonResponse({"reply": reply})
 
     except Exception as e:
         return JsonResponse({
-            "reply": "AI is currently busy. Please try again later."
+            "reply": f"AI error: {str(e)}"
         })
-
