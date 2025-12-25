@@ -49,37 +49,32 @@
 </div>
 
 <script>
-(function () {
-  const btn = document.getElementById("sendBtn");
-  btn.addEventListener("click", sendMessage);
+function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const msg = input.value.trim();
+  if (!msg) return;
 
-  function sendMessage() {
+  const box = document.getElementById("chatMessages");
+  box.innerHTML += `<div class="msg user">You: ${msg}</div>`;
+  input.value = "";
 
-    const input = document.getElementById("chatInput");
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    const box = document.getElementById("chatMessages");
-    box.innerHTML += `<div><b>You:</b> ${msg}</div>`;
-    input.value = "";
-
-    fetch("/ai/chat/", {
+  fetch("/ai/chat/", {
     method: "POST",
-    credentials: "same-origin",   // 🔥 REQUIRED for login_required
+    credentials: "same-origin",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     body: `message=${encodeURIComponent(msg)}`
-    })
-    .then(res => res.json())
-    .then(data => {
-      box.innerHTML += `<div><b>AI:</b> ${data.reply}</div>`;
-      box.scrollTop = box.scrollHeight;
-    })
-    .catch(() => {
-      box.innerHTML += `<div style="color:red;">Error</div>`;
-    });
-  }
-})();
+  })
+  .then(async res => {
+    const text = await res.text();   // 🔥 READ RAW RESPONSE
+    box.innerHTML += `<div class="msg bot">RAW RESPONSE: ${text}</div>`;
+    box.scrollTop = box.scrollHeight;
+  })
+  .catch(err => {
+    box.innerHTML += `<div class="msg bot">JS ERROR: ${err}</div>`;
+  });
+}
 </script>
+
 {% endblock %}
