@@ -290,28 +290,43 @@ form button[type="submit"]:hover {
     .main-content { padding: 24px; }
 }
 /* ================= AI ASSISTANT ================= */
-
 #aiChatbot {
     position: fixed;
     bottom: 24px;
-    left: 24px;
+    right: 24px;   /* ✅ move to right */
+    left: auto;    /* ✅ remove left influence */
     z-index: 1000;
 }
+@keyframes aiRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 
 /* Floating Toggle Button */
 #chatbotToggle {
-    width: 56px;
-    height: 56px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: linear-gradient(135deg, #6366f1, #22d3ee);
+
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+
+    font-size: 34px;
     cursor: pointer;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    animation: aiRotate 6s linear infinite;  /* 🔄 rotation */
+    box-shadow: 0 14px 36px rgba(0,0,0,0.55);
+
+    transition: box-shadow 0.25s ease;
 }
+
 
 #chatbotToggle:hover {
     transform: scale(1.06);
@@ -322,8 +337,9 @@ form button[type="submit"]:hover {
 #chatbotWindow {
     position: absolute;
     bottom: 70px;
-    left: 0;
-    width: 280px;
+    right: 0;
+    left: auto
+    width: 360px;
     background: linear-gradient(180deg, #020617, #0f172a);
     border: 1px solid #1e293b;
     border-radius: 18px;
@@ -341,7 +357,7 @@ form button[type="submit"]:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 16px;
+    padding: 18px 20px;
     background: rgba(99,102,241,0.18);
     font-weight: 700;
     font-size: 14px;
@@ -357,7 +373,7 @@ form button[type="submit"]:hover {
 
 /* Body */
 .chatbot-body {
-    padding: 16px;
+    padding: 20px;
 }
 
 .ai-subtitle {
@@ -374,7 +390,7 @@ form button[type="submit"]:hover {
 }
 
 .ai-points li {
-    font-size: 13px;
+    font-size: 14px;
     color: #e5e7eb;
     margin-bottom: 8px;
 }
@@ -382,13 +398,13 @@ form button[type="submit"]:hover {
 /* CTA Button */
 .ai-start-btn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border-radius: 12px;
     border: none;
     background: linear-gradient(135deg, #6366f1, #22d3ee);
     color: #ffffff;
     font-weight: 800;
-    font-size: 13px;
+    font-size: 14px;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
