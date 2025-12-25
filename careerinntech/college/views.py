@@ -127,34 +127,26 @@ Rules:
         "temperature": 0.7
     }
 
-    try:
-        response = requests.post(
-            "https://api.x.ai/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {settings.GROK_API_KEY}",
-                "Content-Type": "application/json"
-            },
-            json=payload,
-            timeout=30
-        )
+    response = requests.post(
+    "https://api.x.ai/v1/chat/completions",
+    headers={
+        "Authorization": f"Bearer {settings.GROK_API_KEY}",
+        "Content-Type": "application/json"
+    },
+    json=payload,
+    timeout=30
+)
 
-        # 🔴 ADD THIS CHECK
-        if response.status_code != 200:
-            return JsonResponse({
-                "reply": f"Grok API error: {response.text}"
-            })
+# 🔥 TEMP DEBUG (VERY IMPORTANT)
+print("GROK STATUS:", response.status_code)
+print("GROK RESPONSE:", response.text)
 
-        data = response.json()
+if response.status_code != 200:
+    return JsonResponse({
+        "reply": f"Grok API error {response.status_code}: {response.text}"
+    })
 
-        # 🔴 SAFE PARSING
-        reply = data.get("choices", [{}])[0].get("message", {}).get("content")
+data = response.json()
+reply = data["choices"][0]["message"]["content"]
 
-        if not reply:
-            return JsonResponse({"reply": "No response from Grok."})
-
-        return JsonResponse({"reply": reply})
-
-    except Exception as e:
-        return JsonResponse({
-            "reply": f"AI error: {str(e)}"
-        })
+return JsonResponse({"reply": reply})
