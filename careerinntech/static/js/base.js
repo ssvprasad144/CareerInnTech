@@ -60,4 +60,10 @@ async function sendMessage() {
     const data = await res.json();
     addBotMessage(data.reply);
 }
+function startAIChat() {
+    document.querySelector(".ai-points").style.display = "none";
+    document.querySelector(".ai-start-btn").style.display = "none";
+    document.getElementById("chatInput").focus();
+}
+
 
