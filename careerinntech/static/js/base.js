@@ -39,3 +39,25 @@ function toggleChatbot() {
 }
 
 alertContainer.classList.add("fade-out");
+
+async function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    addUserMessage(msg);
+    input.value = "";
+
+    const res = await fetch("/ai/chat/", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `message=${encodeURIComponent(msg)}`
+    });
+
+    const data = await res.json();
+    addBotMessage(data.reply);
+}
+
