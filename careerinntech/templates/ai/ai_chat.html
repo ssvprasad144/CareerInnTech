@@ -73,7 +73,19 @@
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
-
+<script>
+function getCSRFToken() {
+  const name = "csrftoken";
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+    cookie = cookie.trim();
+    if (cookie.startsWith(name + "=")) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  return "";
+}
+</script>
 <script>
 async function sendMessage() {
   const input = document.getElementById("chatInput");
@@ -88,15 +100,21 @@ async function sendMessage() {
   const res = await fetch("/ai/chat/", {
     method: "POST",
     headers: {
-      "X-CSRFToken": "{{ csrf_token }}",
+      "X-CSRFToken": getCSRFToken(),
       "Content-Type": "application/x-www-form-urlencoded"
     },
     body: `message=${encodeURIComponent(msg)}`
   });
+
+  if (!res.ok) {
+    box.innerHTML += `<div class="msg bot">❌ Error talking to AI</div>`;
+    return;
+  }
 
   const data = await res.json();
   box.innerHTML += `<div class="msg bot">${data.reply}</div>`;
   box.scrollTop = box.scrollHeight;
 }
 </script>
+
 {% endblock %}
