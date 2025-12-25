@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div id="aiRoot" style="max-width:800px;margin:40px auto;color:white;">
-
+<div style="max-width:800px;margin:40px auto;color:white;">
   <h2>👋 Welcome to AI Career Bot</h2>
 
   <div id="chatMessages"
@@ -11,17 +10,14 @@
     <div><b>AI:</b> Ask me anything.</div>
   </div>
 
-  <!-- CSRF TOKEN -->
-  <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
-
   <div style="display:flex;gap:10px;">
     <input id="chatInput"
            placeholder="Type your question..."
-           style="flex:1;padding:12px;border-radius:6px;"/>
+           style="flex:1;padding:12px;border-radius:6px;" />
 
-    <button id="sendBtn"
-            type="button"
-            style="padding:12px 20px;border-radius:6px;cursor:pointer;">
+    <button type="button"
+            onclick="sendMessage()"
+            style="padding:12px 20px;border-radius:6px;">
       Send
     </button>
   </div>
@@ -50,16 +46,10 @@ function sendMessage() {
     box.innerHTML += `<div><b>AI:</b> ${data.reply}</div>`;
     box.scrollTop = box.scrollHeight;
   })
-  .catch(err => {
-    box.innerHTML += `<div style="color:red;">ERROR: ${err}</div>`;
+  .catch(() => {
+    box.innerHTML += `<div style="color:red;">Error contacting AI</div>`;
   });
 }
-
-document.getElementById("sendBtn").addEventListener("click", sendMessage);
-document.getElementById("chatInput").addEventListener("keydown", e => {
-  if (e.key === "Enter") sendMessage();
-});
 </script>
-
 
 {% endblock %}
