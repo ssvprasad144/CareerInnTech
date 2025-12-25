@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views 
-from . import ts_eamcet_colleges, ap_eamcet_colleges
+
 
 
 urlpatterns = [
