@@ -41,14 +41,13 @@ function sendMessage() {
     method: "POST",
     credentials: "same-origin",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "X-CSRFToken": document.getElementById("csrfToken").value
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     body: `message=${encodeURIComponent(msg)}`
   })
-  .then(res => res.text())
-  .then(text => {
-    box.innerHTML += `<div><b>AI:</b> ${text}</div>`;
+  .then(res => res.json())
+  .then(data => {
+    box.innerHTML += `<div><b>AI:</b> ${data.reply}</div>`;
     box.scrollTop = box.scrollHeight;
   })
   .catch(err => {
@@ -56,13 +55,11 @@ function sendMessage() {
   });
 }
 
-// Button click
 document.getElementById("sendBtn").addEventListener("click", sendMessage);
-
-// Enter key
 document.getElementById("chatInput").addEventListener("keydown", e => {
   if (e.key === "Enter") sendMessage();
 });
 </script>
+
 
 {% endblock %}
