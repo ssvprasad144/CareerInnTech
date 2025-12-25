@@ -87,11 +87,14 @@ def cse_branch(request):
     return render(request, "colleges/branches/cse.html", {
         "video": video
     })
-
+@csrf_exempt
 @login_required
 def ai_chat(request):
     if request.method != "POST":
         return JsonResponse({"error": "Invalid request"}, status=400)
+
+    if not request.user.is_authenticated:
+        return JsonResponse({"reply": "Please login to use AI Career Bot."})
 
     user_message = request.POST.get("message", "").strip()
     if not user_message:
