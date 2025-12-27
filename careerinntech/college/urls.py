@@ -6,4 +6,6 @@ urlpatterns = [
     path("ap-eamcet/", views.ap_eamcet_colleges, name="ap_eamcet"),
     path("ai/chat/", views.ai_chat, name="ai_chat"),
     path("ai/", views.ai_page, name="ai_page"),
+    path("translate/", views.translate_bulk, name="translate_bulk"),
+
 ]
