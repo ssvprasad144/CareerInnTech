@@ -28,4 +28,6 @@ urlpatterns = [
 
     # 🔹 ADD THIS (for /ai/)
     path("", include("college.urls")),
+
+    path("skills/", include("skills.urls")),
 ]
