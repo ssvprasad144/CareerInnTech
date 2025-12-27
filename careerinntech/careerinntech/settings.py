@@ -32,7 +32,7 @@ else:
 
 # ================= DEBUG =================
 
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 # ================= ALLOWED HOSTS =================
 
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
     "core",
     "college",
+    'skills',
 ]
 
 # ================= MIDDLEWARE =================
