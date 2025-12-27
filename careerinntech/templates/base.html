@@ -85,8 +85,19 @@ async function translatePage(lang) {
         <a href="{% url 'contact' %}" class="nav-btn">Contact</a>
         <a href="{% url 'support' %}" class="nav-btn">Support</a>
     </nav>
+    
 
     <div class="header-right">
+
+        <select
+            onchange="translatePage(this.value)"
+            style="margin-right:12px; padding:6px 10px; border-radius:6px;"
+        >
+            <option value="">🌐 Language</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Telugu">తెలుగు</option>
+            <option value="Tamil">தமிழ்</option>
+        </select>
         {% if user.is_authenticated %}
             <div class="profile-circle" onclick="toggleSidebar()">
                 {{ user.username|first|upper }}
