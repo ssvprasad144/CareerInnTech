@@ -1,4 +1,5 @@
-{% load static %}
+{% load static i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,62 +15,6 @@
 </head>
 
 
-<script>
-async function translatePage(lang) {
-  if (!lang) return;
-
-  const elements = [];
-  const texts = [];
-
-  document.querySelectorAll("body *").forEach(el => {
-    if (
-      el.childNodes.length === 1 &&
-      el.childNodes[0].nodeType === Node.TEXT_NODE &&
-      !["SCRIPT","STYLE","INPUT","TEXTAREA","BUTTON"].includes(el.tagName)
-    ) {
-      const text = el.innerText.trim();
-      if (text && text.length < 300) {
-        elements.push(el);
-        texts.push(text);
-      }
-    }
-  });
-
-  const res = await fetch("/translate/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      texts: texts,
-      lang: lang
-    })
-  });
-
-  const data = await res.json();
-
-  data.translations.forEach((t, i) => {
-    if (elements[i]) {
-      elements[i].innerText = t;
-    }
-  });
-}
-</script>
-
-
-<script>
-function setLanguage(lang) {
-  if (!lang) return;
-  localStorage.setItem("careerinntech_lang", lang);
-  translatePage(lang);
-}
-
-// 🔥 AUTO-APPLY LANGUAGE ON EVERY PAGE LOAD
-document.addEventListener("DOMContentLoaded", () => {
-  const savedLang = localStorage.getItem("careerinntech_lang");
-  if (savedLang) {
-    translatePage(savedLang);
-  }
-});
-</script>
 
 
 
@@ -91,31 +36,37 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="header-left">
         <img id="logomain" src="{% static 'images/logomain.png' %}" alt="CareerInnTech Logo">
 
-        <div class="logo">
-            CareerInnTech
-            <span>BTech • Hospitality • Careers</span>
-        </div>
+       <div class="logo">
+            {% trans "CareerInnTech" %}
+            <span>{% trans "BTech • Hospitality • Careers" %}</span>
+       </div>
+
     </div>
 
     <nav class="header-nav compact">
-        <a href="{% url 'dashboard' %}" class="nav-btn">Home</a>
-        <a href="{% url 'about' %}" class="nav-btn">About</a>
-        <a href="{% url 'contact' %}" class="nav-btn">Contact</a>
-        <a href="{% url 'support' %}" class="nav-btn">Support</a>
+        <a href="{% url 'dashboard' %}" class="nav-btn">{% trans "Home" %}</a>
+        <a href="{% url 'about' %}" class="nav-btn">{% trans "About" %}</a>
+        <a href="{% url 'contact' %}" class="nav-btn">{% trans "Contact" %}</a>
+        <a href="{% url 'support' %}" class="nav-btn">{% trans "Support" %}</a>
     </nav>
+
     
 
     <div class="header-right">
 
-        <select
-            onchange="setLanguage(this.value)"
-            style="margin-right:12px; padding:6px 10px; border-radius:6px;"
-        >
-            <option value="">🌐 Language</option>
-            <option value="Hindi">Hindi</option>
-            <option value="Telugu">తెలుగు</option>
-            <option value="Tamil">தமிழ்</option>
-        </select>
+        <form action="{% url 'set_language' %}" method="post" style="margin-right:12px;">
+          {% csrf_token %}
+          <select name="language" onchange="this.form.submit()"
+                  style="padding:6px 10px; border-radius:6px;">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="te">తెలుగు</option>
+            <option value="ta">தமிழ்</option>
+          </select>
+        </form>
+
+
+       
         {% if user.is_authenticated %}
             <div class="profile-circle" onclick="toggleSidebar()">
                 {{ user.username|first|upper }}
@@ -131,10 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 </a>
             {% endif %}
 
-            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+            <a href="{% url 'logout' %}" class="logout-btn">{% trans "Logout" %}</a>
+
         {% else %}
-            <a href="{% url 'login' %}" class="login-btn">Login</a>
-            <a href="{% url 'signup' %}" class="primary-btn">Sign Up</a>
+            <a href="{% url 'login' %}" class="login-btn">{% trans "Login" %}</a>
+            <a href="{% url 'signup' %}" class="primary-btn">{% trans "Sign Up" %}</a>
+
         {% endif %}
     </div>
 </header>
@@ -143,7 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
 {% if user.is_authenticated %}
 <div id="profileSidebar" class="profile-sidebar">
     <div class="sidebar-header">
-        <h3>My Profile</h3>
+        <h3>{% trans "My Profile" %}</h3>
+
         <span class="close-btn" onclick="toggleSidebar()">✕</span>
     </div>
 
@@ -159,17 +113,17 @@ document.addEventListener("DOMContentLoaded", () => {
         {% if user.studentprofile.is_profile_complete %}
             <div class="profile-details">
                 <div class="detail-card">
-                    <span>Track</span>
+                    <span>{% trans "Track" %}</span>
                     <strong>{{ user.studentprofile.track|title }}</strong>
                 </div>
 
                 <div class="detail-card">
-                    <span>Year</span>
+                    <span>{% trans "Year" %}</span>
                     <strong>{{ user.studentprofile.year }}</strong>
                 </div>
 
                 <div class="detail-card">
-                    <span>Goal</span>
+                    <span>{ % trans "Goal" %}</span>
                     <strong>{{ user.studentprofile.career_goal }}</strong>
                 </div>
             </div>
@@ -192,8 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
             </a>
         {% endif %}
 
-        <a href="#" class="sidebar-link">My Subscription</a>
-        <a href="{% url 'support' %}" class="sidebar-link">Help & Support</a>
+        <a href="#" class="sidebar-link">{% trans "My Subscription" %}</a>
+        <a href="{% url 'support' %}" class="sidebar-link">{% trans "Help & Support" %}</a>
+
 
     </div>
 </div>
@@ -223,7 +178,8 @@ function toggleSidebar() {
   <!-- AI Assistant Panel -->
   <div id="chatbotWindow">
     <div class="chatbot-header">
-      <span>CareerInnTech AI</span>
+      <span>{% trans "CareerInnTech AI" %}</span>
+
       <button onclick="toggleChatbot()">✕</button>
     </div>
 
