@@ -1,12 +1,17 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 import dj_database_url
+
+
+# ================= LOAD ENV =================
 
 
 # ================= BASE =================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(BASE_DIR / ".env")
+print("OPENAI KEY LOADED:", bool(os.getenv("OPENAI_API_KEY")))
 # ================= SECURITY =================
 
 # SECRET KEY
@@ -17,21 +22,20 @@ SECRET_KEY = os.environ.get(
     "django-insecure-local-dev-key-change-this"
 )
 
+# ================= OPENAI =================
 
-GROK_API_KEY = os.getenv("GROK_API_KEY")
-if not GROK_API_KEY:
-    print("❌ GROK_API_KEY NOT FOUND")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    print("❌ OPENAI_API_KEY NOT FOUND")
 else:
-    print("✅ GROK_API_KEY LOADED")
+    print("✅ OPENAI_API_KEY LOADED")
 
+# ================= DEBUG =================
 
-# DEBUG
-# - Local: True
-# - Render: set DEBUG=False in environment
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
+# ================= ALLOWED HOSTS =================
 
-# ALLOWED HOSTS
 ALLOWED_HOSTS = [
     "careerinntech.onrender.com",
     "careerinntech.com",
@@ -51,6 +55,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "core",
     "college",
 ]
@@ -93,16 +98,22 @@ TEMPLATES = [
 ]
 
 # ================= DATABASE =================
-# SQLite (local + initial Render deploy)
+# SQLite (local) | PostgreSQL (Render)
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
-
+if os.environ.get("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.config(
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # ================= PASSWORD VALIDATION =================
 
@@ -130,12 +141,10 @@ LOGOUT_REDIRECT_URL = "home"
 
 STATIC_URL = "/static/"
 
-# Local static files
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# Render static collection
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 if DEBUG:

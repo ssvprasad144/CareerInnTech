@@ -32,7 +32,8 @@ path("previous-papers/btech/", views.btech_previous_year_papers, name="btech_pap
 path("previous-papers/hospitality/", views.hospitality_previous_year_papers, name="hospitality_papers"),
 path("profile/edit/", views.edit_profile, name="edit_profile"),
 
-
+path("ai-chat/", views.ai_chat_page, name="ai_chat"),
+    path("api/ai-chat/", views.openai_ai_chat, name="openai_ai_chat"),
 
 ]    
 

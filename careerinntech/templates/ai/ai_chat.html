@@ -1,55 +1,122 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AI Chat | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai_chat.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<div style="max-width:800px;margin:40px auto;color:white;">
-  <h2>👋 Welcome to AI Career Bot</h2>
+<div class="ai-chat-container">
 
-  <div id="chatMessages"
-       style="height:400px;overflow-y:auto;background:#0f172a;
-              padding:16px;border-radius:10px;margin-bottom:12px;">
-    <div><b>AI:</b> Ask me anything.</div>
-  </div>
+    <h1>CareerInnTech AI Assistant</h1>
+    <p class="subtitle">
+        Career • Colleges • Skills • Resume Guidance
+    </p>
 
-  <div style="display:flex;gap:10px;">
-    <input id="chatInput"
-           placeholder="Type your question..."
-           style="flex:1;padding:12px;border-radius:6px;" />
+    <!-- MODE SELECTOR -->
+    <div class="ai-modes">
+        <button class="mode-btn active" data-mode="career">Career</button>
+        <button class="mode-btn" data-mode="college">College</button>
+        <button class="mode-btn" data-mode="skills">Skills</button>
+        <button class="mode-btn" data-mode="resume">Resume</button>
+    </div>
 
-    <button type="button"
-            onclick="sendMessage()"
-            style="padding:12px 20px;border-radius:6px;">
-      Send
-    </button>
-  </div>
+    <!-- CHAT BOX -->
+    <div id="chat-box"></div>
+
+    <!-- INPUT -->
+    <div class="chat-input">
+        <input
+            type="text"
+            id="user-input"
+            placeholder="Ask your question..."
+            autocomplete="off"
+        />
+        <button id="send-btn">Send</button>
+    </div>
+
 </div>
 
 <script>
-function sendMessage() {
-  const input = document.getElementById("chatInput");
-  const msg = input.value.trim();
-  if (!msg) return;
+/* ================= GLOBAL STATE ================= */
+let selectedMode = "career";
 
-  const box = document.getElementById("chatMessages");
-  box.innerHTML += `<div><b>You:</b> ${msg}</div>`;
-  input.value = "";
+const chatBox = document.getElementById("chat-box");
+const inputBox = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
 
-  fetch("/ai/chat/", {
-    method: "POST",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: `message=${encodeURIComponent(msg)}`
-  })
-  .then(res => res.json())
-  .then(data => {
-    box.innerHTML += `<div><b>AI:</b> ${data.reply}</div>`;
-    box.scrollTop = box.scrollHeight;
-  })
-  .catch(() => {
-    box.innerHTML += `<div style="color:red;">Error contacting AI</div>`;
-  });
+/* ================= MODE SWITCH ================= */
+document.querySelectorAll(".mode-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".mode-btn")
+            .forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        selectedMode = btn.dataset.mode;
+    });
+});
+
+/* ================= UI HELPERS ================= */
+function addMessage(text, sender) {
+    const div = document.createElement("div");
+    div.className = sender === "user" ? "user-msg" : "ai-msg";
+    div.innerText = text;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
+
+/* ================= SEND MESSAGE ================= */
+async function sendMessage() {
+    const message = inputBox.value.trim();
+    if (!message) return;
+
+    addMessage(message, "user");
+    inputBox.value = "";
+
+    const loading = document.createElement("div");
+    loading.className = "ai-msg";
+    loading.innerText = "Thinking...";
+    chatBox.appendChild(loading);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+        const response = await fetch("/api/ai-chat/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: message,
+                mode: selectedMode
+            })
+        });
+
+        const data = await response.json();
+        loading.remove();
+
+        if (data.reply) {
+            addMessage(data.reply, "ai");
+        } else {
+            addMessage(data.error || "AI failed to respond.", "ai");
+        }
+
+    } catch (err) {
+        loading.remove();
+        addMessage("Network error. Please try again.", "ai");
+        console.error(err);
+    }
+}
+
+/* ================= EVENTS ================= */
+sendBtn.addEventListener("click", sendMessage);
+
+inputBox.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        sendMessage();
+    }
+});
 </script>
 
 {% endblock %}

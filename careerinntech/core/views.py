@@ -5,6 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import StudentProfile, Opportunity, Project
+import os
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from openai import OpenAI
+
 
 
 # ---------- PUBLIC PAGES ----------
@@ -299,3 +305,71 @@ def support(request):
 
 def is_profile_complete(user):
     return StudentProfile.objects.filter(user=user).exists()
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+@csrf_exempt
+def openai_ai_chat(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required"}, status=405)
+
+    try:
+        body = json.loads(request.body)
+        message = body.get("message", "").strip()
+        mode = body.get("mode", "career")
+
+        if not message:
+            return JsonResponse({"error": "Empty message"}, status=400)
+
+        # ---------------- USER CONTEXT ----------------
+        user_context = "User not logged in."
+
+        if request.user.is_authenticated:
+            try:
+                profile = StudentProfile.objects.get(user=request.user)
+                user_context = f"""
+User profile:
+- Track: {profile.track}
+- Branch: {profile.branch}
+- Year: {profile.year}
+- Career goal: {profile.career_goal}
+- College: {profile.college}
+"""
+            except StudentProfile.DoesNotExist:
+                user_context = "User logged in, profile incomplete."
+
+        # ---------------- OPENAI CALL ----------------
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are CareerInnTech AI. "
+                        "Give clear, practical, step-by-step career guidance "
+                        "for Indian students. Use bullet points."
+                    ),
+                },
+                {
+                    "role": "system",
+                    "content": user_context,
+                },
+                {
+                    "role": "user",
+                    "content": message,
+                },
+            ],
+            temperature=0.6,
+        )
+
+        reply = response.choices[0].message.content.strip()
+        return JsonResponse({"reply": reply})
+
+    except Exception as e:
+        print("OPENAI ERROR:", e)
+        return JsonResponse(
+            {"error": "AI service failed. Try again later."},
+            status=500
+        )
+def ai_chat_page(request):
+    return render(request, "ai/ai_chat.html")
