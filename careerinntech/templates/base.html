@@ -14,6 +14,45 @@
 </head>
 
 
+<script>
+async function translatePage(lang) {
+  if (!lang) return;
+
+  const elements = [];
+  const texts = [];
+
+  document.querySelectorAll("body *").forEach(el => {
+    if (
+      el.childNodes.length === 1 &&
+      el.childNodes[0].nodeType === Node.TEXT_NODE &&
+      !["SCRIPT","STYLE","INPUT","TEXTAREA","BUTTON"].includes(el.tagName)
+    ) {
+      const text = el.innerText.trim();
+      if (text && text.length < 300) {
+        elements.push(el);
+        texts.push(text);
+      }
+    }
+  });
+
+  const res = await fetch("/translate/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      texts: texts,
+      lang: lang
+    })
+  });
+
+  const data = await res.json();
+
+  data.translations.forEach((t, i) => {
+    if (elements[i]) {
+      elements[i].innerText = t;
+    }
+  });
+}
+</script>
 
 
 <body>
