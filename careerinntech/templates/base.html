@@ -55,6 +55,24 @@ async function translatePage(lang) {
 </script>
 
 
+<script>
+function setLanguage(lang) {
+  if (!lang) return;
+  localStorage.setItem("careerinntech_lang", lang);
+  translatePage(lang);
+}
+
+// 🔥 AUTO-APPLY LANGUAGE ON EVERY PAGE LOAD
+document.addEventListener("DOMContentLoaded", () => {
+  const savedLang = localStorage.getItem("careerinntech_lang");
+  if (savedLang) {
+    translatePage(savedLang);
+  }
+});
+</script>
+
+
+
 <body>
 
 <!-- ================= ALERT MESSAGES ================= -->
@@ -90,7 +108,7 @@ async function translatePage(lang) {
     <div class="header-right">
 
         <select
-            onchange="translatePage(this.value)"
+            onchange="setLanguage(this.value)"
             style="margin-right:12px; padding:6px 10px; border-radius:6px;"
         >
             <option value="">🌐 Language</option>
