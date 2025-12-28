@@ -5,16 +5,8 @@ whitenoise==6.7.0
 
 dj-database-url
 psycopg2-binary
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 requests
 openai
 python-dotenv
 
 packaging==25.0
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
