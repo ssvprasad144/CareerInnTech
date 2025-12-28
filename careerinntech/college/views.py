@@ -171,3 +171,47 @@ Rules:
         return JsonResponse({
             "reply": f"AI error: {str(e)}"
         })
+
+import json
+from openai import OpenAI
+client = OpenAI()
+
+@csrf_exempt
+def translate_bulk(request):
+    if request.method != "POST":
+        return JsonResponse({"translations": []})
+
+    try:
+        data = json.loads(request.body)
+        texts = data.get("texts", [])
+        lang = data.get("lang")
+
+        if not texts or not lang:
+            return JsonResponse({"translations": []})
+
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": f"Translate the following texts into {lang}. Keep meaning. Return each translation on a new line."
+                },
+                {
+                    "role": "user",
+                    "content": "\n".join(texts)
+                }
+            ]
+        )
+
+        translated = response.choices[0].message.content.split("\n")
+
+        return JsonResponse({
+            "translations": translated
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            "translations": [],
+            "error": str(e)
+        })
+

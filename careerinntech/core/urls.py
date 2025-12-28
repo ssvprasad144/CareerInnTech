@@ -34,6 +34,7 @@ path("profile/edit/", views.edit_profile, name="edit_profile"),
 
 path("ai-chat/", views.ai_chat_page, name="ai_chat"),
     path("api/ai-chat/", views.openai_ai_chat, name="openai_ai_chat"),
+path("reset-ai-memory/", views.reset_ai_memory, name="reset_ai_memory")
 
 ]    
 

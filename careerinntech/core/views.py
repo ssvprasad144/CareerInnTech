@@ -11,6 +11,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from openai import OpenAI
 
+from .models import UserContextMemory
+from .utils.context_memory import update_user_context
+from .utils.prompt_builder import build_system_prompt
 
 
 # ---------- PUBLIC PAGES ----------
@@ -321,33 +324,40 @@ def openai_ai_chat(request):
         if not message:
             return JsonResponse({"error": "Empty message"}, status=400)
 
-        # ---------------- USER CONTEXT ----------------
         user_context = "User not logged in."
+        memory = None
 
         if request.user.is_authenticated:
+            memory, _ = UserContextMemory.objects.get_or_create(
+                user=request.user
+            )
+
+            update_user_context(memory, message)
+
             try:
                 profile = StudentProfile.objects.get(user=request.user)
-                user_context = f"""
-User profile:
+                profile_context = f"""
+Profile:
 - Track: {profile.track}
 - Branch: {profile.branch}
 - Year: {profile.year}
 - Career goal: {profile.career_goal}
-- College: {profile.college}
 """
             except StudentProfile.DoesNotExist:
-                user_context = "User logged in, profile incomplete."
+                profile_context = "Profile incomplete."
 
-        # ---------------- OPENAI CALL ----------------
+            user_context = build_system_prompt(memory) + "\n" + profile_context
+
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
                     "content": (
-                        "You are CareerInnTech AI. "
-                        "Give clear, practical, step-by-step career guidance "
-                        "for Indian students. Use bullet points."
+                        "You are CareerInnTech AI Mentor. "
+                        "Give personalized, step-by-step career guidance "
+                        "for Indian students using bullet points. "
+                        "Do not repeat known questions."
                     ),
                 },
                 {
@@ -371,5 +381,11 @@ User profile:
             {"error": "AI service failed. Try again later."},
             status=500
         )
+
 def ai_chat_page(request):
     return render(request, "ai/ai_chat.html")
+
+@login_required
+def reset_ai_memory(request):
+    UserContextMemory.objects.filter(user=request.user).delete()
+    return JsonResponse({"success": True})
