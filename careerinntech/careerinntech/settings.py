@@ -32,7 +32,7 @@ else:
 
 # ================= DEBUG =================
 
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # ================= ALLOWED HOSTS =================
 
