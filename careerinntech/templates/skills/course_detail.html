@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Course Detail</title>
+  <link rel="stylesheet" href="{% static 'css/btech_skills.css' %}">
+</head>
+
+<body>
+
+<div class="course-detail-container">
+
+  <div class="course-header">
+    <h1 id="courseTitle">Course</h1>
+
+    <!-- 🔧 FIXED BACK BUTTON -->
+    <a id="backBtn" class="view-all">← Back</a>
+  </div>
+
+  <div class="detail-row">
+
+    <div class="status-card">
+      <h3>Status</h3>
+      <span class="status-badge">Not Started</span>
+    </div>
+
+    <div class="video-card">
+      <h3>Video</h3>
+
+      <div class="video-placeholder">
+        <div class="play-icon">▶</div>
+        <p class="video-title">Roadmap Video</p>
+        <p class="video-msg">Content coming soon 🚧</p>
+      </div>
+
+      <p class="video-note">
+        We are preparing structured roadmap videos for this course
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ACTION CARDS -->
+  <div class="action-grid">
+
+    <div class="action-card">
+      📄
+      <h4>Notes</h4>
+      <p>Read detailed course notes</p>
+    </div>
+
+    <div class="action-card">
+      📝
+      <h4>Assignments</h4>
+      <p>Practice related problems</p>
+    </div>
+
+    <div class="action-card">
+      🎯
+      <h4>Practice</h4>
+      <p>Take skill assessment</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const source = params.get("source");
+  const branch = params.get("branch");
+
+  const backBtn = document.getElementById("backBtn");
+
+  if (source === "view_all" && branch) {
+    backBtn.href = "{% url 'btech_view_all' %}?branch=" + branch;
+  } else {
+    backBtn.href = "{% url 'btech_skills' %}";
+  }
+</script>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
-{% block title %}AI Chat | CareerInnTech{% endblock %}
+{% block title %}AI Career Chat | CareerInnTech{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/ai_chat.css' %}">
@@ -11,112 +11,102 @@
 
 <div class="ai-chat-container">
 
-    <h1>CareerInnTech AI Assistant</h1>
-    <p class="subtitle">
-        Career • Colleges • Skills • Resume Guidance
-    </p>
-
-    <!-- MODE SELECTOR -->
-    <div class="ai-modes">
-        <button class="mode-btn active" data-mode="career">Career</button>
-        <button class="mode-btn" data-mode="college">College</button>
-        <button class="mode-btn" data-mode="skills">Skills</button>
-        <button class="mode-btn" data-mode="resume">Resume</button>
+    <!-- HEADER -->
+    <div class="ai-chat-header">
+        <h2>CareerInnTech AI Mentor</h2>
+        <button id="resetMemoryBtn" class="reset-btn">Reset AI Memory</button>
     </div>
 
-    <!-- CHAT BOX -->
-    <div id="chat-box"></div>
+    <!-- CHAT BOX (IMPORTANT FIX) -->
+    <div class="chat-box" id="chatBox">
+        <div class="ai-message">
+            👋 Hi! I’m your AI Career Mentor.  
+            Ask me anything about careers, skills, exams, or roadmaps.
+        </div>
+    </div>
 
     <!-- INPUT -->
     <div class="chat-input">
         <input
             type="text"
-            id="user-input"
-            placeholder="Ask your question..."
+            id="userInput"
+            placeholder="Type your question here..."
             autocomplete="off"
         />
-        <button id="send-btn">Send</button>
+        <button id="sendBtn">Send</button>
     </div>
 
 </div>
 
 <script>
-/* ================= GLOBAL STATE ================= */
-let selectedMode = "career";
+const chatBox = document.getElementById("chatBox");
+const userInput = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const resetBtn = document.getElementById("resetMemoryBtn");
 
-const chatBox = document.getElementById("chat-box");
-const inputBox = document.getElementById("user-input");
-const sendBtn = document.getElementById("send-btn");
-
-/* ================= MODE SWITCH ================= */
-document.querySelectorAll(".mode-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        document.querySelectorAll(".mode-btn")
-            .forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        selectedMode = btn.dataset.mode;
-    });
-});
-
-/* ================= UI HELPERS ================= */
 function addMessage(text, sender) {
     const div = document.createElement("div");
-    div.className = sender === "user" ? "user-msg" : "ai-msg";
+    div.className = sender === "user" ? "user-message" : "ai-message";
     div.innerText = text;
     chatBox.appendChild(div);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-/* ================= SEND MESSAGE ================= */
-async function sendMessage() {
-    const message = inputBox.value.trim();
+// ================= SEND MESSAGE =================
+sendBtn.onclick = async () => {
+    const message = userInput.value.trim();
     if (!message) return;
 
     addMessage(message, "user");
-    inputBox.value = "";
+    userInput.value = "";
 
-    const loading = document.createElement("div");
-    loading.className = "ai-msg";
-    loading.innerText = "Thinking...";
-    chatBox.appendChild(loading);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    addMessage("Typing...", "ai");
 
-    try {
-        const response = await fetch("/api/ai-chat/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: message,
-                mode: selectedMode
-            })
-        });
+    const response = await fetch("{% url 'openai_ai_chat' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({
+            message: message
+        })
+    });
 
-        const data = await response.json();
-        loading.remove();
+    const data = await response.json();
 
-        if (data.reply) {
-            addMessage(data.reply, "ai");
-        } else {
-            addMessage(data.error || "AI failed to respond.", "ai");
+    // remove "Typing..."
+    chatBox.lastChild.remove();
+
+    if (data.reply) {
+        addMessage(data.reply, "ai");
+    } else {
+        addMessage("⚠️ Something went wrong. Try again.", "ai");
+    }
+};
+
+// ================= RESET MEMORY =================
+resetBtn.onclick = async () => {
+    if (!confirm("This will erase what AI knows about you. Continue?")) return;
+
+    const response = await fetch("{% url 'reset_ai_memory' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}"
         }
+    });
 
-    } catch (err) {
-        loading.remove();
-        addMessage("Network error. Please try again.", "ai");
-        console.error(err);
+    const data = await response.json();
+
+    if (data.success) {
+        chatBox.innerHTML = `
+            <div class="ai-message">
+                ✅ AI memory reset successfully.  
+                Tell me about yourself again to get personalized guidance.
+            </div>
+        `;
     }
-}
-
-/* ================= EVENTS ================= */
-sendBtn.addEventListener("click", sendMessage);
-
-inputBox.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        sendMessage();
-    }
-});
+};
 </script>
 
 {% endblock %}

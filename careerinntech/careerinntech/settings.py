@@ -58,6 +58,22 @@ INSTALLED_APPS = [
 
     "core",
     "college",
+    'skills',
+]
+USE_I18N = True
+
+LANGUAGE_CODE = "en"
+
+LANGUAGES = [
+    ("en", "English"),
+    ("hi", "Hindi"),
+    ("te", "Telugu"),
+    ("ta", "Tamil"),
+]
+LANGUAGE_COOKIE_NAME = "django_language"
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
 ]
 
 # ================= MIDDLEWARE =================
@@ -66,11 +82,13 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware", 
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    
 ]
 
 # ================= URL / WSGI =================

@@ -131,3 +131,19 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+class UserContextMemory(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    career_goal = models.CharField(max_length=200, blank=True)
+    branch = models.CharField(max_length=100, blank=True)
+    education_level = models.CharField(max_length=100, blank=True)
+
+    target_roles = models.CharField(max_length=200, blank=True)
+    skills = models.TextField(blank=True)
+    weak_areas = models.TextField(blank=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.username

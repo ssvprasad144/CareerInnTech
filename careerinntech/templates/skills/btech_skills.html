@@ -1,0 +1,176 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BTech Skills</title>
+  <link rel="stylesheet" href="{% static 'css/btech_skills.css' %}">
+</head>
+
+<body>
+
+<div class="skills-container">
+
+  <h1 class="title">Hello 👋 What Do You Want To Learn?</h1>
+  <p class="hero-subtitle">Explore structured BTech skill roadmaps curated for you</p>
+
+  <!-- SEARCH -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search skills, courses, subjects...">
+    <button>🔍</button>
+  </div>
+
+  <!-- ================= CSE ================= -->
+  <section class="branch-section">
+    <div class="branch-header">
+      <h2>CSE</h2>
+      <a href="{% url 'btech_view_all' %}?branch=cse" class="view-all">View all →</a>
+    </div>
+
+    <div class="course-grid">
+      <a href="{% url 'course_detail' %}?course=Python&branch=cse&source=skills"
+         class="course-card"
+         data-course="python">
+        <img src="{% static 'images/skills/python.png' %}">
+        <p>Python</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=DSA&branch=cse&source=skills"
+         class="course-card"
+         data-course="dsa">
+        <img src="{% static 'images/skills/dsa.png' %}">
+        <p>DSA</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Java&branch=cse&source=skills"
+         class="course-card"
+         data-course="java">
+        <img src="{% static 'images/skills/java.png' %}">
+        <p>Java</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=SQL&branch=cse&source=skills"
+         class="course-card"
+         data-course="sql">
+        <img src="{% static 'images/skills/sql.png' %}">
+        <p>SQL</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= ECE ================= -->
+  <section class="branch-section">
+    <div class="branch-header">
+      <h2>ECE</h2>
+      <a href="{% url 'btech_view_all' %}?branch=ece" class="view-all">View all →</a>
+    </div>
+
+    <div class="course-grid">
+      <a href="{% url 'course_detail' %}?course=Signals&branch=ece&source=skills"
+         class="course-card"
+         data-course="signals">
+        <img src="{% static 'images/skills/signals.png' %}">
+        <p>Signals</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=VLSI&branch=ece&source=skills"
+         class="course-card"
+         data-course="vlsi">
+        <img src="{% static 'images/skills/vlsi.png' %}">
+        <p>VLSI</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Embedded&branch=ece&source=skills"
+         class="course-card"
+         data-course="embedded">
+        <img src="{% static 'images/skills/embedded.png' %}">
+        <p>Embedded</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Networks&branch=ece&source=skills"
+         class="course-card"
+         data-course="networks">
+        <img src="{% static 'images/skills/networks.png' %}">
+        <p>Networks</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= EEE ================= -->
+  <section class="branch-section">
+    <div class="branch-header">
+      <h2>EEE</h2>
+      <a href="{% url 'btech_view_all' %}?branch=eee" class="view-all">View all →</a>
+    </div>
+
+    <div class="course-grid">
+      <a href="{% url 'course_detail' %}?course=Machines&branch=eee&source=skills"
+         class="course-card"
+         data-course="machines">
+        <img src="{% static 'images/skills/embedded.png' %}">
+        <p>Machines</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Power%20Systems&branch=eee&source=skills"
+         class="course-card"
+         data-course="power systems">
+        <img src="{% static 'images/skills/networks.png' %}">
+        <p>Power Systems</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Power%20Electronics&branch=eee&source=skills"
+         class="course-card"
+         data-course="power electronics">
+        <img src="{% static 'images/skills/vlsi.png' %}">
+        <p>Power Electronics</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Measurements&branch=eee&source=skills"
+         class="course-card"
+         data-course="measurements">
+        <img src="{% static 'images/skills/signals.png' %}">
+        <p>Measurements</p>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= SEARCH SCRIPT ================= -->
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const courseCards = document.querySelectorAll(".course-card");
+  const branchSections = document.querySelectorAll(".branch-section");
+
+  searchInput.addEventListener("input", function () {
+    const query = searchInput.value.toLowerCase().trim();
+
+    // First: filter individual courses
+    courseCards.forEach(card => {
+      const courseName = card.dataset.course;
+
+      if (courseName.includes(query)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    // Second: hide/show entire branches
+    branchSections.forEach(section => {
+      const visibleCourses = section.querySelectorAll(
+        '.course-card[style*="display: block"]'
+      ).length;
+
+      if (visibleCourses > 0 || query === "") {
+        section.style.display = "block";
+      } else {
+        section.style.display = "none";
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>

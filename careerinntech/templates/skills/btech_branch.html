@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BTech Skills</title>
+
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/btech_skills.css' %}">
+
+  <style>
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .course-card {
+      background: linear-gradient(135deg, #1e293b, #020617);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+    .course-card:hover {
+      transform: scale(1.05);
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #6366f1;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="main-header">
+  <div class="logo">
+    CareerInnTech
+    <span>BTech • Hospitality • Careers</span>
+  </div>
+</header>
+
+<main class="main-content">
+
+  <a href="{% url 'btech_skills' %}" class="back-btn">← Back</a>
+
+  <h1 id="branchTitle"></h1>
+  <div class="course-grid" id="courseGrid"></div>
+
+</main>
+
+<script>
+const data = {
+  CSE: ["Python", "Java", "C", "C++", "DSA", "OOPS", "DBMS", "SQL", "CN", "OS"],
+  ECE: ["Signals", "Digital Electronics", "VLSI", "Control Systems", "Embedded Systems"],
+  EEE: ["Machines", "Power Systems", "Power Electronics", "Measurements", "Control Systems"]
+};
+
+const params = new URLSearchParams(window.location.search);
+const branch = params.get("branch") || "CSE";
+
+document.getElementById("branchTitle").innerText = branch + " Skills";
+
+const grid = document.getElementById("courseGrid");
+
+data[branch].forEach(course => {
+  const card = document.createElement("div");
+  card.className = "course-card";
+  card.innerText = course;
+  card.onclick = () => {
+    window.location.href = "{% url 'course_detail' %}?course=" + course;
+  };
+  grid.appendChild(card);
+});
+</script>
+
+</body>
+</html>
