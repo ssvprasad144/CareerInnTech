@@ -2,25 +2,36 @@
 
 {% block content %}
 
-<h1>🎯 Placement Preparation</h1>
-<p>
-  Complete guidance to crack campus placements —
-  from aptitude tests to final interviews.
-</p>
+{% extends "base.html" %}
+{% load static %}
 
-<hr>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
 
-{% for module in modules %}
-  <div style="margin-bottom:24px; padding:16px; border:1px solid #ddd; border-radius:8px;">
-    <h3>{{ module.title }}</h3>
-    <p>{{ module.description }}</p>
+{% block content %}
 
-    <ul>
-      {% for topic in module.topics %}
-        <li>{{ topic }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-{% endfor %}
+<section class="explore-section">
+    <h2 style="margin-bottom: 10px;">🎯 Placement Preparation</h2>
+    <p style="margin-bottom: 30px; color: #94a3b8;">
+        Complete guidance to crack campus placements — from aptitude tests to final interviews.
+    </p>
+
+    <div class="explore-grid">
+        {% for module in modules %}
+            <div class="explore-card">
+                <h4>{{ module.title }}</h4>
+                <p>{{ module.description }}</p>
+
+                <ul style="margin-top: 12px; padding-left: 18px;">
+                    {% for topic in module.topics %}
+                        <li>{{ topic }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</section>
 
 {% endblock %}
+
