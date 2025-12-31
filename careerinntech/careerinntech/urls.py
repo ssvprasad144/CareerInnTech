@@ -33,6 +33,8 @@ urlpatterns = [
 
     path("skills/", include("skills.urls")),
      path("i18n/", include("django.conf.urls.i18n")),
+    path("placement-preparation/", include("placements.urls")),
+
 ]
 
 
