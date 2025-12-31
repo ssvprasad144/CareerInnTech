@@ -218,6 +218,34 @@ def welcome(request):
         "profile": profile
     })
 
+# ---------- PROFILE PAGE (ANALYTICS) ----------
+@login_required(login_url="login")
+def profile_page(request):
+    try:
+        profile = StudentProfile.objects.get(user=request.user)
+    except StudentProfile.DoesNotExist:
+        messages.warning(
+            request,
+            "Please complete your profile first."
+        )
+        return redirect("welcome")
+
+    # 🔹 TEMP progress values (later make dynamic)
+    progress_data = {
+        "skills": 40,
+        "projects": 30,
+        "placement": 30,
+    }
+
+    return render(
+        request,
+        "profile/profile_page.html",
+        {
+            "profile": profile,
+            "progress": progress_data,
+        }
+    )
+
 
 # ---------- COLLEGES ----------
 @login_required(login_url="login")
