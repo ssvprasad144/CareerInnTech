@@ -320,12 +320,7 @@ def jobs(request):
     })
 
 
-# ---------- PROJECTS ----------
-def projects(request):
-    projects = Project.objects.filter(is_active=True)
-    return render(request, "projects.html", {
-        "projects": projects
-    })
+
 
 
 # ---------- PAPERS ----------
