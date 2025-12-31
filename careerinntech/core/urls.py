@@ -21,6 +21,7 @@ urlpatterns = [
     path("courses/", views.course_tracks, name="course_tracks"),
     path("courses/btech/", views.btech_courses, name="btech_courses"),
  path("courses/btech/cs/", views.btech_cs, name="btech_cs"),
+    path("projects/", include("core.projects.urls")),
 
 path("courses/btech/aiml/", views.btech_aiml, name="btech_aiml"),
  path("courses/btech/ece/", views.btech_ece, name="btech_ece"),
