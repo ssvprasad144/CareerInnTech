@@ -16,6 +16,8 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('colleges/', views.college_track_select, name='college-track'),
     path('colleges/btech/', views.btech_categories, name='btech-categories'),
+    path("placement-preparation/", views.placement_preparation, name="placement_preparation"),
+
     path("courses/", views.course_tracks, name="course_tracks"),
     path("courses/btech/", views.btech_courses, name="btech_courses"),
  path("courses/btech/cs/", views.btech_cs, name="btech_cs"),
