@@ -32,6 +32,8 @@ path("dashboard/projects/", views.projects, name="projects"),
 path("previous-papers/", views.paper_select, name="paper_select"),
 path("previous-papers/btech/", views.btech_previous_year_papers, name="btech_papers"),
 path("previous-papers/hospitality/", views.hospitality_previous_year_papers, name="hospitality_papers"),
+path("profile/", views.profile_page, name="profile_page"),
+
 path("profile/edit/", views.edit_profile, name="edit_profile"),
 
 path("ai-chat/", views.ai_chat_page, name="ai_chat"),
