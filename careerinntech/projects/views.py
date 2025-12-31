@@ -1,32 +1,18 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from .data import PERSONALIZED_PROJECTS
+from .data import PROJECTS
 
+def projects_home(request):
 
-@login_required(login_url="login")
-def projects(request):
-    """
-    Personalized Projects Page
-    ---------------------------
-    - Uses static data (PERSONALIZED_PROJECTS)
-    - Track is temporarily hardcoded
-    - Later this will come from user profile
-    """
+    track = request.GET.get("track", "btech-cse")
+    project_type = request.GET.get("type", "personalized")
 
-    # TEMP: later replace with request.user.profile.track
-    user_track = "btech-cse"
-
-    # Fetch projects for this track
-    projects_list = PERSONALIZED_PROJECTS.get(user_track, [])
+    data = PROJECTS.get(track, {})
+    projects = data.get(project_type, {})
 
     context = {
-        "projects": projects_list,
-        "track": user_track.replace("-", " ").upper(),
-        "has_projects": bool(projects_list),
+        "track": track,
+        "project_type": project_type,
+        "projects": projects,
     }
 
-    return render(
-        request,
-        "projects/projects.html",
-        context
-    )
+    return render(request, "projects/projects.html", context)
