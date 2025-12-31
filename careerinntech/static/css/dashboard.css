@@ -515,6 +515,65 @@ body {
     text-align: center;
 }
 
+/* ===== PROFILE LEFT CARD – TEXT & VISUAL BOOST ===== */
+
+/* Username */
+.profile-main h3,
+.profile-name {
+    font-size: 32px;          /* was small → now strong */
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+}
+
+/* Email */
+.profile-main .muted {
+    font-size: 16px;
+    color: #94a3b8;
+    margin-bottom: 22px;
+}
+
+/* Main info lines */
+.profile-list li {
+    font-size: 18px;          /* increased */
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+/* Strong labels */
+.profile-list li strong {
+    font-weight: 700;
+    color: #e5e7eb;
+}
+
+/* Status line */
+.profile-status {
+    font-size: 16px;
+    margin-top: 26px;
+}
+
+/* Profile completion text emphasis */
+.profile-status span:last-child {
+    font-weight: 600;
+}
+
+/* Button size */
+.btn-primary.full,
+.btn-primary {
+    font-size: 17px;
+    padding: 16px 34px;
+}
+
+/* Card visual enhancement */
+.profile-main {
+    padding: 44px;            /* more breathing space */
+    background:
+        radial-gradient(circle at top left,
+        rgba(99,102,241,0.12),
+        rgba(2,6,23,0.85));
+}
+
+
 
 
 
