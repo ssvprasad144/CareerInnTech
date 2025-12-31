@@ -4,6 +4,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from placements.data import PLACEMENT_MODULES
+
+def home(request):
+    return render(
+        request,
+        "home.html",
+        {
+            "placement_modules": PLACEMENT_MODULES
+        }
+    )
+
+
 from .models import StudentProfile, Opportunity, Project
 import os
 import json
