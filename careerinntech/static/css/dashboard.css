@@ -573,7 +573,129 @@ body {
         rgba(2,6,23,0.85));
 }
 
+/* ================= HERO RESTRUCTURE ================= */
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 60px 8% 20px; /* Reduced bottom padding to fix the gap */
+}
 
+.hero-text {
+    flex: 1;
+    max-width: 600px;
+}
 
+.hero-text h1 {
+    font-size: 40px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
 
+/* ================= MENTORSHIP SIDEBAR ================= */
+.mentorship-sidebar {
+    width: 380px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+}
 
+.mentorship-sidebar h3 { font-size: 20px; margin-bottom: 5px; }
+.sub-text { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+
+.benefits-list { display: flex; flex-direction: column; gap: 10px; }
+
+.benefit-row {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ================= EXPLORE GRID ================= */
+.explore-section { padding: 20px 8% 60px; }
+
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.explore-card {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: left;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.explore-card h4 { font-size: 16px; margin-bottom: 5px; }
+.explore-card p { font-size: 13px; color: #94a3b8; }
+
+/* ================= SUBSCRIPTION SECTION ================= */
+.plans-section { padding: 60px 8%; text-align: left; }
+.plans-section h2 { margin-bottom: 30px; }
+
+.plans-grid {
+    display: flex;
+    gap: 30px;
+}
+
+.subscription-card {
+    flex: 1;
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+}
+
+.pro-card {
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+}
+
+.plan-name { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+.plan-price { font-size: 42px; font-weight: 800; margin-bottom: 20px; }
+.plan-price span { font-size: 16px; font-weight: 400; color: #94a3b8; }
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.plan-features li {
+    font-size: 15px;
+    color: #cbd5f5;
+    margin-bottom: 10px;
+}
+
+/* Gradient Button for Pro Plan */
+.view-plans-btn {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    padding: 14px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #4f46e5, #06b6d4);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.view-plans-btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
