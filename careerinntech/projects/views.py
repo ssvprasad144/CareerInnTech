@@ -23,4 +23,8 @@ def projects(request):
         "track": user_track.replace("-", " ").upper()
     }
 
-    return render(request, "projects/projects.html", context)
+    return render(
+        request,
+        "projects/projects.html",
+        {"projects": projects}
+    )
