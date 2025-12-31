@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>📦 Placement Preparation</h2>
+<p>Structured guidance to crack campus placements</p>
+
+{% for module in modules %}
+  <div style="margin-bottom:24px;">
+    <h3>{{ module.title }}</h3>
+    <p>{{ module.description }}</p>
+
+    <ul>
+      {% for topic in module.topics %}
+        <li>{{ topic }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
+
+{% endblock %}
