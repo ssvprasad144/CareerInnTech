@@ -48,9 +48,10 @@
     <div class="header-right">
 
         {% if user.is_authenticated %}
-            <div class="profile-circle" onclick="toggleSidebar()">
+            <a href="{% url 'profile_page' %}" class="profile-circle">
                 {{ user.username|first|upper }}
-            </div>
+            </a>
+
 
             {% if not user.studentprofile.is_profile_complete %}
                 <a href="{% url 'welcome' %}" class="primary-btn pulse-btn">
