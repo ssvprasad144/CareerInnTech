@@ -19,21 +19,39 @@
   <div class="profile-grid">
 
     <!-- LEFT : USER DETAILS -->
-    <div class="profile-card">
-      <h3>{{ user.username }}</h3>
+    <div class="profile-card profile-main">
+
+      <!-- NAME -->
+      <h3 class="profile-name">{{ user.username }}</h3>
       <p class="muted">{{ user.email }}</p>
-
+    
+      <!-- TAGS -->
+      <div class="profile-tags">
+        <span class="tag">{{ profile.track|title }}</span>
+        <span class="tag">{{ profile.branch }}</span>
+        <span class="tag">{{ profile.year }}</span>
+      </div>
+    
+      <!-- DETAILS -->
       <ul class="profile-list">
-        <li><strong>Track:</strong> {{ profile.track|title }}</li>
-        <li><strong>Branch:</strong> {{ profile.branch }}</li>
-        <li><strong>Year:</strong> {{ profile.year }}</li>
         <li><strong>Career Goal:</strong> {{ profile.career_goal }}</li>
+        <li><strong>Current Focus:</strong> Placement Preparation</li>
+        <li><strong>Active Since:</strong> {{ user.date_joined|date:"M Y" }}</li>
       </ul>
-
-      <a href="{% url 'edit_profile' %}" class="btn-primary small">
+    
+      <!-- STATUS -->
+      <div class="profile-status">
+        <span class="status-dot"></span>
+        <span>Profile 80% complete</span>
+      </div>
+    
+      <!-- ACTION -->
+      <a href="{% url 'edit_profile' %}" class="btn-primary full">
         Edit Profile
       </a>
+    
     </div>
+
 
     <!-- RIGHT : PROGRESS -->
     <div class="profile-card">
