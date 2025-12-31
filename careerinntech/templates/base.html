@@ -72,77 +72,14 @@
     </div>
 </header>
 
-<!-- ================= PROFILE SIDEBAR ================= -->
-{% if user.is_authenticated %}
-<div id="profileSidebar" class="profile-sidebar">
-    <div class="sidebar-header">
-        <h3>My Profile</h3>
-        <span class="close-btn" onclick="toggleSidebar()">✕</span>
-    </div>
 
-    <div class="sidebar-body">
-
-        <div class="profile-avatar">
-            {{ user.username|first|upper }}
-        </div>
-
-        <p class="profile-name">{{ user.username }}</p>
-        <p class="profile-email">{{ user.email }}</p>
-
-        {% if user.studentprofile.is_profile_complete %}
-            <div class="profile-details">
-                <div class="detail-card">
-                    <span>Track</span>
-                    <strong>{{ user.studentprofile.track|title }}</strong>
-                </div>
-
-                <div class="detail-card">
-                    <span>Year</span>
-                    <strong>{{ user.studentprofile.year }}</strong>
-                </div>
-
-                <div class="detail-card">
-                    <span>Goal</span>
-                    <strong>{{ user.studentprofile.career_goal }}</strong>
-                </div>
-            </div>
-        {% else %}
-            <p class="profile-warning">
-                Your profile is incomplete.<br>
-                Complete it to unlock personalized features.
-            </p>
-        {% endif %}
-
-        <hr>
-
-        {% if not user.studentprofile.is_profile_complete %}
-            <a href="{% url 'welcome' %}" class="sidebar-link highlight-link">
-                ⚠️ Complete Profile
-            </a>
-        {% else %}
-            <a href="{% url 'edit_profile' %}" class="sidebar-link">
-                ✏️ Edit Profile
-            </a>
-        {% endif %}
-
-        <a href="#" class="sidebar-link">My Subscription</a>
-        <a href="{% url 'support' %}" class="sidebar-link">Help & Support</a>
-
-    </div>
-</div>
-{% endif %}
 
 <!-- ================= MAIN CONTENT ================= -->
 <main class="main-content">
     {% block content %}{% endblock %}
 </main>
 
-<!-- ================= SIDEBAR SCRIPT ================= -->
-<script>
-function toggleSidebar() {
-    document.getElementById("profileSidebar").classList.toggle("open");
-}
-</script>
+
 
 <!-- ================= AI CHATBOT ================= -->
 <div id="aiChatbot">
