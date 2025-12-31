@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "core",
     "college",
     'skills',
+    'projects',
 ]
 USE_I18N = True
 
