@@ -6,13 +6,11 @@ from django.contrib import messages
 
 from placements.data import PLACEMENT_MODULES
 
-def home(request):
+def placement_preparation(request):
     return render(
         request,
-        "home.html",
-        {
-            "placement_modules": PLACEMENT_MODULES
-        }
+        "placements/placement_preparation.html",
+        {"modules": PLACEMENT_MODULES}
     )
 
 
