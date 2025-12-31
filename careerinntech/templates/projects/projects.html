@@ -1,28 +1,41 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-{% endblock %}
-
 {% block content %}
 
-<section class="projects-container">
-  <h1>🎯 Personalized Projects</h1>
-  <p class="muted">
-    Projects selected based on your profile & branch
-  </p>
+<section class="projects-page">
+
+<h1>🚀 Projects Explorer</h1>
+
+<!-- FILTERS -->
+<form method="get" class="filters">
+
+  <select name="track" onchange="this.form.submit()">
+    <option value="btech-cse">BTech - CSE</option>
+    <option value="hospitality">Hospitality</option>
+    <option value="school">School</option>
+  </select>
+
+  <select name="type" onchange="this.form.submit()">
+    <option value="personalized">Personalized Projects</option>
+    <option value="realtime">Realtime / Startup Projects</option>
+  </select>
+
+</form>
+
+<!-- PROJECTS -->
+{% for level, items in projects.items %}
+  <h2>{{ level }} Level</h2>
 
   <div class="project-grid">
-    {% for project in projects %}
+    {% for p in items %}
       <div class="project-card">
-        <h3>{{ project }}</h3>
-        <p>Hands-on project to build real skills.</p>
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.description }}</p>
+        <span class="badge">{{ level }}</span>
       </div>
-    {% empty %}
-      <p>No projects available right now.</p>
     {% endfor %}
   </div>
+{% endfor %}
+
 </section>
 
 {% endblock %}
