@@ -5,66 +5,37 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-
-
 {% endblock %}
 
 {% block content %}
 
-<!-- ================= HERO ================= -->
-<section class="hero-section">
-    <div class="hero-content">
+<section class="hero-container">
+    <div class="hero-text">
         <h1>👋 Welcome back to your Career Space</h1>
         <p>
-            Explore skills, colleges, projects, jobs, and AI-powered guidance —
+            Explore skills, colleges, projects, jobs, and AI-powered guidance — 
             everything you need to build confidence step by step.
         </p>
-
     </div>
 
-    <!-- 🔁 REPLACED CARD -->
-   <div class="hero-pass">
-    <h3>Mentorship & Benefits</h3>
+    <div class="mentorship-sidebar">
+        <h3>Mentorship & Benefits</h3>
+        <p class="sub-text">Available with Student & Pro plans</p>
 
-    <div class="benefits-grid">
-        <div class="benefit-item">
-            <span class="benefit-icon">🎯</span>
-            <span>1-on-1 Mentor guidance</span>
+        <div class="benefits-list">
+            <div class="benefit-row"><span>🎯</span> 1-on-1 Mentor guidance</div>
+            <div class="benefit-row"><span>🧭</span> Career Roadmap reviews</div>
+            <div class="benefit-row"><span>🎤</span> Mock Interviews & Feedback</div>
+            <div class="benefit-row"><span>🛠</span> Project & Placement support</div>
+            <div class="benefit-row"><span>🤖</span> Personalized AI suggestions</div>
         </div>
 
-        <div class="benefit-item">
-            <span class="benefit-icon">🧭</span>
-            <span>Career Roadmap reviews</span>
-        </div>
-
-        <div class="benefit-item">
-            <span class="benefit-icon">🎤</span>
-            <span>Mock Interviews & Feedback</span>
-        </div>
-
-        <div class="benefit-item">
-            <span class="benefit-icon">🛠</span>
-            <span>Project & Placement support</span>
-        </div>
-
-        <div class="benefit-item">
-            <span class="benefit-icon">🤖</span>
-            <span>Personalized AI suggestions</span>
-        </div>
+        <div class="plan-note">Available with <strong>Student</strong> & <strong>Pro</strong> plans</div>
     </div>
-
-    <div class="plan-note">
-        Available with <strong>Student</strong> & <strong>Pro</strong> plans
-    </div>
-</div>
-
-
 </section>
 
-<!-- ================= QUICK EXPLORE ================= -->
 <section class="explore-section">
     <div class="explore-grid">
-
         <a href="{% url 'course_tracks' %}" class="explore-card">
             <h4>📘 Courses</h4>
             <p>BTech & Hospitality tracks</p>
@@ -75,15 +46,14 @@
             <p>Fees, cutoff & ratings</p>
         </a>
 
-        <!-- 🔁 REPLACED MENTORS -->
-        <a href="{% url 'paper_select' %}" class="explore-card">
-            <h4>📄 Previous Year Papers</h4>
-            <p>Curated & branch-wise papers</p>
-        </a>
-
         <a href="{% url 'projects' %}" class="explore-card">
             <h4>🛠 Projects</h4>
             <p>Track-wise real projects</p>
+        </a>
+
+        <a href="{% url 'paper_select' %}" class="explore-card">
+            <h4>📄 Previous Year Papers</h4>
+            <p>Curated branch-wise papers</p>
         </a>
 
         <a href="{% url 'jobs' %}" class="explore-card">
@@ -95,68 +65,46 @@
             <h4>🎯 Placement Preparation</h4>
             <p>Aptitude, DSA, GD & Interview prep</p>
         </a>
-
-
-        
-
     </div>
 </section>
 
-<!-- ================= SKILLS ================= -->
 <section class="skills-section">
     <h2>Skills</h2>
-
     <div class="skills-box">
-        <p>Choose your track to explore structured skill videos.</p>
-
+        <p>Pick a track & explore skill videos</p>
         <div class="skills-actions">
-            <a href="{% url 'btech_skills' %}" class="skill-btn btech">
-                🎓 BTech Skills
-            </a>
-
-            <a href="#" class="skill-btn hospitality">
-                🏨 Hospitality Skills
-            </a>
+            <a href="{% url 'btech_skills' %}" class="skill-btn btech">🎓 BTech Skills</a>
+            <a href="#" class="skill-btn hospitality">🏨 Hospitality Skills</a>
         </div>
-
-        <span>Branch-wise skills • Video learning • Filters</span>
+        <span class="skills-footer">Branch-wise skills • Video learning • Filters</span>
     </div>
 </section>
 
-
-<!-- ================= PLANS ================= -->
 <section class="plans-section">
-    <h2>Subscription plans designed for every stage</h2>
-
+    <h2>Subscription Plans</h2>
     <div class="plans-grid">
-
-        
-
-        <div class="plan-card">
-            <h4>Starter</h4>
-            <div class="plan-price">₹249</div>
-            <ul>
-                <li>Skill videos</li>
-                <li>Previous year papers</li>
+        <div class="subscription-card">
+            <p class="plan-name">Student</p>
+            <div class="plan-price">₹249 <span>/ month</span></div>
+            <ul class="plan-features">
+                <li>Popular videos</li>
+                <li>1-on-1 mentor sessions</li>
                 <li>Limited mentor insights</li>
             </ul>
         </div>
 
-       
-
-
-        <div class="plan-card">
-            <h4>Pro</h4>
-            <div class="plan-price">₹999</div>
-            <ul>
-                <li>Priority mentorship</li>
+        <div class="subscription-card pro-card">
+            <p class="plan-name">Pro</p>
+            <div class="plan-price">₹999 <span>/ month</span></div>
+            <ul class="plan-features">
+                <li>All Student benefits</li>
+                <li>Regular mentorship</li>
                 <li>Career roadmap reviews</li>
                 <li>Future premium features</li>
             </ul>
+            <a href="#" class="view-plans-btn">View Plans</a>
         </div>
-
     </div>
 </section>
 
 {% endblock %}
-
