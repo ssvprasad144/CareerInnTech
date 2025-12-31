@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<section style="padding:40px 100px;">
+
+  <h2>👤 My Profile</h2>
+  <p style="color:#94a3b8;">Your learning & placement progress</p>
+
+  <!-- USER INFO -->
+  <div class="skills-box" style="margin-top:30px;">
+    <h3>{{ request.user.username }}</h3>
+    <p>{{ request.user.email }}</p>
+
+    <p><strong>Track:</strong> {{ profile.track }}</p>
+    <p><strong>Branch:</strong> {{ profile.branch }}</p>
+    <p><strong>Year:</strong> {{ profile.year }}</p>
+    <p><strong>Career Goal:</strong> {{ profile.career_goal }}</p>
+
+    <a href="{% url 'edit_profile' %}" class="btn-primary" style="margin-top:20px;">
+        Edit Profile
+    </a>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="skills-box" style="margin-top:40px; max-width:480px;">
+    <h3>📊 Progress Overview</h3>
+    <canvas id="progressChart"></canvas>
+  </div>
+
+</section>
+
+<script>
+new Chart(document.getElementById('progressChart'), {
+    type: 'pie',
+    data: {
+        labels: ['Skills', 'Projects', 'Placement Prep'],
+        datasets: [{
+            data: [
+                {{ progress.skills }},
+                {{ progress.projects }},
+                {{ progress.placement }}
+            ],
+            backgroundColor: ['#6366f1', '#10b981', '#38bdf8']
+        }]
+    },
+    options: {
+        plugins: {
+            legend: { labels: { color: '#e5e7eb' } }
+        }
+    }
+});
+</script>
+
+{% endblock %}
