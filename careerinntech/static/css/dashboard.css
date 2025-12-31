@@ -274,10 +274,12 @@ body {
 
 .profile-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    max-width: 1100px;
+    grid-template-columns: 1.2fr 1.5fr;
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
+
 
 .profile-card {
     background: rgba(2,6,23,.75);
@@ -384,5 +386,66 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.profile-card h3 {
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+.profile-card {
+    min-height: 320px;
+}
+
+
+.chart-wrapper {
+    max-width: 260px;
+    margin: 20px auto;
+}
+
+.progress-legend {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #cbd5f5;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.dot.skills { background: #6366f1; }
+.dot.projects { background: #10b981; }
+.dot.placement { background: #38bdf8; }
+
+
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1300px;
+    margin: 40px auto 0;
+}
+
+.action-card {
+    padding: 24px;
+    border-radius: 18px;
+    background: rgba(2,6,23,.75);
+    border: 1px solid #1e293b;
+    font-weight: 600;
+    text-align: center;
+    transition: .3s;
+}
+
+.action-card:hover {
+    transform: translateY(-6px);
+    border-color: #6366f1;
+}
+
 
 
