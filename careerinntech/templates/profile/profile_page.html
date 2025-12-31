@@ -39,6 +39,11 @@
     <div class="profile-card">
       <h3>📊 Your Progress</h3>
 
+    <div class="chart-wrapper">
+      <canvas id="progressChart"></canvas>
+    </div>
+
+
       <!-- Skills -->
       <div class="progress-row">
         <span>Skills</span>
@@ -79,5 +84,32 @@
   </div>
 
 </section>
+
+<script>
+const ctx = document.getElementById('progressChart');
+
+if (ctx) {
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Skills', 'Projects', 'Placement Prep'],
+      datasets: [{
+        data: [
+          {{ progress.skills }},
+          {{ progress.projects }},
+          {{ progress.placement }}
+        ],
+        backgroundColor: ['#6366f1', '#10b981', '#38bdf8'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      cutout: '70%',
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+</script>
+
 
 {% endblock %}
