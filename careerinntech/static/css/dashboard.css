@@ -265,7 +265,7 @@ body {
 /* ================= PROFILE PAGE ================= */
 
 .profile-container {
-    padding: 40px 100px;
+    padding: 60px 100px;
 }
 
 .profile-header {
@@ -281,12 +281,6 @@ body {
 }
 
 
-.profile-card {
-    background: rgba(2,6,23,.75);
-    border: 1px solid #1e293b;
-    border-radius: 18px;
-    padding: 24px;
-}
 
 /* Profile details list */
 .profile-list {
@@ -388,19 +382,34 @@ body {
 }
 
 .profile-card h3 {
-    font-size: 22px;
-    margin-bottom: 4px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
 }
 
+
 .profile-card {
-    min-height: 320px;
+    background: rgba(2,6,23,.75);
+    border: 1px solid #1e293b;
+    border-radius: 22px;
+    padding: 32px;
+    min-height: 420px;
+    box-shadow: 0 0 0 transparent;
+    transition: box-shadow 0.3s;
 }
+
+.profile-card:hover {
+    box-shadow: 0 20px 50px rgba(99,102,241,0.15);
+}
+
+
 
 
 .chart-wrapper {
-    max-width: 260px;
-    margin: 20px auto;
+    max-width: 300px;
+    margin: 30px auto 40px;
 }
+
 
 .progress-legend {
     display: flex;
