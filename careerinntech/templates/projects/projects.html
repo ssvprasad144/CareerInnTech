@@ -1,42 +1,101 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects Hub | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/projects.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<section class="projects-page">
+<section class="projects-hero">
+    <h1>🚀 Projects Hub</h1>
+    <p>
+        Work on personalized learning projects or gain real-time experience by
+        collaborating with startups.
+    </p>
+</section>
 
-<h1>🚀 Projects Explorer</h1>
+<!-- ================= PERSONALIZED PROJECTS ================= -->
+<section class="projects-section">
+    <div class="section-header">
+        <h2>🎯 Personalized Projects</h2>
+        <span>Based on your skills & career goals</span>
+    </div>
 
-<!-- FILTERS -->
-<form method="get" class="filters">
+    <div class="projects-grid">
 
-  <select name="track" onchange="this.form.submit()">
-    <option value="btech-cse">BTech - CSE</option>
-    <option value="hospitality">Hospitality</option>
-    <option value="school">School</option>
-  </select>
+        <div class="project-card">
+            <h3>Skill Builder Projects</h3>
+            <p>
+                Guided projects curated to strengthen your core skills
+                step-by-step.
+            </p>
+            <ul>
+                <li>✔ Structured roadmap</li>
+                <li>✔ Mentor guidance</li>
+                <li>✔ Resume-ready outcomes</li>
+            </ul>
+            <button class="primary-btn">Explore</button>
+        </div>
 
-  <select name="type" onchange="this.form.submit()">
-    <option value="personalized">Personalized Projects</option>
-    <option value="realtime">Realtime / Startup Projects</option>
-  </select>
+        <div class="project-card">
+            <h3>Career Track Projects</h3>
+            <p>
+                Projects aligned with your chosen career path
+                (Web, Data, AI, Core).
+            </p>
+            <ul>
+                <li>✔ Domain focused</li>
+                <li>✔ Progressive difficulty</li>
+                <li>✔ Placement aligned</li>
+            </ul>
+            <button class="primary-btn">View Tracks</button>
+        </div>
 
-</form>
+    </div>
+</section>
 
-<!-- PROJECTS -->
-{% for level, items in projects.items %}
-  <h2>{{ level }} Level</h2>
+<!-- ================= STARTUP PROJECTS ================= -->
+<section class="projects-section">
+    <div class="section-header">
+        <h2>🏢 Startup & Real-Time Projects</h2>
+        <span>Work with startups & gain real experience</span>
+    </div>
 
-  <div class="project-grid">
-    {% for p in items %}
-      <div class="project-card">
-        <h3>{{ p.title }}</h3>
-        <p>{{ p.description }}</p>
-        <span class="badge {{ level }}">{{ level }}</span>
+    <div class="projects-grid">
 
-      </div>
-    {% endfor %}
-  </div>
-{% endfor %}
+        <div class="project-card highlight">
+            <h3>Live Startup Work</h3>
+            <p>
+                Collaborate with early-stage startups and solve real business
+                problems.
+            </p>
+            <ul>
+                <li>✔ Real clients</li>
+                <li>✔ Team collaboration</li>
+                <li>✔ Industry exposure</li>
+            </ul>
+            <button class="secondary-btn">Apply</button>
+        </div>
 
+        <div class="project-card highlight">
+            <h3>Internship-Style Projects</h3>
+            <p>
+                Simulated startup environments with deadlines,
+                reviews & deliverables.
+            </p>
+            <ul>
+                <li>✔ Agile workflow</li>
+                <li>✔ Mentor feedback</li>
+                <li>✔ Experience certificate</li>
+            </ul>
+            <button class="secondary-btn">Join</button>
+        </div>
+
+    </div>
 </section>
 
 {% endblock %}
+
