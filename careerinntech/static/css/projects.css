@@ -1,154 +1,130 @@
-/* ================= ROOT ================= */
-.projects-page {
-    padding: 60px 100px;
-    color: #e5e7eb;
+/* ================= HERO ================= */
+.projects-hero {
+    padding: 80px 100px 40px;
+    text-align: center;
 }
 
-.projects-page h1 {
-    font-size: 40px;
+.projects-hero h1 {
+    font-size: 42px;
     font-weight: 800;
-    margin-bottom: 10px;
 }
 
-.projects-page h2 {
-    font-size: 26px;
-    margin: 40px 0 16px;
+.projects-hero p {
+    max-width: 700px;
+    margin: 14px auto;
+    color: #cbd5f5;
+}
+
+/* ================= SECTIONS ================= */
+.projects-section {
+    padding: 60px 100px;
+}
+
+.section-header {
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    font-size: 28px;
     font-weight: 700;
 }
 
-/* ================= FILTERS ================= */
-.filters {
-    display: flex;
-    gap: 16px;
-    margin: 30px 0 40px;
+.section-header span {
+    font-size: 14px;
+    color: #94a3b8;
 }
 
-.filters select {
-    background: rgba(2, 6, 23, 0.9);
-    border: 1px solid #1e293b;
-    color: #e5e7eb;
-    padding: 14px 18px;
-    border-radius: 14px;
-    font-size: 15px;
-    outline: none;
-    cursor: pointer;
-    min-width: 220px;
-}
-
-.filters select:hover {
-    border-color: #6366f1;
-}
-
-/* ================= PROJECT GRID ================= */
-.project-grid {
+/* ================= GRID ================= */
+.projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 26px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
 }
 
-/* ================= PROJECT CARD ================= */
+/* ================= CARD ================= */
 .project-card {
     background: linear-gradient(
         180deg,
-        rgba(15, 23, 42, 0.95),
-        rgba(2, 6, 23, 0.95)
+        rgba(15,23,42,.9),
+        rgba(2,6,23,.95)
     );
+    border-radius: 24px;
+    padding: 34px;
     border: 1px solid #1e293b;
-    border-radius: 22px;
-    padding: 26px;
-    transition: all 0.35s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.project-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        circle at top left,
-        rgba(99, 102, 241, 0.18),
-        transparent 60%
-    );
-    opacity: 0;
-    transition: 0.35s;
-}
-
-.project-card:hover::before {
-    opacity: 1;
+    transition: .3s;
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(99,102,241,.25);
     border-color: #6366f1;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
 }
 
-/* ================= CARD CONTENT ================= */
 .project-card h3 {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 22px;
     margin-bottom: 10px;
 }
 
 .project-card p {
-    font-size: 14.5px;
     color: #cbd5f5;
-    line-height: 1.6;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
-/* ================= LEVEL BADGES ================= */
-.badge {
-    display: inline-block;
-    padding: 6px 14px;
+.project-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.project-card ul li {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+/* ================= BUTTONS ================= */
+.primary-btn,
+.secondary-btn {
+    padding: 12px 26px;
     border-radius: 999px;
-    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.3px;
+    border: none;
+    cursor: pointer;
+    transition: .3s;
 }
 
-/* Beginner */
-.badge.Beginner {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.4);
+.primary-btn {
+    background: linear-gradient(90deg, #6366f1, #22d3ee);
+    color: #fff;
 }
 
-/* Intermediate */
-.badge.Intermediate {
-    background: rgba(234, 179, 8, 0.15);
-    color: #facc15;
-    border: 1px solid rgba(234, 179, 8, 0.4);
+.secondary-btn {
+    background: rgba(99,102,241,.15);
+    color: #c7d2fe;
+    border: 1px solid rgba(99,102,241,.4);
 }
 
-/* Advanced */
-.badge.Advanced {
-    background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
-    border: 1px solid rgba(239, 68, 68, 0.4);
+.primary-btn:hover,
+.secondary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(99,102,241,.5);
 }
 
-/* ================= EMPTY STATE ================= */
-.projects-page .empty {
-    margin-top: 40px;
-    font-size: 16px;
-    color: #94a3b8;
+/* ================= HIGHLIGHT ================= */
+.project-card.highlight {
+    background:
+        radial-gradient(circle at top left,
+        rgba(99,102,241,.15),
+        rgba(2,6,23,.9));
 }
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 1000px) {
-    .projects-page {
-        padding: 40px 24px;
+    .projects-grid {
+        grid-template-columns: 1fr;
     }
 
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .filters select {
-        width: 100%;
+    .projects-hero,
+    .projects-section {
+        padding: 40px;
     }
 }
