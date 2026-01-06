@@ -8,10 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- ================= GLOBAL CSS ================= -->
+    <!-- GLOBAL CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-    <!-- ================= PAGE LEVEL CSS ================= -->
     {% block extra_css %}{% endblock %}
 </head>
 
@@ -128,23 +127,21 @@
     </div>
 </div>
 
-<script>
-function toggleChatbot() {
-    document.getElementById("chatbotWindow").classList.toggle("open");
-}
-</script>
-
 <script src="{% static 'js/base.js' %}"></script>
 <script src="{% static 'js/bot-walk.js' %}"></script>
 
 <script>
+function toggleChatbot() {
+    document.getElementById("chatbotWindow").classList.toggle("open");
+}
+
 window.addEventListener("pageshow", function (event) {
     if (event.persisted) {
-        // Page was restored from back-forward cache
         window.location.reload();
     }
 });
 </script>
+
 
 </body>
 </html>
