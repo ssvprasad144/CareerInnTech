@@ -6,20 +6,24 @@ function startBotWalk() {
 
     const overlay = document.getElementById("botWalkOverlay");
     const bot = document.getElementById("botWalker");
-    
+
+    if (!overlay || !bot) {
+        botWalking = false;
+        return;
+    }
+
     overlay.classList.remove("hidden");
 
-    // reset animation
+    // Force clean reset
     bot.style.animation = "none";
-    bot.offsetHeight;
+    bot.style.transform = "translate(-120px, -50%)";
+    void bot.offsetWidth;
 
-    // start walk
-    bot.style.animation = "botWalk 7s linear forwards";
+    // Start walk
+    bot.style.animation = "botWalk 8s linear forwards";
 
-/* Redirect after walk completes */
-setTimeout(() => {
-    window.location.assign("/ai/");
-}, 7000);
-
-
+    // Redirect AFTER animation
+    setTimeout(() => {
+        window.location.href = "/ai/";
+    }, 8000);
 }
