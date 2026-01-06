@@ -338,7 +338,7 @@ form button[type="submit"]:hover {
     position: absolute;
     bottom: 70px;
     right: 0;
-    left: auto
+    left: auto;
     width: 360px;
     background: linear-gradient(180deg, #020617, #0f172a);
     border: 1px solid #1e293b;
