@@ -1,4 +1,3 @@
-
 function toggleSidebar() {
     document.getElementById("profileSidebar").classList.toggle("open");
 }
@@ -68,6 +67,5 @@ function startAIChat() {
 function openAIBotPage() {
     window.location.href = "/ai/";
 }
-
 
 
