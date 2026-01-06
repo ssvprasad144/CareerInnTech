@@ -17,21 +17,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 4000);
     }
 
-    // Home link registration check
-    const homeLink = document.getElementById("homeLink");
-    if (!homeLink) return;
+//     // Home link registration check
+//     const homeLink = document.getElementById("homeLink");
+//     if (!homeLink) return;
 
-    const isRegistered = "{{ request.session.is_registered|default:'False' }}";
+//     const isRegistered = "{{ request.session.is_registered|default:'False' }}";
 
-    homeLink.addEventListener("click", function (e) {
-        if (isRegistered !== "True") {
-            e.preventDefault();
-            alert(
-                "⚠️ Please complete your registration for better mentorship and personalized guidance."
-            );
-        }
-    });
-});
+//     homeLink.addEventListener("click", function (e) {
+//         if (isRegistered !== "True") {
+//             e.preventDefault();
+//             alert(
+//                 "⚠️ Please complete your registration for better mentorship and personalized guidance."
+//             );
+//         }
+//     });
+// });
 
 function toggleChatbot() {
     const chat = document.getElementById("chatbotWindow");
