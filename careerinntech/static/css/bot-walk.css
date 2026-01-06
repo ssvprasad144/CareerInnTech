@@ -17,9 +17,9 @@
 #botWalker {
     width: 90px;
     position: absolute;
-    left: -120px;
+    left: 0px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-120px,-50%);
     will-change: transform;
 }
 
@@ -33,23 +33,3 @@
     }
 }
 
-.bot-speech {
-    position: fixed;                 /* 🔑 FIX */
-    top: 50%;                        /* vertical center */
-    left: 50%;                       /* horizontal center */
-    transform: translate(-50%, -120%);
-    
-    background: rgba(15, 23, 42, 0.95);
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 16px;
-    font-size: 16px;
-    font-weight: 600;
-
-    z-index: 100000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-}
-
-.bot-speech.hidden {
-    display: none;
-}
