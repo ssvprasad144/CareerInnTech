@@ -5,6 +5,8 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/bot-walk.css' %}">
+<script defer src="{% static 'js/bot-walk.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -106,5 +108,16 @@
         </div>
     </div>
 </section>
+<!-- BOT WALK OVERLAY -->
+<div id="botWalkOverlay" class="bot-walk-overlay hidden">
+
+    <!-- Walking bot -->
+    <img
+        src="{% static 'images/bot/bot-walk.gif' %}"
+        id="botWalker"
+        class="bot-img"
+        alt="AI Bot Walking"
+    />
+</div>
 
 {% endblock %}
