@@ -1,3 +1,4 @@
+
 function toggleSidebar() {
     document.getElementById("profileSidebar").classList.toggle("open");
 }
@@ -38,7 +39,6 @@ function toggleChatbot() {
     chat.style.display = chat.style.display === "flex" ? "none" : "flex";
 }
 
-alertContainer.classList.add("fade-out");
 
 async function sendMessage() {
     const input = document.getElementById("chatInput");
@@ -68,5 +68,6 @@ function startAIChat() {
 function openAIBotPage() {
     window.location.href = "/ai/";
 }
+
 
 
