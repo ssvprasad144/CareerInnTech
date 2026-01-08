@@ -4,13 +4,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from placements.data import PLACEMENT_MODULES
+
 
 def placement_preparation(request):
     return render(
         request,
         "placements/placement_preparation.html",
-        {"modules": PLACEMENT_MODULES}
+      
     )
 
 
@@ -123,23 +123,19 @@ def post_login(request):
 
 
 # ---------- DASHBOARD (PROTECTED) ----------
-@login_required(login_url="login")
 def dashboard(request):
-
-    profile_completed = StudentProfile.objects.filter(
-        user=request.user
-    ).exists()
-
-    if not profile_completed:
-        messages.warning(
-            request,
-            "⚠️ Please complete your registration for better mentorship."
-        )
-        
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        projects = Project.objects.filter(user=request.user)
+    else:
+        profile = None
+        projects = Project.objects.none()
 
     return render(request, "dashboard.html", {
-        "profile_completed": profile_completed
+        "profile": profile,
+        "projects": projects,
     })
+
 
 @login_required(login_url="login")
 def edit_profile(request):

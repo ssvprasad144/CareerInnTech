@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/ai_mock_interview.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="ai-mock-section">
+
+    <!-- Back Button -->
+    <div class="back-link">
+        <a href="{% url 'interview-preparation' %}">← Back to Interview Preparation</a>
+    </div>
+
+    <!-- Header -->
+    <div class="ai-mock-header">
+        <h1>🎙️ AI Mock Interview</h1>
+        <p>
+            Experience a real interview environment with AI-powered voice interaction
+            and instant feedback.
+        </p>
+    </div>
+
+    <!-- How It Works -->
+    <div class="ai-info-grid">
+
+        <div class="info-card">
+            <h3>🧠 AI Asks Questions</h3>
+            <p>
+                The AI interviewer asks role-based interview questions just like a real interviewer.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <h3>🎤 You Answer by Voice</h3>
+            <p>
+                Speak your answers naturally. The system listens and understands your response.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <h3>📊 Instant Feedback</h3>
+            <p>
+                Get feedback on communication, clarity, and confidence after the interview.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Requirements -->
+    <div class="requirements-box">
+        <h3>⚠️ Before You Start</h3>
+        <ul>
+            <li>Microphone access is required</li>
+            <li>Ensure a quiet environment</li>
+            <li>Interview duration: ~15 minutes</li>
+        </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="start-btn-wrapper">
+        <button
+    onclick="window.location.href='{% url 'ai-interview-select' %}'"
+    class="start-btn">
+    🚀 Start AI Mock Interview
+</button>
+
+    </div>
+
+</section>
+
+{% block extra_js %}
+<script src="{% static 'js/ai/ai_mock_interview.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

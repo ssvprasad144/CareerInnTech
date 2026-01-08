@@ -1,0 +1,88 @@
+.select-section {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.back-link {
+    margin-bottom: 20px;
+}
+
+.back-link a {
+    color: #94a3b8;
+    text-decoration: none;
+}
+
+/* Header */
+.select-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.select-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.select-header p {
+    color: #94a3b8;
+}
+
+/* Grid */
+.select-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 24px;
+}
+
+/* Cards */
+.select-card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: 22px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.select-card h3 {
+    margin-bottom: 8px;
+}
+
+.select-card p {
+    color: #cbd5f5;
+    font-size: 0.9rem;
+}
+
+.select-card:hover {
+    transform: translateY(-4px);
+    border-color: #38bdf8;
+}
+
+/* Selected */
+.select-card.selected {
+    border: 2px solid #22c55e;
+    background: linear-gradient(135deg, #0f172a, #08321f);
+}
+
+/* CTA */
+.start-wrapper {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.proceed-btn {
+    background: #22c55e;
+    color: #022c22;
+    border: none;
+    padding: 14px 30px;
+    font-size: 1.05rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.proceed-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

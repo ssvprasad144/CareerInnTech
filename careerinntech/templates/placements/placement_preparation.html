@@ -1,5 +1,3 @@
-
-
 {% extends "base.html" %}
 {% load static %}
 
@@ -10,26 +8,94 @@
 {% block content %}
 
 <section class="explore-section">
+
     <h2 style="margin-bottom: 10px;">🎯 Placement Preparation</h2>
     <p style="margin-bottom: 30px; color: #94a3b8;">
         Complete guidance to crack campus placements — from aptitude tests to final interviews.
     </p>
 
     <div class="explore-grid">
-        {% for module in modules %}
-            <div class="explore-card">
-                <h4>{{ module.title }}</h4>
-                <p>{{ module.description }}</p>
 
-                <ul style="margin-top: 12px; padding-left: 18px;">
-                    {% for topic in module.topics %}
-                        <li>{{ topic }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endfor %}
+        <!-- Aptitude Question Bank -->
+        <div class="explore-card">
+            <h4>Aptitude Question Bank</h4>
+            <p>High-frequency aptitude questions asked in hiring tests.</p>
+            <ul>
+                <li>Quantitative aptitude problems</li>
+                <li>Logical reasoning puzzles</li>
+                <li>Verbal ability questions</li>
+                <li>Shortcut methods & tricks</li>
+            </ul>
+        </div>
+
+        <!-- Company-Wise DSA -->
+        <div class="explore-card">
+            <h4>Company-Wise Important DSA Questions</h4>
+            <p>Frequently asked DSA patterns in technical interviews.</p>
+            <ul>
+                <li>Arrays & strings interview patterns</li>
+                <li>Linked list must-know questions</li>
+                <li>Stack & queue problems</li>
+                <li>Hashing-based questions</li>
+                <li>Basic trees & graphs</li>
+            </ul>
+        </div>
+
+        <!-- Coding Assessment -->
+        <div class="explore-card">
+            <h4>Coding Assessment Strategy</h4>
+            <p>How to perform well in online coding tests.</p>
+            <ul>
+                <li>Input-output based problems</li>
+                <li>Time management during tests</li>
+                <li>Avoiding common logical mistakes</li>
+            </ul>
+        </div>
+
+        <!-- Resume & Shortlisting -->
+        <div class="explore-card">
+            <h4>Resume & Shortlisting</h4>
+            <p>Build resumes that actually get shortlisted.</p>
+            <ul>
+                <li>ATS-friendly resume structure</li>
+                <li>Project explanation clarity</li>
+                <li>Common resume rejection reasons</li>
+            </ul>
+        </div>
+
+        <!-- Group Discussion -->
+        <div class="explore-card">
+            <h4>Group Discussion (GD) Preparation</h4>
+            <p>Crack group discussion rounds confidently.</p>
+            <ul>
+                <li>GD formats & evaluation criteria</li>
+                <li>How to start and enter a GD</li>
+                <li>Effective communication & body language</li>
+                <li>Handling disagreements politely</li>
+                <li>Common GD mistakes</li>
+            </ul>
+        </div>
+
+        <!-- Interview Preparation -->
+        <div class="explore-card">
+            <h4>Interview Preparation</h4>
+            <p>Cracking technical, HR, and managerial interviews.</p>
+            <ul>
+                <li>Technical interview approach</li>
+                <li>HR interview questions</li>
+                <li>Managerial & situational rounds</li>
+            </ul>
+
+            <!-- CTA -->
+            <a href="{% url 'interview-preparation' %}"
+               class="btn btn-primary"
+               style="margin-top: 12px; display: inline-block;">
+                🎤 Go to Interview Preparation
+            </a>
+        </div>
+
     </div>
+
 </section>
 
 {% endblock %}
-

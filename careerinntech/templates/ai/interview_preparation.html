@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_preparation.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="interview-prep-section">
+
+    <!-- Header -->
+    <div class="interview-prep-header">
+        <h1>🎤 Interview Preparation</h1>
+        <p>
+            Prepare smartly for every interview stage — understand patterns, avoid mistakes,
+            and practice with AI-powered mock interviews.
+        </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="interview-prep-grid">
+
+        <!-- Types of Interview -->
+        <a href="#" class="prep-card">
+            <h3>📌 Types of Interviews</h3>
+            <p>HR, Technical, Managerial, System Design & more.</p>
+            <span class="card-hint">Understand what to expect</span>
+        </a>
+
+        <!-- Interview Tips -->
+        <a href="#" class="prep-card">
+            <h3>💡 Interview Tips</h3>
+            <p>Answer structuring, communication tips, confidence building.</p>
+            <span class="card-hint">Improve your answers</span>
+        </a>
+
+        <!-- Interview Myths -->
+        <a href="#" class="prep-card">
+            <h3>❌ Myths & Mistakes</h3>
+            <p>Common misconceptions that hurt your chances.</p>
+            <span class="card-hint">Avoid costly errors</span>
+        </a>
+
+        <!-- Question Bank -->
+        <a href="#" class="prep-card">
+            <h3>📚 Question Bank</h3>
+            <p>Frequently asked HR & technical interview questions.</p>
+            <span class="card-hint">Practice before AI</span>
+        </a>
+
+        <!-- Resume Based Prep -->
+        <a href="#" class="prep-card">
+            <h3>📄 Resume-Based Prep</h3>
+            <p>Prepare answers based on your resume projects & skills.</p>
+            <span class="card-hint">Personalized preparation</span>
+        </a>
+
+        <!-- Body Language -->
+        <a href="#" class="prep-card">
+            <h3>🗣️ Communication & Body Language</h3>
+            <p>Voice clarity, posture, confidence & eye contact.</p>
+            <span class="card-hint">Non-verbal mastery</span>
+        </a>
+
+        <!-- AI Mock Interview (HIGHLIGHTED) -->
+        <a href="{% url 'ai-mock-interview' %}" class="prep-card ai-highlight">
+            <div class="badge">⭐ Recommended</div>
+            <h3>🎙️ AI Mock Interview</h3>
+            <p>
+                Real-time AI voice interview with instant feedback and scoring.
+            </p>
+            <span class="card-hint">Simulates real interview</span>
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

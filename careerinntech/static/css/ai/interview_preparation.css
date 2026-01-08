@@ -1,0 +1,112 @@
+/* ===============================
+   Interview Preparation Page
+   =============================== */
+
+.interview-prep-section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.interview-prep-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.interview-prep-header h1 {
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+}
+
+.interview-prep-header p {
+    color: #94a3b8;
+    font-size: 1.1rem;
+}
+
+/* ===============================
+   Grid Layout
+   =============================== */
+
+.interview-prep-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+/* ===============================
+   Card Base Style
+   =============================== */
+
+.prep-card {
+    position: relative;
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    color: #e5e7eb;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.prep-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.prep-card p {
+    font-size: 0.95rem;
+    color: #cbd5f5;
+    margin-bottom: 14px;
+}
+
+.card-hint {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* ===============================
+   Hover Effect (All Cards)
+   =============================== */
+
+.prep-card:hover {
+    transform: translateY(-6px);
+    border-color: #38bdf8;
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.12);
+}
+
+/* ===============================
+   AI Mock Interview Card (Soft Highlight)
+   =============================== */
+
+.ai-highlight {
+    border: 1.5px solid #22c55e;
+    background: linear-gradient(135deg, #0f172a, #08321f);
+}
+
+/* Reduced hover glow */
+.ai-highlight:hover {
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.18);
+}
+
+/* Extra spacing so badge never overlaps title */
+.ai-highlight h3 {
+    margin-top: 8px;
+}
+
+/* ===============================
+   Recommended Badge (Soft & Clean)
+   =============================== */
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #16a34a;
+    color: #ecfdf5;
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    border-radius: 12px;
+    font-weight: 500;
+    opacity: 0.9;
+    pointer-events: none;
+}
