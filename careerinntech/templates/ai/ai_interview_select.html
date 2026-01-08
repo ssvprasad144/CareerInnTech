@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/ai_interview_select.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="select-section">
+
+    <!-- Back -->
+    <div class="back-link">
+        <a href="{% url 'ai-mock-interview' %}">← Back</a>
+    </div>
+
+    <!-- Header -->
+    <div class="select-header">
+        <h1>🎯 Select Interview Type</h1>
+        <p>Choose the interview you want to practice. The questions will adapt accordingly.</p>
+    </div>
+
+    <!-- Options -->
+    <div class="select-grid">
+
+        <div class="select-card" data-type="web_dev">
+            <h3>🌐 Web Developer</h3>
+            <p>HTML, CSS, JavaScript, Django, React basics.</p>
+        </div>
+
+        <div class="select-card" data-type="ai_ml">
+            <h3>🤖 AI / ML Engineer</h3>
+            <p>Machine learning, Python, data handling, fundamentals.</p>
+        </div>
+
+        <div class="select-card" data-type="data_analyst">
+            <h3>📊 Data Analyst</h3>
+            <p>SQL, Python, Excel, data interpretation.</p>
+        </div>
+
+        <div class="select-card" data-type="hr">
+            <h3>🧑‍💼 HR Interview</h3>
+            <p>Communication, confidence, behavioral questions.</p>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="start-wrapper">
+        <button id="proceedBtn" class="proceed-btn" disabled>
+            Continue to Interview →
+        </button>
+    </div>
+
+</section>
+
+{% block extra_js %}
+<script src="{% static 'js/ai/ai_interview_select.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

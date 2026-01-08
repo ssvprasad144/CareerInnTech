@@ -32,7 +32,7 @@ else:
 
 # ================= DEBUG =================
 
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 # ================= ALLOWED HOSTS =================
 
@@ -60,6 +60,10 @@ INSTALLED_APPS = [
     "college",
     'skills',
     'projects',
+<<<<<<< HEAD
+=======
+    'AI'
+>>>>>>> 659f507 (Interview preparation)
     
 ]
 USE_I18N = True
