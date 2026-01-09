@@ -26,8 +26,4 @@ function startBotWalk() {
     setTimeout(() => {
         window.location.href = "/ai/";
     }, 8000);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 659f507 (Interview preparation)
