@@ -125,8 +125,8 @@ def post_login(request):
 # ---------- DASHBOARD (PROTECTED) ----------
 def dashboard(request):
     if request.user.is_authenticated:
-        profile = Profile.objects.get(user=request.user)
-        projects = Project.objects.filter(user=request.user)
+        profile = StudentProfile.objects.get(user=request.user)
+        projects = Project.objects.all()
     else:
         profile = None
         projects = Project.objects.none()
@@ -135,6 +135,7 @@ def dashboard(request):
         "profile": profile,
         "projects": projects,
     })
+
 
 
 @login_required(login_url="login")
