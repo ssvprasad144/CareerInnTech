@@ -125,7 +125,12 @@ ASGI_APPLICATION = "careerinntech.asgi.application"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [
+                BASE_DIR / "templates",
+                # Also include the inner project templates directory where
+                # the `ai` templates are located (careerinntech/templates)
+                Path(__file__).resolve().parent / "templates",
+            ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
