@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Interview Feedback{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_feedback.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="feedback-wrapper">
+
+    <!-- HEADER -->
+    <header class="feedback-header">
+        <h1>AI Interview Feedback</h1>
+        <p class="session-id">Session ID: {{ session_id }}</p>
+    </header>
+
+    <!-- OVERALL SCORE -->
+    <section class="overall-score-card">
+        <div class="score-circle">
+            <span>{{ overall_score|default:"--" }}%</span>
+            <small>Overall Score</small>
+        </div>
+
+        <div class="score-summary">
+            <h2>{{ verdict_title|default:"Interview Completed" }}</h2>
+            <p>
+                {{ verdict_summary|default:"Your interview has been analyzed. Detailed insights are shown below." }}
+            </p>
+        </div>
+    </section>
+
+    <!-- SKILL BREAKDOWN -->
+    <section class="card">
+        <h3>Skill Breakdown</h3>
+
+        {% for skill in skills %}
+        <div class="skill">
+            <span>{{ skill.name }}</span>
+            <div class="progress">
+                <div class="progress-bar" style="width: {{ skill.score }}%"></div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="muted-text">Skill analysis will appear here.</p>
+        {% endfor %}
+    </section>
+
+    <!-- STRENGTHS & IMPROVEMENTS -->
+    <section class="two-column">
+
+        <div class="card success">
+            <h3>Strengths</h3>
+            <ul>
+                {% for item in strengths %}
+                <li>{{ item }}</li>
+                {% empty %}
+                <li>No strengths identified.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card warning">
+            <h3>Areas to Improve</h3>
+            <ul>
+                {% for item in improvements %}
+                <li>{{ item }}</li>
+                {% empty %}
+                <li>No improvement areas identified.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- AI FEEDBACK -->
+    <section class="card">
+        <h3>AI Interviewer Notes</h3>
+        <p class="ai-feedback">
+            {{ feedback|default:"Detailed AI feedback will be shown here."|linebreaks }}
+        </p>
+    </section>
+
+    {% if speech_metrics %}
+    <section class="card">
+        <h3>Speech Analytics</h3>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <span>Avg WPM</span>
+                <strong>{{ speech_metrics.avg_wpm|default:"--" }}</strong>
+            </div>
+            <div class="metric-item">
+                <span>Filler Words</span>
+                <strong>{{ speech_metrics.filler_count|default:"--" }}</strong>
+            </div>
+            <div class="metric-item">
+                <span>Clarity Score</span>
+                <strong>{{ speech_metrics.clarity_score|default:"--" }}%</strong>
+            </div>
+            <div class="metric-item">
+                <span>Pacing</span>
+                <strong>{{ speech_metrics.pace_label|default:"--" }}</strong>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if face_metrics %}
+    <section class="card">
+        <h3>Camera Analytics</h3>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <span>Face Presence</span>
+                <strong>{{ face_metrics.presence_pct|default:"--" }}%</strong>
+            </div>
+            <div class="metric-item">
+                <span>Avg Face Size</span>
+                <strong>{{ face_metrics.avg_face_size_pct|default:"--" }}%</strong>
+            </div>
+            <div class="metric-item">
+                <span>Times Away</span>
+                <strong>{{ face_metrics.away_count|default:"--" }}</strong>
+            </div>
+            <div class="metric-item">
+                <span>Engagement</span>
+                <strong>{{ face_metrics.expression_label|default:"--" }}</strong>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- FINAL VERDICT -->
+    <section class="final-verdict">
+        <h2>Final Verdict</h2>
+        <p>
+            {{ final_verdict|default:"Keep practicing to improve your performance in future interviews." }}
+        </p>
+    </section>
+
+    <!-- ACTIONS -->
+    <div class="feedback-actions">
+        <a href="{% url 'ai-mock-interview' %}" class="btn primary">
+            Retry Interview
+        </a>
+        <a href="{% url 'interview-feedback-details' session_id %}" class="btn secondary">
+            View Question-wise Answers
+        </a>
+        <a href="{% url 'interview-feedback-download' session_id %}" class="btn secondary">
+            Download PDF
+        </a>
+        <a href="{% url 'ai-mock-interview' %}" class="btn secondary">
+            Back to Interview Landing
+        </a>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", () => {
+        // When user presses browser Back from feedback, send them to the interview landing page
+        window.location.href = "{% url 'ai-mock-interview' %}";
+    });
+</script>
+{% endblock %}

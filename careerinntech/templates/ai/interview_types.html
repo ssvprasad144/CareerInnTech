@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_prep_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="prep-detail">
+    <div class="container">
+        <a class="back-link" href="javascript:history.back()">← Back</a>
+
+        <div class="header">
+            <div class="badge">📌 Types of Interviews</div>
+            <h1>Understand the Interview Landscape</h1>
+            <p>Every stage has its own expectations. Learn what each round tests so you can prepare with focus.</p>
+            <div class="pill-row">
+                <span class="pill">HR</span>
+                <span class="pill">Technical</span>
+                <span class="pill">System Design</span>
+                <span class="pill">Managerial</span>
+                <span class="pill">Case Study</span>
+            </div>
+        </div>
+
+        <div class="grid">
+        <div class="card">
+            <h3>HR / Behavioral</h3>
+            <p>Checks your attitude, culture fit, and motivation. Expect stories about leadership, conflict, and growth.</p>
+            <ul>
+                <li>Tell me about yourself</li>
+                <li>Why this company?</li>
+                <li>Strengths & weaknesses</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Technical (Core + DSA)</h3>
+            <p>Tests fundamentals, algorithms, and problem-solving approach. Explain your thinking clearly.</p>
+            <ul>
+                <li>Data structures & algorithms</li>
+                <li>Core CS concepts</li>
+                <li>Time/space trade-offs</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>System Design</h3>
+            <p>Assesses scalability, architecture, and decision-making. Think end-to-end.</p>
+            <ul>
+                <li>Requirements → architecture</li>
+                <li>Trade-offs and bottlenecks</li>
+                <li>APIs, data, and scale</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Managerial / Leadership</h3>
+            <p>Focuses on collaboration, stakeholder handling, and ownership of outcomes.</p>
+            <ul>
+                <li>Decision-making examples</li>
+                <li>Handling pressure</li>
+                <li>Team communication</li>
+            </ul>
+        </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2 class="section-title">What to Do Next</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Map your target role</h3>
+                <p>Shortlist companies and role level to estimate which rounds you'll likely face.</p>
+                <p>Build a checklist of round types for each company.</p>
+            </div>
+            <div class="card">
+                <h3>Prepare in sequence</h3>
+                <p>Start with HR, then technical, then design. It builds confidence fast.</p>
+                <p>Use 1-2 weeks per category for focused practice.</p>
+            </div>
+            <div class="card">
+                <h3>Practice out loud</h3>
+                <p>Speaking clearly matters as much as correct answers.</p>
+                <p>Record 3 answers and refine them daily.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Interview Timeline</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Week 1</h3>
+                <p>HR + behavioral stories, refine your self-introduction.</p>
+            </div>
+            <div class="card">
+                <h3>Week 2</h3>
+                <p>Technical fundamentals, core CS and DSA revision.</p>
+            </div>
+            <div class="card">
+                <h3>Week 3</h3>
+                <p>System design basics and mock interviews.</p>
+            </div>
+        </div>
+
+        <div class="cta-row">
+            <a class="btn" href="{% url 'interview-preparation' %}">Back to Interview Preparation</a>
+            <a class="btn btn-primary" href="{% url 'ai-mock-interview' %}">Start AI Mock Interview</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

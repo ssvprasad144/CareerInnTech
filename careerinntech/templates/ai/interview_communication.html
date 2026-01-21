@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_prep_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="prep-detail">
+    <div class="container">
+        <a class="back-link" href="javascript:history.back()">← Back</a>
+
+        <div class="header">
+            <div class="badge">🗣️ Communication & Body Language</div>
+            <h1>Speak Clearly. Show Confidence.</h1>
+            <p>Your delivery matters as much as your content. Build presence with simple habits.</p>
+            <div class="pill-row">
+                <span class="pill">Voice</span>
+                <span class="pill">Posture</span>
+                <span class="pill">Eye Contact</span>
+                <span class="pill">Presence</span>
+            </div>
+        </div>
+
+        <div class="grid">
+        <div class="card">
+            <h3>Voice & Pace</h3>
+            <p>Slow down slightly, emphasize key points, and avoid fillers.</p>
+        </div>
+        <div class="card">
+            <h3>Eye Contact</h3>
+            <p>Look at the camera in online interviews to simulate direct eye contact.</p>
+        </div>
+        <div class="card">
+            <h3>Posture & Gestures</h3>
+            <p>Sit upright, keep hands visible, and use minimal, purposeful gestures.</p>
+        </div>
+        <div class="card">
+            <h3>Confidence Signals</h3>
+            <p>Use clear statements, avoid excessive apologies, and end answers decisively.</p>
+        </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2 class="section-title">Quick Practice</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>2-minute pitch</h3>
+                <p>Introduce yourself in 120 seconds. Record and replay.</p>
+                <p>Focus on energy and clarity.</p>
+            </div>
+            <div class="card">
+                <h3>Mirror drill</h3>
+                <p>Answer a question while maintaining steady posture.</p>
+                <p>Keep hands visible and relaxed.</p>
+            </div>
+            <div class="card">
+                <h3>Breathing reset</h3>
+                <p>Inhale 4s, hold 4s, exhale 6s before answering.</p>
+                <p>It lowers stress and steady your voice.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Presence Checklist</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Camera alignment</h3>
+                <p>Keep camera at eye level and maintain lighting.</p>
+            </div>
+            <div class="card">
+                <h3>Short sentences</h3>
+                <p>Break long answers into simple statements.</p>
+            </div>
+            <div class="card">
+                <h3>Intentional gestures</h3>
+                <p>Use 1–2 gestures to highlight key points.</p>
+            </div>
+        </div>
+
+        <div class="cta-row">
+            <a class="btn" href="{% url 'interview-preparation' %}">Back to Interview Preparation</a>
+            <a class="btn btn-primary" href="{% url 'ai-mock-interview' %}">Try a Mock Interview</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

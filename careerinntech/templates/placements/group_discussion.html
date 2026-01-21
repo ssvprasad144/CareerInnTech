@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Group Discussion Preparation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/placements/placement_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="placement-detail">
+    <header class="detail-header">
+        <a class="back-link" href="{% url 'placement_preparation' %}">← Back to Placement Preparation</a>
+        <h1>Group Discussion Preparation</h1>
+        <p>Lead, collaborate, and close discussions confidently.</p>
+        <p>
+            A Group Discussion (GD) is a structured conversation where a panel evaluates how you
+            communicate, reason, and collaborate in a team setting. You’re expected to contribute
+            clear points, listen actively, and build on others’ ideas while maintaining respectful
+            dialogue.
+        </p>
+    </header>
+
+    <div class="detail-grid">
+        <div class="detail-card">
+            <h3>GD Formats</h3>
+            <ul>
+                <li>Case study discussions</li>
+                <li>Opinion-based debates</li>
+                <li>Abstract topics</li>
+                <li>Current affairs</li>
+                <li>Data interpretation rounds</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Winning Moves</h3>
+            <ul>
+                <li>Strong opening statements</li>
+                <li>Support with facts</li>
+                <li>Bridge disagreements politely</li>
+                <li>Summarize key points</li>
+                <li>Invite quieter members</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Evaluation Criteria</h3>
+            <ul>
+                <li>Clarity & confidence</li>
+                <li>Active listening</li>
+                <li>Team contribution</li>
+                <li>Logical flow</li>
+                <li>Respectful communication</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Common Mistakes</h3>
+            <ul>
+                <li>Interrupting others</li>
+                <li>Repeating points</li>
+                <li>Speaking without structure</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Preparation Plan</h3>
+            <ul>
+                <li>Read news daily</li>
+                <li>Practice 3–4 topics/week</li>
+                <li>Record & review sessions</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Body Language</h3>
+            <ul>
+                <li>Open posture</li>
+                <li>Confident tone</li>
+                <li>Eye contact balance</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/placements/placement_detail.js' %}"></script>
+{% endblock %}

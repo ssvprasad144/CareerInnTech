@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Aptitude Preparation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/placements/placement_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="placement-detail">
+    <header class="detail-header">
+        <a class="back-link" href="{% url 'placement_preparation' %}">← Back to Placement Preparation</a>
+        <h1>Aptitude Question Bank</h1>
+        <p>Master quant, logic, and verbal with curated practice sets.</p>
+        <p>
+            Aptitude tests evaluate speed, accuracy, and problem‑solving across quantitative,
+            logical, and verbal sections. Consistent practice and timed drills are the fastest
+            way to improve scores.
+        </p>
+    </header>
+
+    <div class="detail-grid">
+        <div class="detail-card">
+            <h3>Quantitative Aptitude</h3>
+            <ul>
+                <li>Percentages, ratios, averages</li>
+                <li>Profit & loss, time & work</li>
+                <li>Number systems & algebra</li>
+                <li>Time, speed & distance</li>
+                <li>Mixtures & alligations</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Logical Reasoning</h3>
+            <ul>
+                <li>Seating arrangements</li>
+                <li>Blood relations & syllogisms</li>
+                <li>Data sufficiency</li>
+                <li>Direction sense & coding-decoding</li>
+                <li>Series & patterns</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Verbal Ability</h3>
+            <ul>
+                <li>Reading comprehension</li>
+                <li>Grammar & error spotting</li>
+                <li>Vocabulary practice</li>
+                <li>Sentence correction</li>
+                <li>Para jumbles</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Speed & Accuracy</h3>
+            <ul>
+                <li>Daily timed practice</li>
+                <li>Use shortcuts after basics</li>
+                <li>Track weak topics weekly</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Mock Tests</h3>
+            <ul>
+                <li>Sectional tests</li>
+                <li>Company-style mocks</li>
+                <li>Analyze mistakes & redo</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Preparation Plan</h3>
+            <ul>
+                <li>Week 1–2: Basics</li>
+                <li>Week 3–4: Mixed practice</li>
+                <li>Week 5+: Full mocks</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/placements/placement_detail.js' %}"></script>
+{% endblock %}

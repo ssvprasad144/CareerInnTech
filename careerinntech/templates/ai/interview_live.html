@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}AI Mock Interview{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_live.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="interview-app">
+
+    <!-- HEADER -->
+    <header class="interview-header">
+        <div class="brand left">
+            <span class="logo">C</span> CareerInnTech
+        </div>
+
+        <div class="header-center">
+            <h1>AI MOCK INTERVIEW</h1>
+            <p>Practice for Your Dream Job!</p>
+        </div>
+
+        <div class="brand right">
+            CareerInnTech
+        </div>
+    </header>
+
+    <!-- META BAR -->
+    <section class="meta-bar">
+        <span class="meta-pill">
+            Role: {{ interview_type|default:"Not selected"|title }}
+        </span>
+        <span class="meta-pill">
+            Difficulty Level: {{ interview_difficulty|default:"standard"|title }}
+        </span>
+        <span class="meta-pill">
+            Stack:
+            {% if interview_stack %}
+                {{ interview_stack|join:", " }}
+            {% else %}
+                Not selected
+            {% endif %}
+        </span>
+        <span class="meta-pill" id="questionProgress">
+            Questions: 0/{{ question_count|default:"10" }}
+        </span>
+        <span class="meta-pill" id="durationPill">
+            Duration: {{ duration_minutes|default:"15" }} min
+        </span>
+        <span class="meta-pill" id="stylePill">
+            Style: {{ interviewer_style|default:"balanced"|title }}
+        </span>
+        <span class="meta-pill" id="warmupPill">
+            Warm-up: {% if warmup %}On{% else %}Off{% endif %}
+        </span>
+
+        <div class="meta-right">
+            <span class="timer" id="timer">00:00</span>
+        </div>
+    </section>
+
+    <!-- MAIN -->
+    <main class="interview-main">
+
+        <!-- AI INTERVIEWER -->
+        <section class="ai-section">
+            <div class="ai-header">
+                <img
+                    src="{% static 'images/ai/ai_avatar.png' %}"
+                    class="ai-avatar idle"
+                    id="aiAvatar"
+                    alt="AI Interviewer"
+                >
+                <span class="ai-label">AI Interviewer</span>
+            </div>
+
+            <!-- AI QUESTION -->
+            <div class="ai-bubble">
+                <span id="aiText" class="placeholder-text">
+                    Click <b>Start Interview</b> to begin.
+                </span>
+            </div>
+
+            <div class="ai-tools">
+                <!-- Top pause removed per UX request -->
+                <button class="tool-btn secondary" id="textOnlyBtn" type="button" disabled>Show Text</button>
+                <button class="tool-btn secondary" id="hintBtn" type="button" disabled>Hint</button>
+                <button class="tool-btn secondary" id="skipBtn" type="button" disabled>Skip</button>
+                <button class="tool-btn secondary" id="notesBtn" type="button" style="display:none">Notes</button>
+                <button class="tool-btn secondary" id="codeBtn" type="button" style="display:none">Code Editor</button>
+                <button class="tool-btn secondary" id="submitCodeBtn" type="button" style="display:none">Submit Code</button>
+                <button class="tool-btn secondary" id="extendBtn" type="button">Extend +30s</button>
+                <div class="latency-pill">
+                    Latency: <span id="latencyValue">--</span>
+                </div>
+            </div>
+
+            <div class="live-feedback">
+                <h4>Live Feedback</h4>
+                <ul id="liveTips">
+                    <li class="muted">Tips will appear after your answers.</li>
+                </ul>
+            </div>
+
+            <div class="rubric-card">
+                <h4>Evaluation Rubric</h4>
+                <ul id="rubricList"></ul>
+            </div>
+        </section>
+
+        <!-- USER (CAMERA PLACEHOLDER FOR NOW) -->
+        <section class="user-panel">
+            <div class="video-frame">
+                <!-- Camera preview -->
+                <video
+                    id="userCamera"
+                    autoplay
+                    muted
+                    playsinline
+                ></video>
+
+                <!-- Fallback (shown before start) -->
+                <div class="camera-placeholder" id="cameraPlaceholder">
+                    <img
+                        src="{% static 'images/ai/user_avatar.png' %}"
+                        alt="User avatar"
+                        class="user-avatar"
+                    >
+                    <p>Camera Preview</p>
+                </div>
+            </div>
+
+            <div class="status-card">
+            <div class="status-row">
+                <span>Mic Level</span>
+                <div class="meter">
+                    <div class="meter-fill" id="micLevel"></div>
+                </div>
+            </div>
+                <div class="status-row">
+                    <span>Fluency</span>
+                    <div class="meter">
+                        <div class="meter-fill" id="fluencyLevel"></div>
+                    </div>
+                    <span class="status-chip" id="fluencyLabel">--</span>
+                </div>
+                <div class="status-row">
+                    <span>Clarity</span>
+                    <div class="meter">
+                        <div class="meter-fill" id="clarityLevel"></div>
+                    </div>
+                    <span class="status-chip" id="clarityLabel">--</span>
+                </div>
+                <div class="status-row">
+                    <span>Expression</span>
+                    <div class="meter">
+                        <div class="meter-fill" id="expressionLevel"></div>
+                    </div>
+                    <span class="status-chip" id="expressionLabel">--</span>
+                </div>
+            <div class="status-row">
+                <span>Network</span>
+                <span class="status-chip" id="networkStatus">Online</span>
+            </div>
+            <!-- Focus display removed -->
+            <div class="status-row">
+                <span>Face</span>
+                <span class="status-chip" id="faceStatus">Detecting…</span>
+            </div>
+            <div class="status-row">
+                <span>Style</span>
+                <span id="styleStatus">{{ interviewer_style|default:"balanced"|title }}</span>
+            </div>
+            <div class="status-row">
+                <span>Warm-up</span>
+                <span id="warmupStatus">{% if warmup %}On{% else %}Off{% endif %}</span>
+            </div>
+        </div>
+        </section>
+
+
+    </main>
+
+    <!-- CONTROL BAR -->
+    <div class="control-bar">
+        <button class="control-btn" id="startPauseBtn">
+            ▶ Start Interview
+        </button>
+        <button class="control-btn secondary" id="micCheckBtn" type="button">
+            🎤 Check Mic
+        </button>
+        <button class="control-btn secondary" id="audioToggleBtn" type="button" disabled>Pause Audio</button>
+    </div>
+
+    <!-- END INTERVIEW -->
+    <button class="end-interview-btn" id="endInterview">
+        End Interview
+    </button>
+
+</div>
+
+<div class="gaze-toast" id="gazeToast" role="status" aria-live="polite">
+    Look into the camera or screen
+</div>
+
+<div class="text-only-modal" id="textOnlyModal" aria-hidden="true">
+    <div class="text-only-card">
+        <button class="close-btn" id="textOnlyClose" type="button">Close</button>
+        <div id="textOnlyContent">—</div>
+    </div>
+</div>
+
+
+<div class="notes-drawer" id="notesDrawer" aria-hidden="true">
+    <div class="notes-header">
+        <span>Notes</span>
+        <button class="close-btn" id="notesClose" type="button">Close</button>
+    </div>
+    <textarea id="notesInput" placeholder="Write quick notes here..."></textarea>
+</div>
+
+<div class="code-drawer" id="codeDrawer" aria-hidden="true">
+    <div class="notes-header">
+        <span>Code Editor</span>
+        <button class="close-btn" id="codeClose" type="button">Close</button>
+    </div>
+    <textarea id="codeInput" placeholder="Write your code here..." style="min-height:180px;font-family:monospace;"></textarea>
+    <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="tool-btn primary" id="sendCodeBtn" type="button">Send Code</button>
+        <span class="muted">Press Send to submit code and move to the next question.</span>
+    </div>
+</div>
+
+<div class="action-toast" id="actionToast" role="status" aria-live="polite"></div>
+
+<!-- FEEDBACK LOADING OVERLAY -->
+<div class="feedback-loading" id="feedbackLoading" aria-live="polite" aria-hidden="true">
+    <div class="loading-card">
+        <div class="spinner"></div>
+        <h3>Generating your feedback…</h3>
+        <p>This may take a few seconds. Please wait.</p>
+    </div>
+</div>
+
+<!-- SESSION ID -->
+<script>
+    window.SESSION_ID = "{{ session_id }}";
+    window.INTERVIEW_CONFIG = {
+        questionCount: Number("{{ question_count|default:'10' }}"),
+        durationMinutes: Number("{{ duration_minutes|default:'15' }}"),
+        // focus areas removed from selection
+        interviewerStyle: "{{ interviewer_style|default:'balanced' }}",
+        warmup: "{{ warmup|yesno:'true,false' }}" === "true"
+    };
+    window.INTERVIEW_META = {
+        role: "{{ interview_type|default:'' }}"
+    };
+</script>
+
+<script src="{% static 'js/ai/interview_live.js' %}"></script>
+{% endblock %}

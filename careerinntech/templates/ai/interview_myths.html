@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_prep_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="prep-detail">
+    <div class="container">
+        <a class="back-link" href="javascript:history.back()">← Back</a>
+
+        <div class="header">
+            <div class="badge">❌ Myths & Mistakes</div>
+            <h1>Avoid Common Interview Traps</h1>
+            <p>Many candidates lose points due to avoidable misconceptions. Fix these before your next interview.</p>
+            <div class="pill-row">
+                <span class="pill">Mindset</span>
+                <span class="pill">Clarity</span>
+                <span class="pill">Concise</span>
+                <span class="pill">Honest</span>
+            </div>
+        </div>
+
+        <div class="grid">
+        <div class="card">
+            <h3>Myth: Perfect answers only</h3>
+            <p>Interviewers value thinking, clarity, and honesty over a perfect script.</p>
+        </div>
+        <div class="card">
+            <h3>Myth: You must know everything</h3>
+            <p>Admit gaps and explain how you’d find the answer.</p>
+        </div>
+        <div class="card">
+            <h3>Mistake: Talking too long</h3>
+            <p>Keep responses focused. Use structure to avoid rambling.</p>
+        </div>
+        <div class="card">
+            <h3>Mistake: Ignoring fundamentals</h3>
+            <p>Strong basics beat memorized solutions. Revisit core topics.</p>
+        </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2 class="section-title">Quick Fixes</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Use checkpoints</h3>
+                <p>Summarize after each answer: “So the key point is…”</p>
+                <p>It keeps the interviewer aligned with your logic.</p>
+            </div>
+            <div class="card">
+                <h3>Ask clarifying questions</h3>
+                <p>It’s better to confirm than to guess.</p>
+                <p>Clarify scope, constraints, and success criteria.</p>
+            </div>
+            <div class="card">
+                <h3>Close with impact</h3>
+                <p>Finish with outcomes, numbers, or what you learned.</p>
+                <p>Use results to be memorable.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Avoid These Habits</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Overusing buzzwords</h3>
+                <p>Replace with clear examples and outcomes.</p>
+            </div>
+            <div class="card">
+                <h3>Blaming teams</h3>
+                <p>Show ownership and what you learned.</p>
+            </div>
+            <div class="card">
+                <h3>Skipping basics</h3>
+                <p>Review fundamentals weekly to stay sharp.</p>
+            </div>
+        </div>
+
+        <div class="cta-row">
+            <a class="btn" href="{% url 'interview-preparation' %}">Back to Interview Preparation</a>
+            <a class="btn btn-primary" href="{% url 'ai-mock-interview' %}">Try a Mock Interview</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

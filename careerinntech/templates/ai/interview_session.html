@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Live AI Interview{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/ai/live_interview.css' %}">
+
+<div class="live-interview">
+
+    <!-- ================= TOP BAR ================= -->
+    <div class="top-bar">
+        <div class="status-left">
+            <span class="dot live"></span>
+            <span>AI Interview in Progress</span>
+        </div>
+
+        <div class="status-right">
+            <span>🎤 Mic: ON</span>
+            <span>🎥 Camera: ON</span>
+            <span>⏱ 00:00</span>
+        </div>
+    </div>
+
+    <!-- ================= MAIN INTERVIEW ================= -->
+    <div class="interview-body">
+
+        <!-- ===== AI PANEL ===== -->
+        <div class="ai-panel">
+            <div class="ai-avatar speaking">
+                <img src="{% static 'images/ai/ai_avatar_male.png' %}" alt="AI Interviewer">
+                <div class="glow-ring"></div>
+            </div>
+
+            <div class="ai-info">
+                <h3>CareerInn AI Interviewer</h3>
+                <span class="role-badge">Web Development</span>
+            </div>
+
+            <div class="ai-status">
+                AI is asking a question…
+            </div>
+        </div>
+
+        <!-- ===== USER PANEL ===== -->
+        <div class="user-panel">
+            <div class="camera-box">
+                <!-- Camera feed will attach here later -->
+                <div class="camera-placeholder">
+                    <span>🎥 Camera Preview</span>
+                </div>
+            </div>
+
+            <div class="camera-controls">
+                <button class="secondary-btn">Hide Camera</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= CONTROLS ================= -->
+    <div class="bottom-controls">
+        <button class="primary-btn">▶ Start Interview</button>
+        <button class="danger-btn">End Interview</button>
+    </div>
+
+</div>
+
+{% endblock %}

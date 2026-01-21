@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Interview Configuration
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/ai/interview_config.css' %}">
+
+<div class="config-container">
+    <h1 class="page-title">Configure Your Interview</h1>
+
+    <p class="subtitle">
+        Interview Type:
+        <span class="highlight">
+            {{ interview_type|title }}
+        </span>
+    </p>
+
+    <form method="post" action="{% url 'ai-interview-start' %}">
+        {% csrf_token %}
+
+        <!-- Preserve selected interview type -->
+        <input type="hidden" name="interview_type" value="{{ interview_type }}">
+        <input type="hidden" name="branch" value="{{ branch|default_if_none:'' }}">
+        <input type="hidden" name="role" value="{{ role|default_if_none:'' }}">
+
+        <!-- FORCE VOICE MODE (NO UI) -->
+        <input type="hidden" name="interview_mode" value="voice">
+
+        <!-- ========================= -->
+        <!-- Difficulty Selection -->
+        {% extends 'base.html' %}
+        {% block content %}
+        <div style="padding:40px;text-align:center;color:#94a3b8;">
+            This page has been merged into the interview selection flow.
+        </div>
+        {% endblock %}
+                <option value="intermediate">Intermediate</option>

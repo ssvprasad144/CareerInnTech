@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_prep_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="prep-detail">
+    <div class="container">
+        <a class="back-link" href="javascript:history.back()">← Back</a>
+
+        <div class="header">
+            <div class="badge">💡 Interview Tips</div>
+            <h1>Answer With Structure & Confidence</h1>
+            <p>Use simple frameworks to stay focused, clear, and memorable during interviews.</p>
+            <div class="pill-row">
+                <span class="pill">STAR</span>
+                <span class="pill">Clarity</span>
+                <span class="pill">Storytelling</span>
+                <span class="pill">Presence</span>
+            </div>
+        </div>
+
+        <div class="grid">
+        <div class="card">
+            <h3>Use the STAR Method</h3>
+            <p>Situation → Task → Action → Result. Keep each part concise and measurable.</p>
+        </div>
+        <div class="card">
+            <h3>Think Before You Speak</h3>
+            <p>Pause for 2–3 seconds. It shows composure and reduces filler words.</p>
+        </div>
+        <div class="card">
+            <h3>Explain Your Approach</h3>
+            <p>In technical rounds, narrate your reasoning, trade-offs, and checks.</p>
+        </div>
+        <div class="card">
+            <h3>Clarify Requirements</h3>
+            <p>Ask questions early to avoid wrong assumptions.</p>
+        </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2 class="section-title">High-Impact Habits</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Daily 20-min Practice</h3>
+                <p>Pick 1 HR question, 1 technical topic, and 1 project story.</p>
+                <p>Track progress with a simple checklist.</p>
+            </div>
+            <div class="card">
+                <h3>Record Yourself</h3>
+                <p>Review your pace, tone, and clarity. Aim for concise answers.</p>
+                <p>Trim answers to 60–90 seconds.</p>
+            </div>
+            <div class="card">
+                <h3>Prepare 3 Projects Deeply</h3>
+                <p>Know metrics, decisions, and improvements for each project.</p>
+                <p>Write a 4-line story per project.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Answering Blueprint</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Open Strong</h3>
+                <p>Start with your conclusion or main point first.</p>
+            </div>
+            <div class="card">
+                <h3>Back it with facts</h3>
+                <p>Use numbers, impact, and clear reasoning.</p>
+            </div>
+            <div class="card">
+                <h3>End with learning</h3>
+                <p>Share what changed or what you'd improve next.</p>
+            </div>
+        </div>
+
+        <div class="cta-row">
+            <a class="btn" href="{% url 'interview-preparation' %}">Back to Interview Preparation</a>
+            <a class="btn btn-primary" href="{% url 'ai-mock-interview' %}">Practice with AI</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

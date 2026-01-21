@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Company-wise DSA{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/placements/placement_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="placement-detail">
+    <header class="detail-header">
+        <a class="back-link" href="{% url 'placement_preparation' %}">← Back to Placement Preparation</a>
+        <h1>Company-wise DSA Questions</h1>
+        <p>Focus on patterns asked by top recruiters.</p>
+        <p>
+            Company‑wise DSA preparation helps you target the most repeated patterns and
+            difficulty levels. Build confidence by solving curated lists in order of frequency.
+        </p>
+    </header>
+
+    <div class="detail-grid">
+        <div class="detail-card">
+            <h3>Core Patterns</h3>
+            <ul>
+                <li>Arrays & strings</li>
+                <li>Two pointers & sliding window</li>
+                <li>Hashing & sorting</li>
+                <li>Prefix sums & intervals</li>
+                <li>Binary search on answers</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Data Structures</h3>
+            <ul>
+                <li>Linked lists, stacks, queues</li>
+                <li>Trees & graphs basics</li>
+                <li>Heaps & priority queues</li>
+                <li>Trie & segment tree basics</li>
+                <li>Union-Find (DSU)</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Company Sheets</h3>
+            <ul>
+                <li>Top 50 questions per company</li>
+                <li>Difficulty-wise list</li>
+                <li>Interview trends</li>
+                <li>Last 2 years repeats</li>
+                <li>Topic heatmap</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Revision Strategy</h3>
+            <ul>
+                <li>Revise solved questions weekly</li>
+                <li>Maintain a mistake log</li>
+                <li>Revisit failed patterns</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Problem Solving Flow</h3>
+            <ul>
+                <li>Brute force → optimize</li>
+                <li>Discuss complexity clearly</li>
+                <li>Edge cases first</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Practice Targets</h3>
+            <ul>
+                <li>Easy: 30–40</li>
+                <li>Medium: 40–60</li>
+                <li>Hard: 15–20</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/placements/placement_detail.js' %}"></script>
+{% endblock %}

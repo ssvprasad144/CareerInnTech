@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_prep_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="prep-detail">
+    <div class="container">
+        <a class="back-link" href="javascript:history.back()">← Back</a>
+
+        <div class="header">
+            <div class="badge">📚 Question Bank</div>
+            <h1>Practice the Most Asked Questions</h1>
+            <p>Use these prompts to structure your answers and build recall before interviews.</p>
+            <div class="pill-row">
+                <span class="pill">HR</span>
+                <span class="pill">Technical</span>
+                <span class="pill">Projects</span>
+                <span class="pill">Problem Solving</span>
+            </div>
+        </div>
+
+        <div class="grid">
+        <div class="card">
+            <h3>HR Questions</h3>
+            <ul>
+                <li>Tell me about yourself</li>
+                <li>Why should we hire you?</li>
+                <li>Where do you see yourself in 3 years?</li>
+                <li>Describe a challenge you overcame</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Technical Basics</h3>
+            <ul>
+                <li>Explain Big-O for your solution</li>
+                <li>Difference between stack and queue</li>
+                <li>SQL join types and use cases</li>
+                <li>What is REST and why it matters?</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Project Deep Dive</h3>
+            <ul>
+                <li>Architecture decisions you made</li>
+                <li>Biggest bottleneck and fix</li>
+                <li>Metrics that prove success</li>
+                <li>What you’d improve next</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Problem Solving</h3>
+            <ul>
+                <li>Walk through your approach</li>
+                <li>Edge cases to consider</li>
+                <li>Trade-offs between solutions</li>
+                <li>Optimization ideas</li>
+            </ul>
+        </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2 class="section-title">How to Use</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Answer in 90 seconds</h3>
+                <p>Short, structured answers build clarity and confidence.</p>
+                <p>Use STAR for HR and step-by-step for technical.</p>
+            </div>
+            <div class="card">
+                <h3>Rotate categories daily</h3>
+                <p>Mix HR, technical, and project prompts each session.</p>
+                <p>Keep a simple checklist of what you practiced.</p>
+            </div>
+            <div class="card">
+                <h3>Practice with AI</h3>
+                <p>Use the mock interview to test real-time responses.</p>
+                <p>Review feedback and refine weak areas.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Warm-up Sets</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>5-minute sprint</h3>
+                <p>Pick any 3 questions and answer quickly.</p>
+            </div>
+            <div class="card">
+                <h3>Project story drill</h3>
+                <p>Explain one project in 60 seconds.</p>
+            </div>
+            <div class="card">
+                <h3>Tech refresh</h3>
+                <p>Answer 2 core CS questions daily.</p>
+            </div>
+        </div>
+
+        <div class="cta-row">
+            <a class="btn" href="{% url 'interview-preparation' %}">Back to Interview Preparation</a>
+            <a class="btn btn-primary" href="{% url 'ai-mock-interview' %}">Start Mock Interview</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

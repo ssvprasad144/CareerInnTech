@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Coding Assessment Strategy{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/placements/placement_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="placement-detail">
+    <header class="detail-header">
+        <a class="back-link" href="{% url 'placement_preparation' %}">← Back to Placement Preparation</a>
+        <h1>Coding Assessment Strategy</h1>
+        <p>Plan your approach to online tests for maximum score.</p>
+        <p>
+            Coding assessments measure correctness, efficiency, and time management. A clear
+            strategy—starting with easy wins and validating edge cases—improves both score and rank.
+        </p>
+    </header>
+
+    <div class="detail-grid">
+        <div class="detail-card">
+            <h3>Test Strategy</h3>
+            <ul>
+                <li>Attempt easy questions first</li>
+                <li>Track time per section</li>
+                <li>Skip and return strategy</li>
+                <li>Read constraints before coding</li>
+                <li>Secure partial marks with correct logic</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Accuracy Boost</h3>
+            <ul>
+                <li>Edge-case checklist</li>
+                <li>Dry run with sample input</li>
+                <li>Complexity checks</li>
+                <li>Use fast I/O for large input</li>
+                <li>Validate output format strictly</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Common Pitfalls</h3>
+            <ul>
+                <li>Ignoring constraints</li>
+                <li>Partial outputs</li>
+                <li>Over-optimizing early</li>
+                <li>Off-by-one errors</li>
+                <li>Incorrect edge handling</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Problem Solving Flow</h3>
+            <ul>
+                <li>Identify input/output & constraints</li>
+                <li>Choose data structures</li>
+                <li>Write brute force, then optimize</li>
+                <li>Test with custom cases</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>What Recruiters Look For</h3>
+            <ul>
+                <li>Correctness over micro-optimizations</li>
+                <li>Clean, readable code</li>
+                <li>Optimal time/space trade-offs</li>
+                <li>Ability to handle edge cases</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Quick Checklist</h3>
+            <ul>
+                <li>Pass all sample tests</li>
+                <li>Test min/max constraints</li>
+                <li>Confirm output formatting</li>
+                <li>Submit within time</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/placements/placement_detail.js' %}"></script>
+{% endblock %}

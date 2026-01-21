@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Question-wise Answers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_feedback_details.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="details-wrapper">
+    <header class="details-header">
+        <div>
+            <h1>Question-wise Answers</h1>
+            <p class="session-id">Session ID: {{ session_id }}</p>
+        </div>
+        <div class="header-actions">
+            <a class="btn secondary" href="{% url 'interview-feedback' session_id %}">Back to Feedback</a>
+            <a class="btn primary" href="{% url 'interview-feedback-download' session_id %}">Download PDF</a>
+        </div>
+    </header>
+
+    <section class="summary-card">
+        <h2>{{ verdict_title|default:"Interview Completed" }}</h2>
+        <p>{{ verdict_summary|default:"Your interview has been analyzed." }}</p>
+        <span class="score">Overall Score: {{ overall_score|default:"--" }}%</span>
+    </section>
+
+    {% if speech_metrics %}
+    <section class="summary-card metrics-card">
+        <h2>Speech Analytics</h2>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <span>Avg WPM</span>
+                <strong>{{ speech_metrics.avg_wpm|default:"--" }}</strong>
+            </div>
+            <div class="metric-item">
+                <span>Filler Words</span>
+                <strong>{{ speech_metrics.filler_count|default:"--" }}</strong>
+            </div>
+            <div class="metric-item">
+                <span>Clarity Score</span>
+                <strong>{{ speech_metrics.clarity_score|default:"--" }}%</strong>
+            </div>
+            <div class="metric-item">
+                <span>Pacing</span>
+                <strong>{{ speech_metrics.pace_label|default:"--" }}</strong>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if face_metrics %}
+    <section class="summary-card metrics-card">
+        <h2>Camera Analytics</h2>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <span>Face Presence</span>
+                <strong>{{ face_metrics.presence_pct|default:"--" }}%</strong>
+            </div>
+            <div class="metric-item">
+                <span>Avg Face Size</span>
+                <strong>{{ face_metrics.avg_face_size_pct|default:"--" }}%</strong>
+            </div>
+            <div class="metric-item">
+                <span>Times Away</span>
+                <strong>{{ face_metrics.away_count|default:"--" }}</strong>
+            </div>
+            <div class="metric-item">
+                <span>Engagement</span>
+                <strong>{{ face_metrics.expression_label|default:"--" }}</strong>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="qa-list">
+        {% for pair in qa_pairs %}
+        <article class="qa-card">
+            <div class="qa-header">
+                <h3 class="qa-question">Q{{ forloop.counter }}. {{ pair.question }}</h3>
+                <button class="view-feedback-btn" aria-expanded="false" aria-controls="feedback-{{ forloop.counter0 }}" onclick="toggleFeedback({{ forloop.counter0 }}, this)" title="View feedback" aria-label="View feedback">💬</button>
+            </div>
+            <p class="answer">{{ pair.answer }}</p>
+            <div class="feedback" id="feedback-{{ forloop.counter0 }}" style="display:none;">
+                <div class="feedback-card">
+                    <div class="feedback-body">
+                        <strong>Feedback:</strong>
+                        <p>{{ pair.feedback }}</p>
+                    </div>
+                    <div class="feedback-score">Score: <span>{{ pair.score_10 }}</span>/10 ({{ pair.score_pct }}%)</div>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <p class="muted">No questions answered yet.</p>
+        {% endfor %}
+    </section>
+    <script>
+    function toggleFeedback(idx, btn) {
+        var el = document.getElementById('feedback-' + idx);
+        if (!el) return;
+        if (el.style.display === 'none' || el.style.display === '') {
+            el.style.display = 'block';
+            if (btn) btn.setAttribute('aria-expanded', 'true');
+        } else {
+            el.style.display = 'none';
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+    }
+    </script>
+</div>
+{% endblock %}

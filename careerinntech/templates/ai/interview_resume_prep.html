@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ai/interview_prep_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="prep-detail">
+    <div class="container">
+        <a class="back-link" href="javascript:history.back()">← Back</a>
+
+        <div class="header">
+            <div class="badge">📄 Resume-Based Prep</div>
+            <h1>Be Ready to Defend Every Line</h1>
+            <p>Interviewers will ask about your projects, skills, and achievements. Prepare crisp stories and metrics.</p>
+            <div class="pill-row">
+                <span class="pill">Projects</span>
+                <span class="pill">Impact</span>
+                <span class="pill">Metrics</span>
+                <span class="pill">Ownership</span>
+            </div>
+        </div>
+
+        <div class="grid">
+        <div class="card">
+            <h3>Project Walkthrough</h3>
+            <p>Prepare the problem, your solution, tech stack, and impact in 60–90 seconds.</p>
+        </div>
+        <div class="card">
+            <h3>Metrics & Impact</h3>
+            <p>Quantify outcomes: speed, accuracy, cost reduction, user growth.</p>
+        </div>
+        <div class="card">
+            <h3>Skill Mapping</h3>
+            <p>Align each skill with where you used it in your work or projects.</p>
+        </div>
+        <div class="card">
+            <h3>Challenges & Learnings</h3>
+            <p>Share a hard problem and what you learned from it.</p>
+        </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2 class="section-title">Prepare These Answers</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Explain your tech choices</h3>
+                <p>Why that framework, database, or tool?</p>
+                <p>Discuss trade-offs and alternatives.</p>
+            </div>
+            <div class="card">
+                <h3>What would you improve?</h3>
+                <p>Show ownership and a product mindset.</p>
+                <p>List 1–2 measurable next steps.</p>
+            </div>
+            <div class="card">
+                <h3>Where did you add value?</h3>
+                <p>Highlight measurable outcomes and contributions.</p>
+                <p>Use numbers whenever possible.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Resume Quick Checklist</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Impact per line</h3>
+                <p>Every bullet should show a result or outcome.</p>
+            </div>
+            <div class="card">
+                <h3>Role clarity</h3>
+                <p>Describe what you owned vs what the team did.</p>
+            </div>
+            <div class="card">
+                <h3>One-sentence summary</h3>
+                <p>Keep a crisp summary ready for interviews.</p>
+            </div>
+        </div>
+
+        <div class="cta-row">
+            <a class="btn" href="{% url 'interview-preparation' %}">Back to Interview Preparation</a>
+            <a class="btn btn-primary" href="{% url 'ai-mock-interview' %}">Practice with AI</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

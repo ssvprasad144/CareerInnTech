@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Resume & Shortlisting{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/placements/placement_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="placement-detail">
+    <header class="detail-header">
+        <a class="back-link" href="{% url 'placement_preparation' %}">← Back to Placement Preparation</a>
+        <h1>Resume & Shortlisting</h1>
+        <p>Craft a resume that clears ATS and recruiter filters.</p>
+        <p>
+            Resume shortlisting is where most candidates are filtered out. A concise, impact‑driven
+            resume with the right keywords drastically improves your chances.
+        </p>
+    </header>
+
+    <div class="detail-grid">
+        <div class="detail-card">
+            <h3>Resume Structure</h3>
+            <ul>
+                <li>One-page impact layout</li>
+                <li>Keyword alignment</li>
+                <li>Relevant achievements</li>
+                <li>Consistent formatting</li>
+                <li>Clear section hierarchy</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Projects Section</h3>
+            <ul>
+                <li>Problem → Solution → Result</li>
+                <li>Metrics & outcomes</li>
+                <li>Tech stack clarity</li>
+                <li>Link to demos or GitHub</li>
+                <li>Use action verbs</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Shortlisting Tips</h3>
+            <ul>
+                <li>Tailor to job role</li>
+                <li>Highlight internships</li>
+                <li>Proofread & format</li>
+                <li>Avoid irrelevant skills</li>
+                <li>Show leadership/impact</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>ATS Checklist</h3>
+            <ul>
+                <li>Use standard section titles</li>
+                <li>Simple fonts, no tables</li>
+                <li>Save as PDF</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Common Mistakes</h3>
+            <ul>
+                <li>Too much fluff</li>
+                <li>Unverified claims</li>
+                <li>Inconsistent dates</li>
+            </ul>
+        </div>
+
+        <div class="detail-card">
+            <h3>Profile Summary</h3>
+            <ul>
+                <li>2–3 lines max</li>
+                <li>Role + key strengths</li>
+                <li>Career objective clarity</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/placements/placement_detail.js' %}"></script>
+{% endblock %}
