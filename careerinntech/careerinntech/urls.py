@@ -28,15 +28,21 @@ urlpatterns = [
     # 🔹 KEEP this (for btech college pages)
     path("colleges/btech/", include("college.urls")),
 
-    # 🔹 ADD THIS (for /ai/)
-    path("", include("college.urls")),
+    # 🔹 Keep college routes scoped; do NOT include college.urls at root.
 
     path("skills/", include("skills.urls")),
      path("i18n/", include("django.conf.urls.i18n")),
      path('ai/', include('AI.urls')),
+    # Authentication (django-allauth)
+    path('accounts/', include('allauth.urls')),
 
 ]
 
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

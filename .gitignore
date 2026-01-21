@@ -15,3 +15,6 @@ staticfiles/
 # OS files
 .DS_Store
 Thumbs.db
+# Local AI logs and summaries
+careerinntech/ai_api_usage.log
+careerinntech/ai_summaries/

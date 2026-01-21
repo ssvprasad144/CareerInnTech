@@ -61,6 +61,36 @@
     margin-top: 10px;
 }
 
+.auth-divider {
+    text-align: center;
+    margin: 14px 0;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.auth-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 10px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: #0f172a;
+}
+
+.auth-social.google:hover {
+    border-color: #2563eb;
+}
+
+.auth-social.apple {
+    background: #111827;
+    color: #fff;
+    border-color: #111827;
+
 /* FOOT TEXT */
 .auth-text {
     text-align: center;

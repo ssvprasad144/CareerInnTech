@@ -22,12 +22,8 @@ function startBotWalk() {
     // Start walk
     bot.style.animation = "botWalk 8s linear forwards";
 
-    // Redirect AFTER animation
+    // Redirect AFTER animation to career chat (not mock interview)
     setTimeout(() => {
-        window.location.href = "/ai/";
+        window.location.href = "/ai-chat/";
     }, 8000);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 659f507 (Interview preparation)

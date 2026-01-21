@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
 
+    path('accounts/', include('allauth.urls')),
+
     path('signup/', views.signup_view, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
@@ -17,6 +19,11 @@ urlpatterns = [
     path('colleges/', views.college_track_select, name='college-track'),
     path('colleges/btech/', views.btech_categories, name='btech-categories'),
     path("placement-preparation/", views.placement_preparation, name="placement_preparation"),
+    path("placement-preparation/aptitude/", views.aptitude_preparation, name="aptitude-preparation"),
+    path("placement-preparation/company-dsa/", views.company_dsa, name="company-dsa"),
+    path("placement-preparation/coding-assessment/", views.coding_assessment, name="coding-assessment"),
+    path("placement-preparation/resume-shortlisting/", views.resume_shortlisting, name="resume-shortlisting"),
+    path("placement-preparation/group-discussion/", views.group_discussion, name="group-discussion"),
 
     path("courses/", views.course_tracks, name="course_tracks"),
     path("courses/btech/", views.btech_courses, name="btech_courses"),

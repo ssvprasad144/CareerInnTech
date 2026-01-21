@@ -32,17 +32,19 @@ async function sendMessage() {
     addUserMessage(msg);
     input.value = "";
 
-    const res = await fetch("/ai/chat/", {
+    // Use career guidance AI endpoint (core.openai_ai_chat)
+    const res = await fetch("/api/ai-chat/", {
         method: "POST",
         headers: {
             "X-CSRFToken": getCSRFToken(),
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/json"
         },
-        body: `message=${encodeURIComponent(msg)}`
+        body: JSON.stringify({ message: msg })
     });
 
     const data = await res.json();
-    addBotMessage(data.reply);
+    if (data.reply) addBotMessage(data.reply);
+    else addBotMessage("⚠️ AI error");
 }
 
 function startAIChat() {
@@ -52,5 +54,6 @@ function startAIChat() {
 }
 
 function openAIBotPage() {
-    window.location.href = "/ai/";
+    // Open the career guidance AI chat page (not the mock interview)
+    window.location.href = "/ai-chat/";
 }

@@ -1,13 +1,17 @@
+import json
+import requests
+
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from openai import OpenAI
 
 # import hardcoded data
-from .data.ts_eamcet import HARDCODED_TS_EAMCET_COLLEGES
 from .data.ap_eamcet import HARDCODED_AP_EAMCET_COLLEGES
-import requests
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
+from .data.ts_eamcet import HARDCODED_TS_EAMCET_COLLEGES
+from .models import BranchVideo
 
 
 
@@ -77,8 +81,6 @@ def ap_eamcet_colleges(request):
         "hardcoded_colleges": colleges,
         "admin_colleges": []
     })
-
-from .models import BranchVideo
 
 def cse_branch(request):
     video = BranchVideo.objects.filter(
@@ -172,8 +174,6 @@ Rules:
             "reply": f"AI error: {str(e)}"
         })
 
-import json
-from openai import OpenAI
 client = OpenAI()
 
 @csrf_exempt

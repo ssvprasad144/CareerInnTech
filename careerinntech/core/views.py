@@ -1,9 +1,25 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+import json
+import os
 
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from openai import OpenAI
+
+from .models import (
+    Opportunity,
+    Project,
+    StudentProfile,
+    UserContextMemory,
+)
+from .utils.context_memory import update_user_context
+from .utils.prompt_builder import build_system_prompt
 
 
 def placement_preparation(request):
@@ -14,16 +30,24 @@ def placement_preparation(request):
     )
 
 
-from .models import StudentProfile, Opportunity, Project
-import os
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from openai import OpenAI
+def aptitude_preparation(request):
+    return render(request, "placements/aptitude_preparation.html")
 
-from .models import UserContextMemory
-from .utils.context_memory import update_user_context
-from .utils.prompt_builder import build_system_prompt
+
+def company_dsa(request):
+    return render(request, "placements/company_dsa.html")
+
+
+def coding_assessment(request):
+    return render(request, "placements/coding_assessment.html")
+
+
+def resume_shortlisting(request):
+    return render(request, "placements/resume_shortlisting.html")
+
+
+def group_discussion(request):
+    return render(request, "placements/group_discussion.html")
 
 
 # ---------- PUBLIC PAGES ----------
@@ -44,12 +68,6 @@ def contact(request):
 
 
 # ---------- AUTH ----------
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
-
-
 def signup_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -70,6 +88,14 @@ def signup_view(request):
         # 3️⃣ Email already exists (CRITICAL FIX)
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already registered")
+            return redirect("signup")
+
+        # 3️⃣ Password strength validation
+        try:
+            validate_password(password)
+        except ValidationError as exc:
+            for msg in exc.messages:
+                messages.error(request, msg)
             return redirect("signup")
 
         # 4️⃣ Create user
@@ -98,9 +124,8 @@ def login_view(request):
             login(request, user)
             return redirect("post_login")
 
-        return render(request, "login.html", {
-            "error": "Invalid username or password"
-        })
+        messages.error(request, "Invalid username or password")
+        return redirect("login")
 
     return render(request, "login.html")
 
@@ -125,8 +150,8 @@ def post_login(request):
 # ---------- DASHBOARD (PROTECTED) ----------
 def dashboard(request):
     if request.user.is_authenticated:
-        profile = Profile.objects.get(user=request.user)
-        projects = Project.objects.filter(user=request.user)
+        profile = StudentProfile.objects.get(user=request.user)
+        projects = Project.objects.all()
     else:
         profile = None
         projects = Project.objects.none()
@@ -135,6 +160,7 @@ def dashboard(request):
         "profile": profile,
         "projects": projects,
     })
+
 
 
 @login_required(login_url="login")

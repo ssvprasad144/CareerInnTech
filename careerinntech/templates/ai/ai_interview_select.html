@@ -1,61 +1,456 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/ai/ai_interview_select.css' %}">
+{% block title %}
+Select Interview Type
 {% endblock %}
 
 {% block content %}
 
-<section class="select-section">
+<link rel="stylesheet" href="{% static 'css/ai/ai_interview_select.css' %}">
 
-    <!-- Back -->
-    <div class="back-link">
-        <a href="{% url 'ai-mock-interview' %}">← Back</a>
+<div class="select-container">
+    <div class="page-head">
+        <h1 class="page-title">Configure Your Interview</h1>
+        <p class="subtitle">Choose your branch, role, stack, and difficulty to start the AI interview.</p>
     </div>
 
-    <!-- Header -->
-    <div class="select-header">
-        <h1>🎯 Select Interview Type</h1>
-        <p>Choose the interview you want to practice. The questions will adapt accordingly.</p>
+    <div class="select-panel">
+        <form class="select-card" method="post" action="{% url 'ai-interview-start' %}" id="interviewForm">
+            {% csrf_token %}
+            <input type="hidden" name="interview_mode" value="voice">
+            <input type="hidden" name="interview_type" id="interviewType" value="">
+
+            <div class="section">
+                <div class="section-title">Step 1: Choose your branch</div>
+                <div class="filter">
+                    <label for="branchSelect">Select Branch / Discipline</label>
+                    <select id="branchSelect" name="branch" required>
+                    <option value="">-- Choose Branch --</option>
+                    <option value="ALL">All Branches</option>
+                    <option value="CSE">Computer Science (CSE)</option>
+                    <option value="IT">Information Technology (IT)</option>
+                    <option value="ECE">Electronics & Communication (ECE)</option>
+                    <option value="EEE">Electrical & Electronics (EEE)</option>
+                    <option value="EE">Electrical Engineering (EE)</option>
+                    <option value="ME">Mechanical Engineering</option>
+                    <option value="CE">Civil Engineering</option>
+                    <option value="CHE">Chemical Engineering</option>
+                    <option value="AE">Aerospace Engineering</option>
+                    <option value="BME">Biomedical Engineering</option>
+                    <option value="MTE">Mechatronics</option>
+                    <option value="IE">Industrial Engineering</option>
+                    <option value="SE">Structural Engineering</option>
+                    <option value="PE">Petroleum Engineering</option>
+                    <option value="ENVE">Environmental Engineering</option>
+                    <option value="MIN">Mining Engineering</option>
+                    <option value="META">Metallurgy</option>
+                    <option value="AGRI">Agricultural Engineering</option>
+                    <option value="INS">Instrumentation Engineering</option>
+                    <option value="OTHER">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Step 2: Choose target role</div>
+                <div class="filter">
+                    <label for="roleSelect">Select Target Role</label>
+                    <select id="roleSelect" name="role" required>
+                        <option value="">-- Choose Role --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section" id="stackSection">
+                <div class="section-title">Step 3: Select tech stack</div>
+                <label class="stack-label">Choose all applicable technologies</label>
+                <div class="checkbox-group" id="stackGroup"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Step 4: Difficulty</div>
+                <div class="filter">
+                    <label for="difficulty">Select Difficulty Level</label>
+                    <select name="difficulty" id="difficulty" required>
+                        <option value="">-- Choose Difficulty --</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Step 5: Interview length</div>
+                <div class="two-col">
+                    <div class="filter">
+                        <label for="durationMinutes">Duration (minutes)</label>
+                        <select id="durationMinutes" name="duration_minutes">
+                            <option value="10">10 min</option>
+                            <option value="15" selected>15 min</option>
+                            <option value="20">20 min</option>
+                            <option value="30">30 min</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <label for="questionCount">Total Questions</label>
+                        <select id="questionCount" name="question_count">
+                            <option value="5">5</option>
+                            <option value="8">8</option>
+                            <option value="10" selected>10</option>
+                            <option value="12">12</option>
+                            <option value="15">15</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 removed: Focus areas handled automatically -->
+
+            <div class="section">
+                <div class="section-title">Step 7: Interview style</div>
+                <div class="filter">
+                    <label for="interviewerStyle">Interviewer Style</label>
+                    <select id="interviewerStyle" name="interviewer_style">
+                        <option value="balanced" selected>Balanced</option>
+                        <option value="friendly">Friendly & Encouraging</option>
+                        <option value="strict">Strict & Challenging</option>
+                        <option value="fast">Fast-Paced</option>
+                    </select>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="warmupMode" name="warmup" value="1" checked>
+                    <span>Warm-up questions (2)</span>
+                </label>
+            </div>
+
+            <div class="section plan-preview">
+                <div class="section-title">Interview Plan Preview</div>
+                <div class="plan-grid">
+                    <div class="plan-item">
+                        <span class="plan-label">Role</span>
+                        <span class="plan-value" id="previewRole">—</span>
+                    </div>
+                    <div class="plan-item">
+                        <span class="plan-label">Difficulty</span>
+                        <span class="plan-value" id="previewDifficulty">—</span>
+                    </div>
+                    <div class="plan-item">
+                        <span class="plan-label">Duration</span>
+                        <span class="plan-value" id="previewDuration">15 min</span>
+                    </div>
+                    <div class="plan-item">
+                        <span class="plan-label">Questions</span>
+                        <span class="plan-value" id="previewQuestions">10</span>
+                    </div>
+                    <div class="plan-item">
+                        <span class="plan-label">Focus Mix</span>
+                        <span class="plan-value" id="previewFocus">40/35/25</span>
+                    </div>
+                    <div class="plan-item">
+                        <span class="plan-label">Style</span>
+                        <span class="plan-value" id="previewStyle">Balanced</span>
+                    </div>
+                    <div class="plan-item full">
+                        <span class="plan-label">Stack</span>
+                        <span class="plan-value" id="previewStack">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button class="start-btn" id="startBtn" type="submit">
+                    Start Voice Interview 🎙️
+                </button>
+                <p class="helper-text">Choose branch and role first. HR is available for all branches.</p>
+            </div>
+        </form>
+
+        <div class="hr-card">
+            <div class="hr-badge">HR • All Branches</div>
+            <h2>HR Interview</h2>
+            <p>Behavioral questions, communication, and culture-fit evaluation.</p>
+            <button class="hr-btn" id="hrBtn" type="button">Start HR Interview</button>
+        </div>
     </div>
+</div>
 
-    <!-- Options -->
-    <div class="select-grid">
+<script>
+    const branchSelect = document.getElementById('branchSelect');
+    const roleSelect = document.getElementById('roleSelect');
+    const stackGroup = document.getElementById('stackGroup');
+    const stackSection = document.getElementById('stackSection');
+    const interviewType = document.getElementById('interviewType');
+    const hrBtn = document.getElementById('hrBtn');
+    const durationMinutes = document.getElementById('durationMinutes');
+    const questionCount = document.getElementById('questionCount');
+    // Focus sliders removed
+    const interviewerStyle = document.getElementById('interviewerStyle');
+    const warmupMode = document.getElementById('warmupMode');
+    const previewRole = document.getElementById('previewRole');
+    const previewDifficulty = document.getElementById('previewDifficulty');
+    const previewDuration = document.getElementById('previewDuration');
+    const previewQuestions = document.getElementById('previewQuestions');
+    const previewFocus = document.getElementById('previewFocus');
+    const previewStyle = document.getElementById('previewStyle');
+    const previewStack = document.getElementById('previewStack');
 
-        <div class="select-card" data-type="web_dev">
-            <h3>🌐 Web Developer</h3>
-            <p>HTML, CSS, JavaScript, Django, React basics.</p>
-        </div>
+    const roleMap = {
+        CSE: [
+            'SDE', 'Software Engineer', 'Frontend Developer', 'Backend Developer',
+            'Full Stack Developer', 'Data Analyst', 'Data Scientist', 'ML Engineer',
+            'DevOps Engineer', 'QA Engineer', 'Cybersecurity Analyst'
+        ],
+        IT: [
+            'SDE', 'Software Engineer', 'Frontend Developer', 'Backend Developer',
+            'Full Stack Developer', 'Data Analyst', 'DevOps Engineer', 'QA Engineer'
+        ],
+        ECE: [
+            'VLSI Engineer', 'Embedded Engineer', 'Signal Processing Engineer',
+            'RF Engineer', 'Hardware Design Engineer'
+        ],
+        EEE: [
+            'Power Electronics', 'Power Systems Engineer', 'Control Systems Engineer',
+            'Electrical Design Engineer'
+        ],
+        EE: [
+            'Power Electronics', 'Power Systems Engineer', 'Electrical Design Engineer'
+        ],
+        ME: [
+            'Design Engineer', 'Production Engineer', 'Manufacturing Engineer',
+            'Thermal Engineer', 'CAD Engineer'
+        ],
+        CE: [
+            'Civil Engineer', 'Structural Engineer', 'Site Engineer',
+            'Quantity Surveyor', 'Geotechnical Engineer'
+        ],
+        CHE: [
+            'Process Engineer', 'Plant Engineer', 'Safety Engineer', 'QA/QC Engineer'
+        ],
+        AE: ['Aerospace Engineer', 'Design Engineer', 'Manufacturing Engineer'],
+        BME: ['Biomedical Engineer', 'R&D Engineer', 'Quality Engineer'],
+        MTE: ['Mechatronics Engineer', 'Automation Engineer', 'Robotics Engineer'],
+        IE: ['Industrial Engineer', 'Process Improvement Engineer', 'Quality Engineer'],
+        SE: ['Structural Engineer', 'Bridge Engineer', 'Site Engineer'],
+        PE: ['Petroleum Engineer', 'Reservoir Engineer', 'Drilling Engineer'],
+        ENVE: ['Environmental Engineer', 'Sustainability Engineer', 'EHS Engineer'],
+        MIN: ['Mining Engineer', 'Mine Planning Engineer', 'Safety Engineer'],
+        META: ['Metallurgical Engineer', 'Process Engineer', 'Quality Engineer'],
+        AGRI: ['Agricultural Engineer', 'Irrigation Engineer', 'Process Engineer'],
+        INS: ['Instrumentation Engineer', 'Control Engineer', 'Automation Engineer'],
+        OTHER: ['General Engineer', 'Operations Engineer', 'Management Trainee']
+    };
 
-        <div class="select-card" data-type="ai_ml">
-            <h3>🤖 AI / ML Engineer</h3>
-            <p>Machine learning, Python, data handling, fundamentals.</p>
-        </div>
+    const stackMap = {
+        'SDE': ['DSA', 'System Design', 'OOP', 'DBMS', 'OS', 'Networks'],
+        'Software Engineer': ['DSA', 'OOP', 'DBMS', 'OS', 'Networks'],
+        'Frontend Developer': ['HTML', 'CSS', 'JavaScript', 'React', 'UI/UX'],
+        'Backend Developer': ['APIs', 'Databases', 'Auth', 'Caching', 'System Design'],
+        'Full Stack Developer': ['HTML', 'CSS', 'JavaScript', 'APIs', 'Databases'],
+        'Data Analyst': ['SQL', 'Excel', 'Statistics', 'Power BI', 'Tableau'],
+        'Data Scientist': ['Python', 'Statistics', 'ML', 'Experimentation', 'Visualization'],
+        'ML Engineer': ['Python', 'ML', 'DL', 'Model Deployment', 'MLOps'],
+        'DevOps Engineer': ['Linux', 'Docker', 'CI/CD', 'Cloud', 'Monitoring'],
+        'QA Engineer': ['Testing', 'Automation', 'Selenium', 'API Testing'],
+        'Cybersecurity Analyst': ['Network Security', 'OWASP', 'Threat Modeling', 'SOC'],
+        'VLSI Engineer': ['Digital Design', 'Verilog', 'VLSI Basics', 'Timing'],
+        'Embedded Engineer': ['C', 'Microcontrollers', 'RTOS', 'IoT'],
+        'Power Electronics': ['Power Devices', 'Converters', 'Control', 'Drives'],
+        'Power Systems Engineer': ['Power Systems', 'Protection', 'Machines', 'Load Flow'],
+        'Electrical Design Engineer': ['Circuit Design', 'CAD', 'Control Systems'],
+        'Design Engineer': ['CAD', 'Design', 'Materials', 'GD&T'],
+        'Production Engineer': ['Manufacturing', 'Process Planning', 'Quality'],
+        'Manufacturing Engineer': ['Lean', 'Process', 'Quality'],
+        'Thermal Engineer': ['Thermodynamics', 'Heat Transfer', 'CFD'],
+        'CAD Engineer': ['CAD', 'Solid Modeling', 'Drafting'],
+        'Civil Engineer': ['Surveying', 'Concrete', 'Steel', 'Construction'],
+        'Structural Engineer': ['Structures', 'Concrete', 'Steel', 'ETABS'],
+        'Site Engineer': ['Planning', 'Execution', 'Safety'],
+        'Quantity Surveyor': ['Estimation', 'BoQ', 'Contracts'],
+        'Process Engineer': ['Process Design', 'P&ID', 'Safety'],
+        'Chemical Engineer': ['Process', 'Thermo', 'Transport'],
+        'Safety Engineer': ['Safety', 'Compliance', 'Risk'],
+        'Aerospace Engineer': ['Aerodynamics', 'Structures', 'Propulsion'],
+        'Biomedical Engineer': ['Instrumentation', 'Signals', 'Regulatory'],
+        'Mechatronics Engineer': ['Control', 'Sensors', 'Robotics'],
+        'Automation Engineer': ['PLC', 'SCADA', 'Control'],
+        'Industrial Engineer': ['Lean', 'Process', 'Quality'],
+        'Environmental Engineer': ['Water', 'Air', 'EHS'],
+        'Mining Engineer': ['Mine Planning', 'Safety', 'Operations'],
+        'Metallurgical Engineer': ['Metallurgy', 'Process', 'Quality'],
+        'Agricultural Engineer': ['Irrigation', 'Soil', 'Mechanization'],
+        'Instrumentation Engineer': ['Sensors', 'Control', 'Calibration'],
+        'General Engineer': ['Aptitude', 'Basics', 'Communication'],
+        'Operations Engineer': ['Process', 'KPIs', 'Safety'],
+        'Management Trainee': ['Communication', 'Basics', 'Aptitude'],
+        'HR Interview': ['Behavioral', 'Communication', 'Culture Fit']
+    };
 
-        <div class="select-card" data-type="data_analyst">
-            <h3>📊 Data Analyst</h3>
-            <p>SQL, Python, Excel, data interpretation.</p>
-        </div>
+    // Focus areas removed from UI; defaults are handled server-side
 
-        <div class="select-card" data-type="hr">
-            <h3>🧑‍💼 HR Interview</h3>
-            <p>Communication, confidence, behavioral questions.</p>
-        </div>
+    function setRoles(branch) {
+        roleSelect.innerHTML = '<option value="">-- Choose Role --</option>';
+        const roles = roleMap[branch] || [];
+        if (branch === 'ALL') {
+            roles.unshift('HR Interview');
+        }
+        roles.forEach(role => {
+            const opt = document.createElement('option');
+            opt.value = role;
+            opt.textContent = role;
+            roleSelect.appendChild(opt);
+        });
+        roleSelect.dispatchEvent(new Event('change'));
+    }
 
-    </div>
+    function setStacks(role) {
+        stackGroup.innerHTML = '';
+        if (!role) {
+            stackSection.style.display = 'none';
+            return;
+        }
+        let stacks = stackMap[role] || [];
+        if (role === 'HR Interview') {
+            stackSection.style.display = 'none';
+            return;
+        }
+        if (stacks.length === 0) {
+            stacks = ['Fundamentals', 'Projects', 'Domain Basics'];
+        }
+        stackSection.style.display = 'block';
+        stacks.forEach(stack => {
+            const label = document.createElement('label');
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'stack';
+            input.value = stack;
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${stack}`));
+            stackGroup.appendChild(label);
+        });
+    }
 
-    <!-- CTA -->
-    <div class="start-wrapper">
-        <button id="proceedBtn" class="proceed-btn" disabled>
-            Continue to Interview →
-        </button>
-    </div>
+    function updatePreview() {
+        const role = roleSelect.value || '—';
+        const difficulty = document.getElementById('difficulty').value || '—';
+        const durationText = durationMinutes.value ? `${durationMinutes.value} min` : '—';
+        const questionsText = questionCount.value || '—';
 
-</section>
+        // Focus sliders removed; no per-role preview percentages
 
-{% block extra_js %}
-<script src="{% static 'js/ai/ai_interview_select.js' %}"></script>
-{% endblock %}
+        previewRole.textContent = role;
+        previewDifficulty.textContent = difficulty;
+        previewDuration.textContent = durationText;
+        previewQuestions.textContent = questionsText;
+        previewFocus.textContent = '—';
+        previewStyle.textContent = interviewerStyle.options[interviewerStyle.selectedIndex].textContent;
+
+        const selectedStacks = Array.from(stackGroup.querySelectorAll('input[name="stack"]:checked'))
+            .map(input => input.value);
+        previewStack.textContent = selectedStacks.length ? selectedStacks.join(', ') : '—';
+
+        saveToLocal();
+    }
+
+    function saveToLocal() {
+        const data = {
+            branch: branchSelect.value,
+            role: roleSelect.value,
+            difficulty: document.getElementById('difficulty').value,
+            duration_minutes: durationMinutes.value,
+            question_count: questionCount.value,
+            // focus fields removed
+            interviewer_style: interviewerStyle.value,
+            warmup: warmupMode.checked,
+            stack: Array.from(stackGroup.querySelectorAll('input[name="stack"]:checked')).map(i => i.value)
+        };
+        localStorage.setItem('aiInterviewConfig', JSON.stringify(data));
+    }
+
+    function restoreFromLocal() {
+        const raw = localStorage.getItem('aiInterviewConfig');
+        if (!raw) return;
+        try {
+            const data = JSON.parse(raw);
+            if (data.branch) {
+                branchSelect.value = data.branch;
+                setRoles(data.branch);
+            }
+            if (data.role) {
+                roleSelect.value = data.role;
+                interviewType.value = data.role;
+                setStacks(data.role);
+            }
+            if (data.difficulty) document.getElementById('difficulty').value = data.difficulty;
+            if (data.duration_minutes) durationMinutes.value = data.duration_minutes;
+            if (data.question_count) questionCount.value = data.question_count;
+            // focus fields removed from saved config
+            if (data.interviewer_style) interviewerStyle.value = data.interviewer_style;
+            if (typeof data.warmup === 'boolean') warmupMode.checked = data.warmup;
+
+            if (Array.isArray(data.stack)) {
+                data.stack.forEach(val => {
+                    const checkbox = stackGroup.querySelector(`input[value="${val}"]`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+        } catch (e) {}
+    }
+
+    branchSelect.addEventListener('change', () => {
+        setRoles(branchSelect.value);
+        updatePreview();
+    });
+
+    roleSelect.addEventListener('change', () => {
+        const role = roleSelect.value;
+        interviewType.value = role;
+        setStacks(role);
+            // role-specific focus defaults removed from client; server will handle defaults
+        updatePreview();
+    });
+
+    hrBtn.addEventListener('click', () => {
+        branchSelect.value = 'ALL';
+        setRoles('ALL');
+        roleSelect.value = 'HR Interview';
+        interviewType.value = 'HR Interview';
+        setStacks('HR Interview');
+        document.getElementById('difficulty').focus();
+        updatePreview();
+    });
+
+    stackSection.style.display = 'none';
+
+    document.addEventListener('change', (e) => {
+        if (['durationMinutes', 'questionCount', 'interviewerStyle', 'warmupMode', 'difficulty'].includes(e.target.id)) {
+            updatePreview();
+        }
+    });
+
+    stackGroup.addEventListener('change', updatePreview);
+
+    restoreFromLocal();
+    updatePreview();
+
+    document.getElementById('interviewForm').addEventListener('submit', (e) => {
+        const branch = branchSelect.value;
+        const role = roleSelect.value;
+        const difficulty = document.getElementById('difficulty').value;
+        if (!branch || !role || !difficulty) {
+            e.preventDefault();
+            alert('Please complete branch, role, and difficulty.');
+            return;
+        }
+        if (role !== 'HR Interview') {
+            const anyStack = stackGroup.querySelector('input[name="stack"]:checked');
+            if (!anyStack) {
+                e.preventDefault();
+                alert('Please select at least one tech stack.');
+            }
+        }
+    });
+</script>
 
 {% endblock %}

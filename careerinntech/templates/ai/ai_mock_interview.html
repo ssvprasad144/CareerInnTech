@@ -26,21 +26,21 @@
     <!-- How It Works -->
     <div class="ai-info-grid">
 
-        <div class="info-card">
+        <div class="info-card detail-card">
             <h3>🧠 AI Asks Questions</h3>
             <p>
                 The AI interviewer asks role-based interview questions just like a real interviewer.
             </p>
         </div>
 
-        <div class="info-card">
+        <div class="info-card detail-card">
             <h3>🎤 You Answer by Voice</h3>
             <p>
                 Speak your answers naturally. The system listens and understands your response.
             </p>
         </div>
 
-        <div class="info-card">
+        <div class="info-card detail-card">
             <h3>📊 Instant Feedback</h3>
             <p>
                 Get feedback on communication, clarity, and confidence after the interview.
@@ -49,24 +49,32 @@
 
     </div>
 
-    <!-- Requirements -->
+    <!-- Requirements & Features -->
     <div class="requirements-box">
         <h3>⚠️ Before You Start</h3>
         <ul>
-            <li>Microphone access is required</li>
-            <li>Ensure a quiet environment</li>
-            <li>Interview duration: ~15 minutes</li>
+            <li><strong>Microphone:</strong> Allow browser microphone access when prompted — required for voice answers.</li>
+            <li><strong>Quiet environment:</strong> Minimize background noise for the most accurate speech recognition.</li>
+            <li><strong>Duration:</strong> ~15 minutes (may vary by session).</li>
         </ul>
+
+        <h4>What to expect</h4>
+        <ul>
+            <li><strong>AI interviewer:</strong> Asks role-based and follow-up questions just like a human interviewer.</li>
+            <li><strong>Voice interaction:</strong> Speak naturally — your answers are captured using browser speech-to-text (STT).</li>
+            <li><strong>AI responses:</strong> The AI may speak prompts or follow-ups; audio is played using your browser's text-to-speech (TTS).</li>
+            <li><strong>Live transcription & feedback:</strong> See a live transcript during the interview and receive post-interview feedback on clarity, confidence, and improvement tips.</li>
+            <li><strong>Recording & privacy:</strong> Audio may be processed locally in-browser or sent to configured services depending on deployment. Check privacy settings for details.</li>
+        </ul>
+
+        <p class="muted">Note: TTS and STT are provided by your browser (e.g. Web Speech APIs) where available; behavior and voice quality vary by browser and device.</p>
     </div>
 
     <!-- CTA -->
     <div class="start-btn-wrapper">
-        <button
-    onclick="window.location.href='{% url 'ai-interview-select' %}'"
-    class="start-btn">
-    🚀 Start AI Mock Interview
-</button>
-
+        <a href="{% url 'ai-interview-select' %}" class="primary-btn">
+            🚀 Start AI Mock Interview
+        </a>
     </div>
 
 </section>

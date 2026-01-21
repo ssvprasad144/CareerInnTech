@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block content %}
-
 <section class="interview-prep-section">
+
+    <a class="back-link" href="javascript:history.back()">← Back</a>
 
     <!-- Header -->
     <div class="interview-prep-header">
@@ -22,42 +23,42 @@
     <div class="interview-prep-grid">
 
         <!-- Types of Interview -->
-        <a href="#" class="prep-card">
+        <a href="{% url 'interview-types' %}" class="prep-card">
             <h3>📌 Types of Interviews</h3>
             <p>HR, Technical, Managerial, System Design & more.</p>
             <span class="card-hint">Understand what to expect</span>
         </a>
 
         <!-- Interview Tips -->
-        <a href="#" class="prep-card">
+        <a href="{% url 'interview-tips' %}" class="prep-card">
             <h3>💡 Interview Tips</h3>
             <p>Answer structuring, communication tips, confidence building.</p>
             <span class="card-hint">Improve your answers</span>
         </a>
 
         <!-- Interview Myths -->
-        <a href="#" class="prep-card">
+        <a href="{% url 'interview-myths' %}" class="prep-card">
             <h3>❌ Myths & Mistakes</h3>
             <p>Common misconceptions that hurt your chances.</p>
             <span class="card-hint">Avoid costly errors</span>
         </a>
 
         <!-- Question Bank -->
-        <a href="#" class="prep-card">
+        <a href="{% url 'interview-question-bank' %}" class="prep-card">
             <h3>📚 Question Bank</h3>
             <p>Frequently asked HR & technical interview questions.</p>
             <span class="card-hint">Practice before AI</span>
         </a>
 
         <!-- Resume Based Prep -->
-        <a href="#" class="prep-card">
+        <a href="{% url 'interview-resume-prep' %}" class="prep-card">
             <h3>📄 Resume-Based Prep</h3>
             <p>Prepare answers based on your resume projects & skills.</p>
             <span class="card-hint">Personalized preparation</span>
         </a>
 
         <!-- Body Language -->
-        <a href="#" class="prep-card">
+        <a href="{% url 'interview-communication' %}" class="prep-card">
             <h3>🗣️ Communication & Body Language</h3>
             <p>Voice clarity, posture, confidence & eye contact.</p>
             <span class="card-hint">Non-verbal mastery</span>

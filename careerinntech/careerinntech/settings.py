@@ -4,19 +4,15 @@ from dotenv import load_dotenv
 import dj_database_url
 
 
-# ================= LOAD ENV =================
-
-
 # ================= BASE =================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
+
 print("OPENAI KEY LOADED:", bool(os.getenv("OPENAI_API_KEY")))
+
 # ================= SECURITY =================
 
-# SECRET KEY
-# - Local: uses fallback
-# - Render: uses environment variable
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     "django-insecure-local-dev-key-change-this"
@@ -30,6 +26,16 @@ if not OPENAI_API_KEY:
 else:
     print("✅ OPENAI_API_KEY LOADED")
 
+# ================= AZURE SPEECH =================
+
+AZURE_SPEECH_KEY = os.getenv("AZURE_SPEECH_KEY")
+AZURE_SPEECH_REGION = os.getenv("AZURE_SPEECH_REGION")
+AZURE_SPEECH_VOICE = os.getenv("AZURE_SPEECH_VOICE", "en-US-JennyNeural")
+
+# ================= TTS (OpenAI fallback) =================
+
+OPENAI_TTS_VOICE = os.getenv("OPENAI_TTS_VOICE", "alloy")
+
 # ================= DEBUG =================
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
@@ -40,7 +46,6 @@ ALLOWED_HOSTS = [
     "careerinntech.onrender.com",
     "careerinntech.com",
     "www.careerinntech.com",
-
     "127.0.0.1",
     "localhost",
     ".onrender.com",
@@ -56,12 +61,23 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    # Third-party
+    "channels",  # ✅ REQUIRED FOR WEBSOCKETS
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    # Social account providers disabled for now — implement later
+
+    # Local apps
     "core",
     "college",
-    'skills',
-    'projects',
-    
+    "skills",
+    "projects",
+    "AI",
 ]
+
+# ================= I18N =================
+
 USE_I18N = True
 
 LANGUAGE_CODE = "en"
@@ -72,6 +88,7 @@ LANGUAGES = [
     ("te", "Telugu"),
     ("ta", "Tamil"),
 ]
+
 LANGUAGE_COOKIE_NAME = "django_language"
 
 LOCALE_PATHS = [
@@ -84,19 +101,24 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware", 
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
-# ================= URL / WSGI =================
+# ================= URL / SERVER =================
 
 ROOT_URLCONF = "careerinntech.urls"
+
+# ✅ KEEP THIS (normal Django HTTP)
 WSGI_APPLICATION = "careerinntech.wsgi.application"
+
+# ✅ ADD THIS (real-time WebSocket support)
+ASGI_APPLICATION = "careerinntech.asgi.application"
 
 # ================= TEMPLATES =================
 
@@ -118,7 +140,6 @@ TEMPLATES = [
 ]
 
 # ================= DATABASE =================
-# SQLite (local) | PostgreSQL (Render)
 
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
@@ -144,11 +165,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# ================= INTERNATIONALIZATION =================
+# ================= TIMEZONE =================
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
-USE_I18N = True
 USE_TZ = True
 
 # ================= AUTH =================
@@ -156,6 +176,22 @@ USE_TZ = True
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "post_login"
 LOGOUT_REDIRECT_URL = "home"
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SIGNUP_FIELDS = ["email", "username"]
+
+# Social account provider settings (Google)
+# SOCIALACCOUNT_PROVIDERS kept for reference; social login currently disabled
+SOCIALACCOUNT_PROVIDERS = {}
 
 # ================= STATIC FILES =================
 
@@ -171,6 +207,11 @@ if DEBUG:
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# ================= MEDIA =================
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # ================= DEFAULT FIELD =================
 

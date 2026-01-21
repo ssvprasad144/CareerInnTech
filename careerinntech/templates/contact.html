@@ -8,20 +8,48 @@
 {% endblock %}
 
 {% block content %}
-<section class="info-page">
-    <div class="info-container">
-        <h1>Contact Us</h1>
-        <p class="lead">
-            Have questions? Reach out to us and we’ll get back to you.
-        </p>
+<section class="contact-page">
+    <div class="contact-container">
+        <div class="contact-card">
+            <div class="contact-info">
+                <p class="contact-badge">Let’s talk</p>
+                <h1>Contact Us</h1>
+                <p class="contact-lead">
+                    Have questions or feedback? Send us a message and we’ll get back to you within 24 hours.
+                </p>
+                <ul class="contact-points">
+                    <li>Fast support from our team</li>
+                    <li>Personalized guidance for students</li>
+                    <li>We’re happy to hear your ideas</li>
+                </ul>
+            </div>
 
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message"></textarea>
+            <form class="contact-form" aria-label="Contact form">
+                <div class="form-row">
+                    <label>
+                        <span>Name</span>
+                        <input type="text" placeholder="Your full name" required>
+                    </label>
+                    <label>
+                        <span>Email</span>
+                        <input type="email" placeholder="you@example.com" required>
+                    </label>
+                </div>
+                <label>
+                    <span>Subject</span>
+                    <input type="text" placeholder="How can we help?">
+                </label>
+                <label>
+                    <span>Message</span>
+                    <textarea rows="6" placeholder="Tell us about your request" required></textarea>
+                </label>
 
-            <button type="submit">Send Message</button>
-        </form>
+                <div class="form-actions">
+                    <button type="submit">Send Message</button>
+                    <p class="form-note">We respect your privacy. No spam.</p>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
 {% endblock %}

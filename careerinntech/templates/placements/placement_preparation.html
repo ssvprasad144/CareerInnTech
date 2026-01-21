@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block content %}
-
 <section class="explore-section">
+
+    <a class="back-link" href="javascript:history.back()">← Back</a>
 
     <h2 style="margin-bottom: 10px;">🎯 Placement Preparation</h2>
     <p style="margin-bottom: 30px; color: #94a3b8;">
@@ -17,7 +18,7 @@
     <div class="explore-grid">
 
         <!-- Aptitude Question Bank -->
-        <div class="explore-card">
+        <a class="explore-card" href="{% url 'aptitude-preparation' %}">
             <h4>Aptitude Question Bank</h4>
             <p>High-frequency aptitude questions asked in hiring tests.</p>
             <ul>
@@ -26,10 +27,10 @@
                 <li>Verbal ability questions</li>
                 <li>Shortcut methods & tricks</li>
             </ul>
-        </div>
+        </a>
 
         <!-- Company-Wise DSA -->
-        <div class="explore-card">
+        <a class="explore-card" href="{% url 'company-dsa' %}">
             <h4>Company-Wise Important DSA Questions</h4>
             <p>Frequently asked DSA patterns in technical interviews.</p>
             <ul>
@@ -39,10 +40,10 @@
                 <li>Hashing-based questions</li>
                 <li>Basic trees & graphs</li>
             </ul>
-        </div>
+        </a>
 
         <!-- Coding Assessment -->
-        <div class="explore-card">
+        <a class="explore-card" href="{% url 'coding-assessment' %}">
             <h4>Coding Assessment Strategy</h4>
             <p>How to perform well in online coding tests.</p>
             <ul>
@@ -50,10 +51,10 @@
                 <li>Time management during tests</li>
                 <li>Avoiding common logical mistakes</li>
             </ul>
-        </div>
+        </a>
 
         <!-- Resume & Shortlisting -->
-        <div class="explore-card">
+        <a class="explore-card" href="{% url 'resume-shortlisting' %}">
             <h4>Resume & Shortlisting</h4>
             <p>Build resumes that actually get shortlisted.</p>
             <ul>
@@ -61,10 +62,10 @@
                 <li>Project explanation clarity</li>
                 <li>Common resume rejection reasons</li>
             </ul>
-        </div>
+        </a>
 
         <!-- Group Discussion -->
-        <div class="explore-card">
+        <a class="explore-card" href="{% url 'group-discussion' %}">
             <h4>Group Discussion (GD) Preparation</h4>
             <p>Crack group discussion rounds confidently.</p>
             <ul>
@@ -74,10 +75,10 @@
                 <li>Handling disagreements politely</li>
                 <li>Common GD mistakes</li>
             </ul>
-        </div>
+        </a>
 
         <!-- Interview Preparation -->
-        <div class="explore-card">
+        <a class="explore-card" href="{% url 'interview-preparation' %}">
             <h4>Interview Preparation</h4>
             <p>Cracking technical, HR, and managerial interviews.</p>
             <ul>
@@ -87,12 +88,7 @@
             </ul>
 
             <!-- CTA -->
-            <a href="{% url 'interview-preparation' %}"
-               class="btn btn-primary"
-               style="margin-top: 12px; display: inline-block;">
-                🎤 Go to Interview Preparation
-            </a>
-        </div>
+        </a>
 
     </div>
 

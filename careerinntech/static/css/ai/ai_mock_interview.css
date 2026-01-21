@@ -43,8 +43,7 @@
 }
 
 .info-card {
-    background: #0f172a;
-    border: 1px solid #1e293b;
+    /* use shared .detail-card styles for consistent theme; minimal AI-specific tweaks below */
     border-radius: 16px;
     padding: 24px;
 }
@@ -54,14 +53,12 @@
 }
 
 .info-card p {
-    color: #cbd5f5;
     font-size: 0.95rem;
 }
 
 /* Requirements */
 .requirements-box {
-    background: #020617;
-    border: 1px solid #1e293b;
+    /* Keep layout but rely on .detail-card base styles for background/border */
     border-radius: 14px;
     padding: 20px;
     margin-bottom: 40px;
@@ -76,7 +73,6 @@
 }
 
 .requirements-box li {
-    color: #cbd5f5;
     margin-bottom: 6px;
 }
 
@@ -86,18 +82,8 @@
 }
 
 .start-btn {
-    background: #22c55e;
-    color: #022c22;
-    border: none;
-    padding: 14px 28px;
-    font-size: 1.1rem;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* legacy helper — primary-btn is preferred. Keep small padding tweak for layout */
+    padding: 12px 22px;
 }
 
-.start-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.25);
-}
+.start-btn:hover { transform: translateY(-2px); }
