@@ -19,6 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+import os
+import sys
+
+# Ensure the outer project directory is on sys.path so sibling apps
+# like the top-level `AI` package can be imported when Django loads
+# URL modules from the inner package.
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 urlpatterns = [
     path("admin/", admin.site.urls),

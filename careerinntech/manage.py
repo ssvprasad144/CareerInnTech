@@ -6,6 +6,10 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    # Ensure the outer project directory is on sys.path so local apps
+    # (for example the top-level `AI` package) can be imported when
+    # manage.py is executed from different working directories.
+    sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "careerinntech.settings")
     try:
         from django.core.management import execute_from_command_line
