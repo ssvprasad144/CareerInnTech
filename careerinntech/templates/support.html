@@ -5,147 +5,134 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/support.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 
 <section class="support-page">
-    <div class="support-container">
 
+    <!-- HERO -->
+    <div class="support-hero">
         <h1>Support & Help</h1>
-        <p class="support-intro">
-            We’re here to support you at every step of your career journey.
-            Find answers below or reach out to us directly.
+        <p>
+            Clear answers. Honest guidance. Real support.
+            Everything you need to know about CareerInnTech.
         </p>
+    </div>
 
-        <!-- ================= FAQ SECTION ================= -->
-        <div class="faq-section">
-            <h2>Frequently Asked Questions</h2>
+    <!-- FAQ CONTAINER -->
+    <div class="faq-container">
 
-            <!-- Content Authenticity -->
-            <h3 class="faq-category">Content Authenticity</h3>
+        <!-- CATEGORY -->
+        <div class="faq-category">
+            <h2>Content Authenticity</h2>
 
-            <div class="faq-card">
-                <h4>Is CareerInnTech content real or AI-generated?</h4>
+            <div class="faq-item">
+                <h3>Is CareerInnTech content real or AI-generated?</h3>
                 <p>
-                    CareerInnTech follows a hybrid model. Our content is built using real job roles,
-                    current hiring trends, and interview patterns, then structured and personalized using AI.
-                    AI helps with scalability and personalization, while industry logic ensures accuracy.
+                    CareerInnTech follows a hybrid model. We use real job roles,
+                    current hiring trends, and interview patterns, then structure
+                    and personalize them using AI. Industry logic ensures accuracy.
                 </p>
             </div>
 
-            <div class="faq-card">
-                <h4>How do you verify your career roadmaps?</h4>
+            <div class="faq-item">
+                <h3>How do you verify your career roadmaps?</h3>
                 <p>
-                    Each roadmap is created by analyzing real job descriptions, required skills
-                    from hiring platforms, and industry interview expectations. Roadmaps are reviewed
-                    and updated regularly to stay relevant.
+                    Roadmaps are created using real job descriptions, hiring platform
+                    skill requirements, and interview expectations, and are updated regularly.
                 </p>
             </div>
 
-            <div class="faq-card">
-                <h4>Is this content copied from YouTube or blogs?</h4>
+            <div class="faq-item">
+                <h3>Is this content copied from YouTube or blogs?</h3>
                 <p>
-                    No. CareerInnTech roadmaps are original and structured from fragmented industry data,
-                    then simplified for students. We focus on clarity and execution, not random theory.
+                    No. Our roadmaps are original and built from fragmented industry data,
+                    simplified into clear, execution-focused guidance.
                 </p>
             </div>
+        </div>
 
-            <!-- AI Mock Interview -->
-            <h3 class="faq-category">AI Mock Interviews</h3>
+        <!-- CATEGORY -->
+        <div class="faq-category">
+            <h2>AI Mock Interviews</h2>
 
-            <div class="faq-card">
-                <h4>Is the AI interviewer real?</h4>
+            <div class="faq-item">
+                <h3>Is the AI interviewer real?</h3>
                 <p>
-                    Yes. Our AI interviewer simulates real interview environments, asks role-based questions,
+                    Yes. It simulates real interviews, asks role-based questions,
                     evaluates responses, and provides actionable feedback.
                 </p>
             </div>
 
-            <div class="faq-card">
-                <h4>Does AI ask real interview questions?</h4>
+            <div class="faq-item">
+                <h3>Will AI help reduce interview fear?</h3>
                 <p>
-                    Yes. Questions are designed based on actual interview patterns, difficulty levels,
-                    and role requirements.
+                    Absolutely. Practicing in a pressure-free environment builds
+                    confidence before real interviews.
                 </p>
             </div>
-
-            <div class="faq-card">
-                <h4>Will AI help reduce interview fear?</h4>
-                <p>
-                    Absolutely. Practicing multiple mock interviews in a pressure-free environment
-                    helps students gain confidence before real interviews.
-                </p>
-            </div>
-
-            <!-- Career Guidance -->
-            <h3 class="faq-category">Career Guidance</h3>
-
-            <div class="faq-card">
-                <h4>What if I don’t know my career goal yet?</h4>
-                <p>
-                    CareerInnTech helps students discover suitable career paths based on interests,
-                    skills, and market demand — step by step.
-                </p>
-            </div>
-
-            <div class="faq-card">
-                <h4>Is this suitable for beginners?</h4>
-                <p>
-                    Yes. All career roadmaps start from zero level and gradually move toward job-ready skills.
-                </p>
-            </div>
-
-            <!-- Jobs & Results -->
-            <h3 class="faq-category">Jobs & Results</h3>
-
-            <div class="faq-card">
-                <h4>Do you guarantee jobs or placements?</h4>
-                <p>
-                    No platform can ethically guarantee jobs.
-                    CareerInnTech focuses on career clarity, skill readiness,
-                    and interview confidence — which significantly improves job chances.
-                </p>
-            </div>
-
-            <!-- Pricing -->
-            <h3 class="faq-category">Pricing</h3>
-
-            <div class="faq-card">
-                <h4>Why is CareerInnTech paid?</h4>
-                <p>
-                    You pay for structured clarity, personalized guidance, AI mock interviews,
-                    and time saved from confusion. Free content gives information —
-                    CareerInnTech gives direction.
-                </p>
-            </div>
-
-            <!-- Privacy -->
-            <h3 class="faq-category">Privacy</h3>
-
-            <div class="faq-card">
-                <h4>Is my data safe?</h4>
-                <p>
-                    Yes. Student data is secure, never sold, and used only to improve
-                    learning experiences and interview simulations.
-                </p>
-            </div>
-
         </div>
 
-        <!-- ================= CONTACT SUPPORT ================= -->
-        <div class="contact-support">
-            <h2>Still need help?</h2>
-            <p>
-                Reach out to our support team and we’ll get back to you as soon as possible.
-            </p>
+        <!-- CATEGORY -->
+        <div class="faq-category">
+            <h2>Career Guidance</h2>
 
-            <a href="{% url 'contact' %}" class="support-btn">
-                Contact Support
-            </a>
+            <div class="faq-item">
+                <h3>What if I don’t know my career goal yet?</h3>
+                <p>
+                    CareerInnTech helps you discover suitable paths based on interests,
+                    skills, and market demand.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Is this suitable for beginners?</h3>
+                <p>
+                    Yes. All roadmaps start from zero and gradually move to job-ready skills.
+                </p>
+            </div>
+        </div>
+
+        <!-- CATEGORY -->
+        <div class="faq-category">
+            <h2>Jobs, Pricing & Privacy</h2>
+
+            <div class="faq-item">
+                <h3>Do you guarantee jobs?</h3>
+                <p>
+                    No ethical platform guarantees jobs. We focus on clarity,
+                    skills, and interview readiness to improve opportunities.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Why is CareerInnTech paid?</h3>
+                <p>
+                    You pay for structured clarity, personalized guidance,
+                    AI mock interviews, and time saved from confusion.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Is my data safe?</h3>
+                <p>
+                    Yes. Your data is secure, never sold, and used only
+                    to improve learning and interview simulations.
+                </p>
+            </div>
         </div>
 
     </div>
+
+    <!-- CTA -->
+    <div class="support-cta">
+        <h2>Still need help?</h2>
+        <p>Our team is happy to guide you.</p>
+        <a href="{% url 'contact' %}">Contact Support</a>
+    </div>
+
 </section>
 
 {% endblock %}
