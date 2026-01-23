@@ -1,81 +1,87 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>BTech Skills</title>
 
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
-  <link rel="stylesheet" href="{% static 'css/btech_skills.css' %}">
+{% block title %}BTech Skills | CareerInnTech{% endblock %}
 
-  <style>
-    .course-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .course-card {
-      background: linear-gradient(135deg, #1e293b, #020617);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.25s ease;
-    }
-    .course-card:hover {
-      transform: scale(1.05);
-    }
-    .back-btn {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #6366f1;
-      cursor: pointer;
-    }
-  </style>
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/btech_skills.css' %}">
 
-<body>
+<style>
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
 
-<header class="main-header">
-  <div class="logo">
-    CareerInnTech
-    <span>BTech • Hospitality • Careers</span>
-  </div>
-</header>
+  .course-card {
+    background: linear-gradient(135deg, #1e293b, #020617);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    color: #e5e7eb;
+  }
 
-<main class="main-content">
+  .course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(99,102,241,0.35);
+  }
+
+  .back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #6366f1;
+    font-weight: 600;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="skills-container">
 
   <a href="{% url 'btech_skills' %}" class="back-btn">← Back</a>
 
-  <h1 id="branchTitle"></h1>
+  <h1 id="branchTitle" class="title"></h1>
+
   <div class="course-grid" id="courseGrid"></div>
 
-</main>
+</div>
 
+<!-- ================= SCRIPT ================= -->
 <script>
-const data = {
-  CSE: ["Python", "Java", "C", "C++", "DSA", "OOPS", "DBMS", "SQL", "CN", "OS"],
-  ECE: ["Signals", "Digital Electronics", "VLSI", "Control Systems", "Embedded Systems"],
-  EEE: ["Machines", "Power Systems", "Power Electronics", "Measurements", "Control Systems"]
-};
-
-const params = new URLSearchParams(window.location.search);
-const branch = params.get("branch") || "CSE";
-
-document.getElementById("branchTitle").innerText = branch + " Skills";
-
-const grid = document.getElementById("courseGrid");
-
-data[branch].forEach(course => {
-  const card = document.createElement("div");
-  card.className = "course-card";
-  card.innerText = course;
-  card.onclick = () => {
-    window.location.href = "{% url 'course_detail' %}?course=" + course;
+  const data = {
+    CSE: ["Python", "Java", "C", "C++", "DSA", "OOPS", "DBMS", "SQL", "CN", "OS"],
+    ECE: ["Signals", "Digital Electronics", "VLSI", "Control Systems", "Embedded Systems"],
+    EEE: ["Machines", "Power Systems", "Power Electronics", "Measurements", "Control Systems"]
   };
-  grid.appendChild(card);
-});
+
+  const params = new URLSearchParams(window.location.search);
+  const branch = params.get("branch") || "CSE";
+
+  document.getElementById("branchTitle").innerText = branch + " Skills";
+
+  const grid = document.getElementById("courseGrid");
+
+  if (data[branch]) {
+    data[branch].forEach(course => {
+      const card = document.createElement("div");
+      card.className = "course-card";
+      card.innerText = course;
+
+      card.onclick = () => {
+        window.location.href =
+          "{% url 'course_detail' %}?course=" + encodeURIComponent(course) +
+          "&branch=" + branch;
+      };
+
+      grid.appendChild(card);
+    });
+  } else {
+    grid.innerHTML = "<p>No courses found.</p>";
+  }
 </script>
 
-</body>
-</html>
+{% endblock %}
+
