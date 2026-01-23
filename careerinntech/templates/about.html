@@ -5,104 +5,95 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/about.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<section class="about-section">
 
-    <!-- Header -->
-    <div class="about-header">
-        <h1>About CareerInnTech</h1>
-        <p class="about-tagline">
-            Helping students and early professionals build successful careers in technology.
+<section class="about-page">
+
+    <!-- HERO -->
+    <div class="about-hero">
+        <h1>
+            Building <span>Career Clarity</span><br>
+            for the Next Generation
+        </h1>
+        <p>
+            CareerInnTech helps students and early professionals make confident,
+            informed career decisions using structured guidance,
+            real-world data, and AI-powered tools.
         </p>
     </div>
 
-    <!-- Main Content -->
-    <div class="about-content">
-        <p>
-            <strong>CareerInnTech</strong> is a platform dedicated to helping students and early
-            professionals build successful careers in technology.
-        </p>
-
-        <p>
-            Our mission is to provide <strong>structured career roadmaps</strong>,
-            <strong>AI-driven mock interviews</strong>, and
-            <strong>practical skill-building tools</strong> that bridge the gap between
-            academic learning and industry readiness.
-        </p>
-    </div>
-
-    <!-- Info Cards -->
+    <!-- CORE VALUES -->
     <div class="about-grid">
 
         <div class="about-card">
             <h3>🎯 Our Mission</h3>
             <p>
                 To empower students with clarity, confidence, and industry-ready skills
-                through structured guidance and practical learning.
+                by connecting learning with real-world career outcomes.
             </p>
         </div>
 
         <div class="about-card">
-            <h3>🧭 What We Solve</h3>
+            <h3>🧭 What Problem We Solve</h3>
             <ul>
-                <li>Lack of clear career direction</li>
+                <li>Career confusion and lack of direction</li>
                 <li>Gap between academics and industry</li>
                 <li>Low interview confidence</li>
-                <li>Unstructured skill development</li>
+                <li>Unstructured skill learning</li>
             </ul>
         </div>
 
         <div class="about-card">
-            <h3>🚀 What We Offer</h3>
+            <h3>🚀 What We Provide</h3>
             <ul>
                 <li>Career-based learning roadmaps</li>
                 <li>AI-powered mock interviews</li>
-                <li>Skill development guidance</li>
-                <li>Career clarity for tech roles</li>
+                <li>Skill & role clarity guidance</li>
+                <li>Step-by-step career direction</li>
             </ul>
         </div>
 
     </div>
 
-   <!-- Leadership Section -->
-<div class="about-leadership">
-    <h2>Our Leadership</h2>
+    <!-- LEADERSHIP -->
+    <div class="about-leadership">
+        <h2>Our Leadership</h2>
 
-    <div class="leadership-grid">
+        <div class="leadership-grid">
 
-        <!-- Founder -->
-        <div class="leader-card">
-            <img src="{% static 'images/team/founder.jpeg' %}" alt="Samina Ramjanali Khan">
+            <div class="leader-card">
+                <img src="{% static 'images/team/founder.jpeg' %}" alt="Samina Ramjanali Khan">
+                <h3>Samina Ramjanali Khan</h3>
+                <span>Founder</span>
+                <p>
+                    Samina founded CareerInnTech with a vision to make career planning
+                    structured, practical, and accessible through industry-aligned guidance.
+                </p>
+            </div>
 
-            <h3>Samina Ramjanali Khan</h3>
-            <span>Founder</span>
+            <div class="leader-card">
+                <img src="{% static 'images/team/cofounder.jpeg' %}" alt="Krishna Punjala">
+                <h3>Krishna Punjala</h3>
+                <span>Co-Founder</span>
+                <p>
+                    Krishna leads AI-driven interview simulations and skill programs,
+                    helping students gain confidence and real-world readiness.
+                </p>
+            </div>
 
-            <p>
-                Samina founded CareerInnTech with a vision to empower students through
-                personalized guidance and industry-relevant skills, making career
-                planning practical and accessible.
-            </p>
         </div>
-
-        <!-- Co-Founder -->
-        <div class="leader-card">
-            <img src="{% static 'images/team/cofounder.jpeg' %}" alt="Krishna Punjala">
-
-            <h3>Krishna Punjala</h3>
-            <span>Co-Founder</span>
-
-            <p>
-                Krishna leads the development of AI-powered mock interviews and
-                skill-building programs, helping students gain confidence and
-                real-world readiness for tech careers.
-            </p>
-        </div>
-
     </div>
-</div>
 
-</section> <!-- ✅ CLOSE about-section -->
+    <!-- CTA -->
+    <div class="about-cta">
+        <h2>Your career deserves clarity.</h2>
+        <p>Start building your future with confidence today.</p>
+        <a href="/projects/">Explore Career Paths</a>
+    </div>
+
+</section>
 
 {% endblock %}
