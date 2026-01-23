@@ -20,6 +20,9 @@ from .interview_utils import INTRO_QUESTIONS, generate_tts
 @require_POST
 def voice_next_question(request):
     data = json.loads(request.body)
+    # Restrict to admin users only
+    if not request.user.is_staff:
+        return JsonResponse({"error": "You are not authorised"}, status=403)
     session_id = data.get("session_id")
     user_text = data.get("text")
 
@@ -162,6 +165,9 @@ def voice_hint(request):
     data = json.loads(request.body)
     session_id = data.get("session_id")
     text = data.get("text")
+    # Restrict to admin users only
+    if not request.user.is_staff:
+        return JsonResponse({"error": "You are not authorised"}, status=403)
 
     # Fetch the session object
     try:
@@ -197,6 +203,9 @@ def submit_code(request):
     from .services import evaluate_code
     if request.method != "POST":
         return JsonResponse({"error": "POST required"}, status=405)
+    # Restrict to admin users only
+    if not request.user.is_staff:
+        return JsonResponse({"error": "You are not authorised"}, status=403)
     try:
         data = json.loads(request.body)
         session_id = data.get("session_id")
@@ -232,6 +241,9 @@ def voice_skip_question(request):
     session_id = data.get("session_id")
 
     session = InterviewSession.objects.get(id=session_id)
+    # Restrict to admin users only
+    if not request.user.is_staff:
+        return JsonResponse({"error": "You are not authorised"}, status=403)
 
     intro_text = "Welcome to your AI mock interview. Please introduce yourself briefly."
     question_count = int(request.session.get("question_count", 10))

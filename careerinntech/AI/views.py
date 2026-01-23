@@ -54,10 +54,14 @@ client = OpenAI(api_key=settings.OPENAI_API_KEY)
 # ---------------- LANDING ----------------
 @login_required
 def ai_mock_interview_landing(request):
+    if not request.user.is_staff:
+        return render(request, "ai/not_authorized.html", status=403)
     return render(request, "ai/ai_mock_interview.html")
 
 @login_required
 def ai_interview_select(request):
+    if not request.user.is_staff:
+        return render(request, "ai/not_authorized.html", status=403)
     return render(request, "ai/ai_interview_select.html")
 
 def interview_config(request, interview_type):
@@ -107,6 +111,9 @@ def ai_interview_live(request):
     session_id = request.session.get("interview_session_id")
     if not session_id:
         return redirect("ai-mock-interview")
+
+    if not request.user.is_staff:
+        return render(request, "ai/not_authorized.html", status=403)
 
     # ✅ Dynamic user name
     if request.user.is_authenticated:

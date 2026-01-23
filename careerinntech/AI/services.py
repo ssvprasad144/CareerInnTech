@@ -30,6 +30,130 @@ def summarize_answer(text):
     except Exception:
         return ""
 
+
+def parse_feedback_raw(raw, weights, qa_pairs, conversation=""):
+    """Parse raw LLM feedback text into a normalized data dict.
+
+    Returns a dict matching the generate_feedback output (not JSON-stringified).
+    """
+    def _extract_json(text):
+        try:
+            return json.loads(text)
+        except Exception:
+            start = text.find('{')
+            end = text.rfind('}')
+            if start != -1 and end != -1 and end > start:
+                try:
+                    return json.loads(text[start:end+1])
+                except Exception:
+                    return None
+            return None
+
+    data = _extract_json(raw)
+    if data is None:
+        return None
+
+    # Parse skill scores robustly as floats (LLM may return strings or numbers)
+    skill_scores = {}
+    for s in data.get("skills", []):
+        name = s.get("name")
+        val = s.get("score", 0)
+        try:
+            skill_scores[name] = float(val)
+        except Exception:
+            try:
+                skill_scores[name] = float(str(val).strip())
+            except Exception:
+                skill_scores[name] = 0.0
+
+    weighted_score = sum(skill_scores.get(k, 0) * v for k, v in weights.items())
+
+    # Some LLM prompts return skill scores on a 0-10 scale while the UI expects 0-100.
+    # Detect a 0-10 scale (max skill <= 10) and scale up to 0-100.
+    try:
+        max_skill = max(skill_scores.values()) if skill_scores else 0
+    except Exception:
+        max_skill = 0
+
+    if max_skill <= 10:
+        weighted_score = weighted_score * 10.0
+
+    # Clamp to 0-100 and round
+    weighted_score = max(0.0, min(weighted_score, 100.0))
+    data["overall_score"] = round(weighted_score)
+    data["score_breakdown"] = {k: skill_scores.get(k, 0) for k in weights}
+    data["ui_summary"] = f"Your overall score is {data['overall_score']} out of 100."
+
+    try:
+        data["raw_llm"] = raw
+    except Exception:
+        pass
+
+    try:
+        fluency = data.get("fluency", None)
+        clarity = data.get("clarity", None)
+    except Exception:
+        fluency = None
+        clarity = None
+
+    if fluency is None:
+        fluency = int(skill_scores.get("Communication", 0))
+    if clarity is None:
+        clarity = int(skill_scores.get("Communication", 0))
+
+    try:
+        data["fluency"] = int(fluency)
+        data["clarity"] = int(clarity)
+    except Exception:
+        data["fluency"] = fluency
+        data["clarity"] = clarity
+
+    def normalize(s):
+        if not s:
+            return ""
+        return " ".join(str(s).lower().split())
+
+    llm_list = data.get("per_question_feedback", []) or []
+    llm_by_q = {}
+    for f in llm_list:
+        qnorm = normalize(f.get("question", ""))
+        if qnorm and qnorm not in llm_by_q:
+            llm_by_q[qnorm] = f
+
+    full_feedback = []
+    for pair in qa_pairs:
+        q = pair.get("question", "")
+        a = pair.get("answer", "")
+        qnorm = normalize(q)
+
+        matched = None
+        if qnorm and qnorm in llm_by_q:
+            matched = llm_by_q[qnorm]
+        else:
+            for k, v in llm_by_q.items():
+                if k and qnorm and (qnorm in k or k in qnorm):
+                    matched = v
+                    break
+
+        if matched:
+            full_feedback.append({
+                "question": matched.get("question", q),
+                "answer": matched.get("answer", a),
+                "feedback": matched.get("feedback", "No feedback generated."),
+                "score": matched.get("score", 0)
+            })
+        else:
+            fb = "Answer was skipped or too short. Try to provide a more complete response." if a.upper() == "SKIPPED" or len(a) < 5 else "No feedback generated."
+            full_feedback.append({
+                "question": q,
+                "answer": a,
+                "feedback": fb,
+                "score": 0
+            })
+
+    data["per_question_feedback"] = full_feedback
+    return data
+
 # =========================
 # Interview System Prompts
 # =========================
@@ -105,11 +229,12 @@ Interview type: {interview_type}
             "content": msg["message"]
         })
 
+    # Use the more cost-stable `gpt-3.5-turbo` for question generation per request
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-3.5-turbo",
         messages=messages,
-        temperature=0.7,
-        max_tokens=150
+        temperature=0.25,
+        max_tokens=200
     )
 
     # Telemetry: log this chat call
@@ -203,16 +328,22 @@ Return STRICT JSON in this format:
 Interview Type: {getattr(session, 'interview_type', 'N/A')}
 Answers Attempted: {attempted_answers}
 
+Below is a numbered list of question/answer pairs extracted from the interview. For each pair, provide concise per-question feedback and a numeric score (0-10). The `per_question_feedback` array in your JSON MUST be the same length and in the SAME ORDER as the list below. Use the exact question text when filling the `question` field.
+
+QA Pairs:
+{''.join([f"{i+1}. Q: {qa['question']}\n   A: {qa['answer']}\n" for i, qa in enumerate(qa_pairs)])}
+
 Conversation:
 {conversation}
 """
 
     try:
+        # Use `gpt-3.5-turbo` with lower temperature for reliable, repeatable JSON output
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.4,
-            max_tokens=800
+            messages=[{"role": "system", "content": "Return STRICT JSON exactly as requested. Do not include any extra commentary."}, {"role": "user", "content": prompt}],
+            temperature=0.25,
+            max_tokens=1000
         )
 
         # Telemetry: record feedback generation call
@@ -222,31 +353,14 @@ Conversation:
             pass
 
         raw = response.choices[0].message.content
-        # Debug: log raw LLM output (temporary)
         try:
             logger.debug("LLM raw feedback: %s", raw)
         except Exception:
             pass
 
-        # Try to parse JSON strictly; if that fails, attempt to extract JSON substring
-        def _extract_json(text):
-            try:
-                return json.loads(text)
-            except Exception:
-                # try to find first { and last }
-                start = text.find('{')
-                end = text.rfind('}')
-                if start != -1 and end != -1 and end > start:
-                    try:
-                        return json.loads(text[start:end+1])
-                    except Exception:
-                        return None
-                return None
-
-        data = _extract_json(raw)
+        data = parse_feedback_raw(raw, weights, qa_pairs, conversation)
         if data is None:
             logger.warning("Failed to parse LLM JSON response; saving raw for debugging.")
-            # include raw response in fallback structure
             fallback_raw = {
                 "overall_score": 0,
                 "verdict_title": "Interview Completed",
@@ -258,72 +372,9 @@ Conversation:
                 "detailed_feedback": "",
                 "per_question_feedback": []
             }
-            # attach raw LLM text for auditing
             fallback_raw["raw_llm"] = raw
             return json.dumps(fallback_raw)
 
-        skill_scores = {s["name"]: s["score"] for s in data.get("skills", [])}
-        weighted_score = sum(skill_scores.get(k, 0) * v for k, v in weights.items())
-
-        data["overall_score"] = round(weighted_score)
-        data["score_breakdown"] = {k: skill_scores.get(k, 0) for k in weights}
-        data["ui_summary"] = f"Your overall score is {data['overall_score']} out of 100."
-
-        # attach raw LLM text for auditing/debugging
-        try:
-            data["raw_llm"] = raw
-        except Exception:
-            pass
-
-        # Ensure every question gets feedback.
-        # LLM may vary wording; match by normalized question text first, then by partial match.
-        def normalize(s):
-            if not s:
-                return ""
-            return " ".join(str(s).lower().split())
-
-        llm_list = data.get("per_question_feedback", []) or []
-        llm_by_q = {}
-        for f in llm_list:
-            qnorm = normalize(f.get("question", ""))
-            # keep first if duplicate
-            if qnorm and qnorm not in llm_by_q:
-                llm_by_q[qnorm] = f
-
-        full_feedback = []
-        for pair in qa_pairs:
-            q = pair.get("question", "")
-            a = pair.get("answer", "")
-            qnorm = normalize(q)
-
-            matched = None
-            if qnorm and qnorm in llm_by_q:
-                matched = llm_by_q[qnorm]
-            else:
-                # try partial containment match
-                for k, v in llm_by_q.items():
-                    if k and qnorm and (qnorm in k or k in qnorm):
-                        matched = v
-                        break
-
-            if matched:
-                # Ensure fields exist
-                full_feedback.append({
-                    "question": matched.get("question", q),
-                    "answer": matched.get("answer", a),
-                    "feedback": matched.get("feedback", "No feedback generated."),
-                    "score": matched.get("score", 0)
-                })
-            else:
-                fb = "Answer was skipped or too short. Try to provide a more complete response." if a.upper() == "SKIPPED" or len(a) < 5 else "No feedback generated."
-                full_feedback.append({
-                    "question": q,
-                    "answer": a,
-                    "feedback": fb,
-                    "score": 0
-                })
-
-        data["per_question_feedback"] = full_feedback
         return json.dumps(data)
 
     except Exception as e:
