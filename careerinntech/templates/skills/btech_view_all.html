@@ -1,13 +1,13 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>All Courses</title>
-  <link rel="stylesheet" href="{% static 'css/btech_skills.css' %}">
-</head>
 
-<body>
+{% block title %}All BTech Courses | CareerInnTech{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/btech_skills.css' %}">
+{% endblock %}
+
+{% block content %}
 
 <div class="skills-container">
 
@@ -20,14 +20,14 @@
 
 </div>
 
+<!-- ================= SCRIPT ================= -->
 <script>
   const params = new URLSearchParams(window.location.search);
   const branch = params.get("branch");
 
-  // 🚫 Do not guess branch
   if (!branch) {
     document.getElementById("branchTitle").innerText = "Courses";
-    throw new Error("Branch not provided in URL");
+    console.error("Branch not provided in URL");
   }
 
   const data = {
@@ -58,16 +58,19 @@
 
   const grid = document.getElementById("courseGrid");
 
-  data[branch].forEach(course => {
-    grid.innerHTML += `
-      <a href="{% url 'course_detail' %}?course=${encodeURIComponent(course.name)}&branch=${branch}&source=view_all"
-         class="course-card">
-        <img src="{% static 'images/skills/' %}${course.img}">
-        <p>${course.name}</p>
-      </a>
-    `;
-  });
+  if (data[branch]) {
+    data[branch].forEach(course => {
+      grid.innerHTML += `
+        <a href="{% url 'course_detail' %}?course=${encodeURIComponent(course.name)}&branch=${branch}&source=view_all"
+           class="course-card">
+          <img src="{% static 'images/skills/' %}${course.img}">
+          <p>${course.name}</p>
+        </a>
+      `;
+    });
+  } else {
+    grid.innerHTML = "<p>No courses found.</p>";
+  }
 </script>
 
-</body>
-</html>
+{% endblock %}
