@@ -335,8 +335,8 @@ QA Pairs:
 
 Conversation:
 {conversation}
-"""
 
+    """
     try:
         # Use `gpt-3.5-turbo` with lower temperature for reliable, repeatable JSON output
         response = client.chat.completions.create(
