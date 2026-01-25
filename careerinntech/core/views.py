@@ -32,6 +32,9 @@ def placement_preparation(request):
         "placements/placement_preparation.html",
       
     )
+def otp_signup_page(request):
+    return render(request, "signup.html")
+
 
 
 def aptitude_preparation(request):
