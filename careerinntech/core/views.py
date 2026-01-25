@@ -203,15 +203,12 @@ def signup_email(request):
         defaults={"otp": otp}
     )
 
-    send_mail(
-        "CareerInnTech OTP",
-        f"Your OTP is {otp}",
-        settings.EMAIL_HOST_USER,
-        [email],
-    )
+    # TEMP: Print OTP in console instead of email
+    print("EMAIL OTP:", otp)
 
     request.session["email"] = email
     return redirect("signup")
+
 
 
 def verify_email(request):
