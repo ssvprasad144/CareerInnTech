@@ -1,5 +1,9 @@
 import json
 import os
+import random
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import SignupOTP
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -68,7 +72,7 @@ def contact(request):
 
 
 # ---------- AUTH ----------
-def signup_view(request):
+def old_signup_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
@@ -133,6 +137,135 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("home")
+
+# ================================
+# OTP UTIL
+# ================================
+def generate_otp():
+    return str(random.randint(100000, 999999))
+
+
+# ================================
+# OTP SIGNUP FLOW
+# ================================
+def otp_signup_page(request):
+    return render(request, "signup.html")
+
+
+def signup_phone(request):
+    phone = request.POST.get("phone")
+    otp = generate_otp()
+
+    SignupOTP.objects.update_or_create(
+        phone=phone,
+        defaults={"otp": otp}
+    )
+
+    print("PHONE OTP:", otp)
+    request.session["phone"] = phone
+
+    return redirect("signup")
+
+
+def verify_phone(request):
+    phone = request.session.get("phone")
+    otp = request.POST.get("otp")
+
+    if SignupOTP.objects.filter(phone=phone, otp=otp).exists():
+        request.session["phone_verified"] = True
+
+    return redirect("signup")
+
+
+def resend_phone(request):
+    phone = request.session.get("phone")
+    otp = generate_otp()
+
+    SignupOTP.objects.update_or_create(
+        phone=phone,
+        defaults={"otp": otp}
+    )
+
+    print("PHONE OTP:", otp)
+    return redirect("signup")
+
+
+def signup_email(request):
+    email = request.POST.get("email")
+    otp = generate_otp()
+
+    SignupOTP.objects.update_or_create(
+        email=email,
+        defaults={"otp": otp}
+    )
+
+    send_mail(
+        "CareerInnTech OTP",
+        f"Your OTP is {otp}",
+        settings.EMAIL_HOST_USER,
+        [email],
+    )
+
+    request.session["email"] = email
+    return redirect("signup")
+
+
+def verify_email(request):
+    email = request.session.get("email")
+    otp = request.POST.get("otp")
+
+    if SignupOTP.objects.filter(email=email, otp=otp).exists():
+        request.session["email_verified"] = True
+
+    return redirect("signup")
+
+
+def resend_email(request):
+    email = request.session.get("email")
+    otp = generate_otp()
+
+    SignupOTP.objects.update_or_create(
+        email=email,
+        defaults={"otp": otp}
+    )
+
+    send_mail(
+        "CareerInnTech OTP",
+        f"Your OTP is {otp}",
+        settings.EMAIL_HOST_USER,
+        [email],
+    )
+
+    return redirect("signup")
+
+
+def set_password(request):
+    password = request.POST.get("password")
+    phone = request.session.get("phone")
+    email = request.session.get("email")
+
+    if not request.session.get("phone_verified"):
+        return redirect("signup")
+
+    if not request.session.get("email_verified"):
+        return redirect("signup")
+
+    user = User.objects.create_user(
+        username=phone,
+        email=email,
+        password=password
+    )
+
+    profile, _ = StudentProfile.objects.get_or_create(user=user)
+    profile.phone = phone
+    profile.save()
+
+    SignupOTP.objects.filter(phone=phone).delete()
+    SignupOTP.objects.filter(email=email).delete()
+
+    login(request, user)
+    return redirect("dashboard")
+
 
 
 # ---------- POST LOGIN DECISION ----------
