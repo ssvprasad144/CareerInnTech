@@ -7,7 +7,8 @@ urlpatterns = [
 
     path('accounts/', include('allauth.urls')),
 
-    path('signup/', views.signup_view, name='signup'),
+    path('signup/', views.otp_signup_page, name='signup'),
+
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('welcome/', views.welcome, name='welcome'),
