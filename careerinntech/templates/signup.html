@@ -1,37 +1,68 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Signup{% endblock %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="auth-container">
-    <form method="post" class="auth-card">
-        {% csrf_token %}
 
-        <h2>Create account</h2>
-        <p class="auth-subtitle">Start your journey with us</p>
+<div class="auth-wrapper">
 
-        {% if error %}
-            <div class="auth-error">{{ error }}</div>
-        {% endif %}
+<div class="auth-card">
 
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email address" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+<h2 id="title">Create Account</h2>
+<p id="subtitle">Start your journey with CareerInnTech</p>
 
-        <button type="submit" class="auth-btn">Sign Up</button>
+<form method="POST">
+{% csrf_token %}
 
-        <!-- Social login disabled for now -->
-
-        <p class="auth-text">
-            Already have an account?
-            <a href="{% url 'login' %}">Login</a>
-        </p>
-    </form>
+<!-- PHONE -->
+<div class="step active" id="step-phone">
+<input type="text" name="phone" placeholder="Enter Phone Number">
+<button formaction="{% url 'signup_phone' %}">Send OTP</button>
 </div>
+
+<!-- PHONE OTP -->
+<div class="step" id="step-phone-otp">
+<input name="otp" placeholder="Enter Phone OTP">
+<button formaction="{% url 'verify_phone' %}">Verify OTP</button>
+<a href="{% url 'resend_phone' %}">Resend OTP</a>
+</div>
+
+<!-- EMAIL -->
+<div class="step" id="step-email">
+<input type="email" name="email" placeholder="Enter Email">
+<button formaction="{% url 'signup_email' %}">Send Email OTP</button>
+</div>
+
+<!-- EMAIL OTP -->
+<div class="step" id="step-email-otp">
+<input name="otp" placeholder="Enter Email OTP">
+<button formaction="{% url 'verify_email' %}">Verify OTP</button>
+<a href="{% url 'resend_email' %}">Resend OTP</a>
+</div>
+
+<!-- PASSWORD -->
+<div class="step" id="step-password">
+<input type="password" name="password" placeholder="Create Password">
+<button formaction="{% url 'set_password' %}">Create Account</button>
+</div>
+
+</form>
+
+<div class="divider">or</div>
+
+<a class="google-btn" href="/accounts/google/login/">
+Continue with Google
+</a>
+
+<p class="login-link">
+Already have account? <a href="{% url 'login' %}">Login</a>
+</p>
+
+</div>
+
+</div>
+
 {% endblock %}
