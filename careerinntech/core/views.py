@@ -26,14 +26,15 @@ from .utils.context_memory import update_user_context
 from .utils.prompt_builder import build_system_prompt
 
 
+
+
 def placement_preparation(request):
     return render(
         request,
         "placements/placement_preparation.html",
       
     )
-def otp_signup_page(request):
-    return render(request, "signup.html")
+
 
 
 
