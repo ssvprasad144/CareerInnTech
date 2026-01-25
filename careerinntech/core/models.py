@@ -147,3 +147,20 @@ class UserContextMemory(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class SignupOTP(models.Model):
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    otp = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_student_profile(sender, instance, created, **kwargs):
+    if created:
+        StudentProfile.objects.create(user=instance)
+
+
