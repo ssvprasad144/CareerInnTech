@@ -13,6 +13,18 @@ urlpatterns = [
     path('welcome/', views.welcome, name='welcome'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path("post-login/", views.post_login, name="post_login"),
+    path("signup/", otp_signup_page, name="signup"),
+
+    path("signup-phone/", signup_phone, name="signup_phone"),
+    path("verify-phone/", verify_phone, name="verify_phone"),
+    path("resend-phone/", resend_phone, name="resend_phone"),
+    
+    path("signup-email/", signup_email, name="signup_email"),
+    path("verify-email/", verify_email, name="verify_email"),
+    path("resend-email/", resend_email, name="resend_email"),
+    
+    path("set-password/", set_password, name="set_password"),
+
 
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
