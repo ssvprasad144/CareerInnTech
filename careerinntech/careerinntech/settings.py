@@ -66,6 +66,8 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     # Social account providers disabled for now — implement later
 
     # Local apps
@@ -229,5 +231,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "careerinntech@gmail.com"
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
 
 
