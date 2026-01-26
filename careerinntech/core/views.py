@@ -225,12 +225,16 @@ def signup_email(request):
 
 def verify_email(request):
     email = request.session.get("email")
-    otp = request.POST.get("otp")
+    otp = request.POST.get("email_otp")   # 👈 CHANGE HERE
 
     if SignupOTP.objects.filter(email=email, otp=otp).exists():
         request.session["email_verified"] = True
+        messages.success(request, "Email verified")
+    else:
+        messages.error(request, "Invalid email OTP")
 
     return redirect("signup")
+
 
 
 def resend_email(request):
