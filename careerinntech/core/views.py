@@ -153,7 +153,11 @@ def generate_otp():
 # OTP SIGNUP FLOW
 # ================================
 def otp_signup_page(request):
-    return render(request, "signup.html")
+    return render(request, "signup.html", {
+        "email_sent": request.session.get("email"),
+        "email_verified": request.session.get("email_verified")
+    })
+
 
 
 
