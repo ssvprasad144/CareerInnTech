@@ -156,42 +156,6 @@ def otp_signup_page(request):
     return render(request, "signup.html")
 
 
-def signup_phone(request):
-    phone = request.POST.get("phone")
-    otp = generate_otp()
-
-    SignupOTP.objects.update_or_create(
-        phone=phone,
-        defaults={"otp": otp}
-    )
-
-    print("PHONE OTP:", otp)
-    request.session["phone"] = phone
-
-    return redirect("signup")
-
-
-def verify_phone(request):
-    phone = request.session.get("phone")
-    otp = request.POST.get("otp")
-
-    if SignupOTP.objects.filter(phone=phone, otp=otp).exists():
-        request.session["phone_verified"] = True
-
-    return redirect("signup")
-
-
-def resend_phone(request):
-    phone = request.session.get("phone")
-    otp = generate_otp()
-
-    SignupOTP.objects.update_or_create(
-        phone=phone,
-        defaults={"otp": otp}
-    )
-
-    print("PHONE OTP:", otp)
-    return redirect("signup")
 
 
 def signup_email(request):
@@ -257,31 +221,32 @@ def resend_email(request):
 
 
 def set_password(request):
+    if not request.session.get("email_verified"):
+        messages.error(request, "Verify email first")
+        return redirect("signup")
+
     password = request.POST.get("password")
-    phone = request.session.get("phone")
     email = request.session.get("email")
 
-    if not request.session.get("phone_verified"):
-        return redirect("signup")
-
-    if not request.session.get("email_verified"):
-        return redirect("signup")
+    if User.objects.filter(username=email).exists():
+        messages.error(request, "Account already exists. Please login.")
+        return redirect("login")
 
     user = User.objects.create_user(
-        username=phone,
+        username=email,
         email=email,
         password=password
     )
 
-    profile, _ = StudentProfile.objects.get_or_create(user=user)
-    profile.phone = phone
-    profile.save()
+    StudentProfile.objects.create(user=user)
 
-    SignupOTP.objects.filter(phone=phone).delete()
     SignupOTP.objects.filter(email=email).delete()
+
+    request.session.flush()   # clear session
 
     login(request, user)
     return redirect("dashboard")
+
 
 
 
