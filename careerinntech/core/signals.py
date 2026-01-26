@@ -6,4 +6,4 @@ from .models import StudentProfile
 @receiver(post_save, sender=User)
 def create_student_profile(sender, instance, created, **kwargs):
     if created:
-        StudentProfile.objects.create(user=instance)
+        StudentProfile.objects.get_or_create(user=instance)
