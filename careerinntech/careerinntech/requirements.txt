@@ -5,3 +5,4 @@ tzdata
 requests
 gunicorn
 whitenoise
+PyJWT
