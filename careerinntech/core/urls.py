@@ -12,10 +12,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
 
-    # OTP FLOW
-    path("signup-phone/", views.signup_phone, name="signup_phone"),
-    path("verify-phone/", views.verify_phone, name="verify_phone"),
-    path("resend-phone/", views.resend_phone, name="resend_phone"),
 
     path("signup-email/", views.signup_email, name="signup_email"),
     path("verify-email/", views.verify_email, name="verify_email"),
