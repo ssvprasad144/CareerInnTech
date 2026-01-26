@@ -182,7 +182,6 @@
 .cit-auth-container{
 display:flex;
 max-width:1000px;
-height:520px;
 margin:60px auto;
 background:#0b0f1a;
 border-radius:18px;
@@ -350,11 +349,6 @@ form {
     display:block !important;
 }
 
-/* Fix height cutting issue */
-.cit-auth-container{
-    height:auto !important;
-    min-height:520px;
-}
 
 .cit-auth-right{
     height:auto !important;
@@ -381,6 +375,24 @@ button{
 /* Remove any step hiding */
 .step{
     display:block !important;
+}
+/* ===========================
+   FINAL HEIGHT FIX
+=========================== */
+
+.cit-auth-container{
+    height: auto !important;
+    min-height: unset !important;
+}
+
+.cit-auth-right{
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+}
+
+body{
+    overflow-y: auto !important;
 }
 
 
