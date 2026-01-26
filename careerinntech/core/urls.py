@@ -18,6 +18,8 @@ urlpatterns = [
     path("resend-email/", views.resend_email, name="resend_email"),
 
     path("set-password/", views.set_password, name="set_password"),
+    path("forgot-password/", views.forgot_password, name="forgot_password"),
+
 
     # POST LOGIN
     path("post-login/", views.post_login, name="post_login"),
