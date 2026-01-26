@@ -204,11 +204,18 @@ def signup_email(request):
     )
 
     send_mail(
-        "CareerInnTech OTP",
-        f"Your OTP is {otp}",
-        settings.EMAIL_HOST_USER,
-        [email],
-    )
+        subject="Your CareerInnTech verification code",
+        message=f"""
+    Your CareerInnTech verification code is: {otp}
+    
+    This code will expire in 5 minutes.
+    If you did not request this, please ignore this email.
+    """,
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[email],
+        fail_silently=False,
+)
+
 
     request.session["email"] = email
     return redirect("signup")
