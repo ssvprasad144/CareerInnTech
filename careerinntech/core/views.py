@@ -230,14 +230,22 @@ def set_password(request):
     password = request.POST.get("password")
     email = request.session.get("email")
 
+    # Email not verified
     if not request.session.get("email_verified"):
         messages.error(request, "Verify email first")
         return redirect("signup")
 
-    if User.objects.filter(username=username).exists():
-        messages.error(request, "Username already exists")
+    # Email already exists
+    if User.objects.filter(email=email).exists():
+        messages.error(request, "Email already registered")
         return redirect("signup")
 
+    # Username already exists
+    if User.objects.filter(username=username).exists():
+        messages.error(request, "Username already taken")
+        return redirect("signup")
+
+    # Create user
     user = User.objects.create_user(
         username=username,
         email=email,
@@ -245,10 +253,12 @@ def set_password(request):
     )
 
     StudentProfile.objects.get_or_create(user=user)
+
     SignupOTP.objects.filter(email=email).delete()
 
     messages.success(request, "Account created successfully. Please login.")
     return redirect("login")
+
 
 
 
