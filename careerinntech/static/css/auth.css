@@ -195,4 +195,145 @@
 .step.active{
     display:block;
 }
+/* ============================
+   CareerInnTech Signup Layout
+============================ */
+
+.cit-auth-container{
+display:flex;
+max-width:1000px;
+height:520px;
+margin:60px auto;
+background:#0b0f1a;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 0 25px rgba(0,0,0,0.7);
+}
+
+/* LEFT PANEL */
+.cit-auth-left{
+width:50%;
+padding:60px;
+background:linear-gradient(160deg,#081a33,#0b0f1a);
+color:white;
+}
+
+.cit-logo{
+color:#4da6ff;
+font-size:28px;
+margin-bottom:30px;
+}
+
+.cit-auth-left h2{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.cit-auth-left p{
+color:#cfcfcf;
+margin-bottom:25px;
+}
+
+.cit-auth-left ul{
+list-style:none;
+padding:0;
+}
+
+.cit-auth-left li{
+margin:10px 0;
+}
+
+/* RIGHT PANEL */
+.cit-auth-right{
+width:50%;
+padding:60px;
+background:#050812;
+color:white;
+}
+
+.cit-auth-right h2{
+margin-bottom:20px;
+}
+
+.cit-auth-right label{
+display:block;
+margin-top:12px;
+}
+
+.cit-auth-right input{
+width:100%;
+padding:12px;
+margin-top:6px;
+border-radius:8px;
+border:1px solid #333;
+background:#0c1222;
+color:white;
+}
+
+.cit-auth-right input:focus{
+outline:none;
+border-color:#4da6ff;
+}
+
+/* Buttons */
+.cit-small-btn{
+margin-top:10px;
+background:#1f2a44;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.cit-small-btn:hover{
+background:#2c3b66;
+}
+
+.cit-main-btn{
+margin-top:25px;
+width:100%;
+padding:14px;
+border-radius:10px;
+border:none;
+background:#4da6ff;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.cit-main-btn:hover{
+background:#368be0;
+}
+
+/* Extras */
+.cit-or{
+text-align:center;
+margin:20px 0;
+color:#888;
+}
+
+.cit-google-btn{
+display:block;
+text-align:center;
+border:1px solid #4da6ff;
+padding:12px;
+border-radius:10px;
+color:white;
+text-decoration:none;
+}
+
+.cit-google-btn:hover{
+background:#1a2440;
+}
+
+.cit-login-text{
+margin-top:18px;
+text-align:center;
+}
+
+.cit-login-text a{
+color:#4da6ff;
+text-decoration:none;
+}
 
