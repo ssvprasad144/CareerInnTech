@@ -1,80 +1,77 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<div class="auth-wrapper">
+<div class="cit-auth-container">
 
-<div class="auth-card">
+  <!-- LEFT -->
+  <div class="cit-auth-left">
+      <h1 class="cit-logo">CareerInnTech</h1>
+      <h2>Create your account</h2>
 
-<h2 id="title">Create Account</h2>
-<p id="subtitle">Start your journey with CareerInnTech</p>
+      <p>
+        Build your career with guided learning, projects, internships and AI
+        mentorship.
+      </p>
 
-<form method="POST">
-{% csrf_token %}
+      <ul>
+        <li>✔ Career Roadmaps</li>
+        <li>✔ Skill Development</li>
+        <li>✔ Placement Preparation</li>
+        <li>✔ AI Mentor Support</li>
+      </ul>
+  </div>
 
+  <!-- RIGHT -->
+  <div class="cit-auth-right">
 
+    <h2>Create Account</h2>
 
-{% if not email_sent %}
-<div class="step">
-    <input type="email" name="email" placeholder="Enter Email" required>
-    <button formaction="{% url 'signup_email' %}">
-        Send Email OTP
-    </button>
-</div>
-{% endif %}
+    <form method="POST">
+      {% csrf_token %}
 
-{% if email_sent and not email_verified %}
-<div class="step">
-    <input name="email_otp" placeholder="Enter Email OTP" required>
-    <button formaction="{% url 'verify_email' %}">
+      <!-- EMAIL -->
+      <label>Email</label>
+      <input type="email" name="email" placeholder="Enter your email" required>
+      <button formaction="{% url 'signup_email' %}" class="cit-small-btn">
+        Send OTP
+      </button>
+
+      <!-- OTP -->
+      <label>Email OTP</label>
+      <input type="text" name="email_otp" placeholder="Enter OTP" required>
+      <button formaction="{% url 'verify_email' %}" class="cit-small-btn">
         Verify OTP
-    </button>
-    <a href="{% url 'resend_email' %}">Resend OTP</a>
-</div>
-{% endif %}
+      </button>
 
-{% if email_verified %}
-<div class="step">
-    <input type="password" name="password" placeholder="Create Password" required>
-    <button formaction="{% url 'set_password' %}">
-        Create Account
-    </button>
-</div>
-{% endif %}
+      <!-- PASSWORD -->
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Create password" required>
 
+      <button formaction="{% url 'set_password' %}" class="cit-main-btn">
+        Create Account →
+      </button>
 
-</form>
+    </form>
 
-<div class="divider">or</div>
+    <div class="cit-or">OR</div>
 
-<a class="google-btn" href="/accounts/google/login/">
-Continue with Google
-</a>
+    <a href="/accounts/google/login/" class="cit-google-btn">
+      Continue with Google
+    </a>
 
-<p class="login-link">
-Already have account? <a href="{% url 'login' %}">Login</a>
-</p>
+    <p class="cit-login-text">
+      Already have account?
+      <a href="{% url 'login' %}">Login</a>
+    </p>
+
+  </div>
 
 </div>
-
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-
-    const emailVerified = "{{ request.session.email_verified|default:'' }}";
-
-    if (emailVerified) {
-        document.getElementById("step-email").style.display = "none";
-        document.getElementById("step-email-otp").style.display = "none";
-        document.getElementById("step-password").style.display = "block";
-    }
-});
-</script>
-
 
 {% endblock %}
