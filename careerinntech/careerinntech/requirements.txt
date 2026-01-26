@@ -5,4 +5,6 @@ tzdata
 requests
 gunicorn
 whitenoise
-PyJWT
+PyJWT==2.8.0
+
+
