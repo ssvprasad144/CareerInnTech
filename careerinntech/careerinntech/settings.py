@@ -184,7 +184,7 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "post_login"
 LOGOUT_REDIRECT_URL = "home"
 
-SITE_ID = 1
+SITE_ID = 3
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
