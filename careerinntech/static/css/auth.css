@@ -170,31 +170,11 @@
     border:1px solid rgba(239,68,68,.3);
 }
 
-/* ============================= */
-/* STEP ANIMATION */
-/* ============================= */
-
-.step{
-    display:none;
-    animation:fade .3s ease;
-}
-
-.step.active{
-    display:block;
-}
-
 @keyframes fade{
     from{opacity:0;transform:translateY(6px)}
     to{opacity:1;transform:translateY(0)}
 }
 
-.step{
-    display:none;
-}
-
-.step.active{
-    display:block;
-}
 /* ============================
    CareerInnTech Signup Layout
 ============================ */
@@ -336,4 +316,71 @@ text-align:center;
 color:#4da6ff;
 text-decoration:none;
 }
+.cit-auth-right {
+    height: auto !important;
+    overflow: visible !important;
+    padding-bottom: 40px;
+}
+
+.cit-main-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+form {
+    display: block;
+}
+/* ================================
+   FORCE SIGNUP FORM VISIBILITY
+================================ */
+
+.cit-auth-right form{
+    display:block !important;
+}
+
+.cit-auth-right input,
+.cit-auth-right button{
+    display:block !important;
+    opacity:1 !important;
+    visibility:visible !important;
+}
+
+.cit-auth-right label{
+    display:block !important;
+}
+
+/* Fix height cutting issue */
+.cit-auth-container{
+    height:auto !important;
+    min-height:520px;
+}
+
+.cit-auth-right{
+    height:auto !important;
+    overflow:visible !important;
+    padding-bottom:40px;
+}
+
+/* Button spacing */
+.cit-small-btn{
+    margin-top:8px;
+    margin-bottom:18px;
+}
+
+.cit-main-btn{
+    margin-top:25px;
+}
+
+/* Make buttons clickable */
+button{
+    position:relative;
+    z-index:5;
+}
+
+/* Remove any step hiding */
+.step{
+    display:block !important;
+}
+
 
