@@ -57,6 +57,10 @@ def resume_shortlisting(request):
 def group_discussion(request):
     return render(request, "placements/group_discussion.html")
 
+def forgot_password(request):
+    return render(request, "forgot_password.html")
+
+
 
 # ---------- PUBLIC PAGES ----------
 def home(request):
@@ -573,3 +577,6 @@ def ai_chat_page(request):
 def reset_ai_memory(request):
     UserContextMemory.objects.filter(user=request.user).delete()
     return JsonResponse({"success": True})
+
+
+
