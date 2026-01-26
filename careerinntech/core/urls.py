@@ -11,6 +11,7 @@ urlpatterns = [
     path('signup/', views.otp_signup_page, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path("projects/", include("projects.urls")),
 
 
     path("signup-email/", views.signup_email, name="signup_email"),
