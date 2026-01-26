@@ -17,21 +17,10 @@
 <form method="POST">
 {% csrf_token %}
 
-<!-- PHONE -->
-<div class="step active" id="step-phone">
-<input type="text" name="phone" placeholder="Enter Phone Number">
-<button formaction="{% url 'signup_phone' %}">Send OTP</button>
-</div>
 
-<!-- PHONE OTP -->
-<div class="step" id="step-phone-otp">
-<input name="otp" placeholder="Enter Phone OTP">
-<button formaction="{% url 'verify_phone' %}">Verify OTP</button>
-<a href="{% url 'resend_phone' %}">Resend OTP</a>
-</div>
 
 <!-- EMAIL -->
-<div class="step" id="step-email">
+<div class="step active" id="step-email">
 <input type="email" name="email" placeholder="Enter Email">
 <button formaction="{% url 'signup_email' %}">Send Email OTP</button>
 </div>
@@ -64,5 +53,18 @@ Already have account? <a href="{% url 'login' %}">Login</a>
 </div>
 
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    const emailVerified = "{{ request.session.email_verified|default:'' }}";
+
+    if (emailVerified) {
+        document.getElementById("step-email").style.display = "none";
+        document.getElementById("step-email-otp").style.display = "none";
+        document.getElementById("step-password").style.display = "block";
+    }
+});
+</script>
+
 
 {% endblock %}
