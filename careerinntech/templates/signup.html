@@ -19,24 +19,34 @@
 
 
 
-<!-- EMAIL -->
-<div class="step active" id="step-email">
-<input type="email" name="email" placeholder="Enter Email">
-<button formaction="{% url 'signup_email' %}">Send Email OTP</button>
+{% if not email_sent %}
+<div class="step">
+    <input type="email" name="email" placeholder="Enter Email" required>
+    <button formaction="{% url 'signup_email' %}">
+        Send Email OTP
+    </button>
 </div>
+{% endif %}
 
-<!-- EMAIL OTP -->
-<div class="step" id="step-email-otp">
-<input name="email_otp" placeholder="Enter Email OTP">
-<button formaction="{% url 'verify_email' %}">Verify OTP</button>
-<a href="{% url 'resend_email' %}">Resend OTP</a>
+{% if email_sent and not email_verified %}
+<div class="step">
+    <input name="email_otp" placeholder="Enter Email OTP" required>
+    <button formaction="{% url 'verify_email' %}">
+        Verify OTP
+    </button>
+    <a href="{% url 'resend_email' %}">Resend OTP</a>
 </div>
+{% endif %}
 
-<!-- PASSWORD -->
-<div class="step" id="step-password">
-<input type="password" name="password" placeholder="Create Password">
-<button formaction="{% url 'set_password' %}">Create Account</button>
+{% if email_verified %}
+<div class="step">
+    <input type="password" name="password" placeholder="Create Password" required>
+    <button formaction="{% url 'set_password' %}">
+        Create Account
+    </button>
 </div>
+{% endif %}
+
 
 </form>
 
