@@ -193,15 +193,16 @@ def signup_email(request):
 
 def verify_email(request):
     email = request.session.get("email")
-    otp = request.POST.get("email_otp")   # 👈 CHANGE HERE
+    otp = request.POST.get("email_otp")
 
     if SignupOTP.objects.filter(email=email, otp=otp).exists():
         request.session["email_verified"] = True
-        messages.success(request, "Email verified")
+        messages.success(request, "Email verified successfully")
     else:
-        messages.error(request, "Invalid email OTP")
+        messages.error(request, "Invalid OTP")
 
     return redirect("signup")
+
 
 
 
@@ -225,28 +226,24 @@ def resend_email(request):
 
 
 def set_password(request):
+    password = request.POST.get("password")
+    email = request.session.get("email")
+
     if not request.session.get("email_verified"):
         messages.error(request, "Verify email first")
         return redirect("signup")
 
-    password = request.POST.get("password")
-    email = request.session.get("email")
-
-    if User.objects.filter(username=email).exists():
-        messages.error(request, "Account already exists. Please login.")
-        return redirect("login")
-
+    # Create user using email as username
     user = User.objects.create_user(
         username=email,
         email=email,
         password=password
     )
 
-    StudentProfile.objects.create(user=user)
+    StudentProfile.objects.get_or_create(user=user)
 
     SignupOTP.objects.filter(email=email).delete()
-
-    request.session.flush()   # clear session
+    request.session.flush()
 
     login(request, user)
     return redirect("dashboard")
