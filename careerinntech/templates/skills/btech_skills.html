@@ -88,6 +88,44 @@
     </div>
   </section>
 
+  <!-- ================= EEE ================= -->
+  <section class="branch-section">
+    <div class="branch-header">
+      <h2>EEE</h2>
+      <a href="{% url 'btech_view_all' %}?branch=eee" class="view-all">View all →</a>
+    </div>
+
+    <div class="course-grid">
+      <a href="{% url 'course_detail' %}?course=Machines&branch=eee&source=skills"
+         class="course-card"
+         data-course="machines">
+        <img src="{% static 'images/skills/embedded.png' %}">
+        <p>Machines</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Power%20Systems&branch=eee&source=skills"
+         class="course-card"
+         data-course="power systems">
+        <img src="{% static 'images/skills/networks.png' %}">
+        <p>Power Systems</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Power%20Electronics&branch=eee&source=skills"
+         class="course-card"
+         data-course="power electronics">
+        <img src="{% static 'images/skills/vlsi.png' %}">
+        <p>Power Electronics</p>
+      </a>
+
+      <a href="{% url 'course_detail' %}?course=Measurements&branch=eee&source=skills"
+         class="course-card"
+         data-course="measurements">
+        <img src="{% static 'images/skills/signals.png' %}">
+        <p>Measurements</p>
+      </a>
+    </div>
+  </section>
+  
 </div>
 
 <!-- SEARCH SCRIPT -->
@@ -114,3 +152,4 @@
 </script>
 
 {% endblock %}
+
