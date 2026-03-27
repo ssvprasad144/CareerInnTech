@@ -18,3 +18,43 @@ Thumbs.db
 # Local AI logs and summaries
 careerinntech/ai_api_usage.log
 careerinntech/ai_summaries/
+
+# Additional common ignores
+# virtualenvs and envs
+.venv/
+ENV/
+env/
+
+# compiled python files
+*.py[cod]
+*$py.class
+
+# pip
+pip-wheel-metadata/
+
+# logs
+*.log
+*.log.*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.user
+*.pydevproject
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Databases
+*.sqlite3
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
