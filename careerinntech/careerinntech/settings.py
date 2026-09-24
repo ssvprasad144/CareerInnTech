@@ -18,6 +18,26 @@ SECRET_KEY = os.environ.get(
     "django-insecure-local-dev-key-change-this"
 )
 
+# Production must provide a real secret key.
+if not DEBUG and SECRET_KEY.startswith("django-insecure-"):
+    raise RuntimeError("SECRET_KEY must be set in production")
+
+# Secure browser session and CSRF cookies in production.
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+SECURE_REFERRER_POLICY = "same-origin"
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
 # ================= OPENAI =================
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
