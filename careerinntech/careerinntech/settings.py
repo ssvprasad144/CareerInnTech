@@ -11,12 +11,35 @@ load_dotenv(BASE_DIR / ".env")
 
 print("OPENAI KEY LOADED:", bool(os.getenv("OPENAI_API_KEY")))
 
+# ================= DEBUG =================
+
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
 # ================= SECURITY =================
 
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     "django-insecure-local-dev-key-change-this"
 )
+
+# Secure browser/session settings.
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+SECURE_REFERRER_POLICY = "same-origin"
+
+if not DEBUG:
+    # Production must provide a real secret key.
+    if SECRET_KEY.startswith("django-insecure-"):
+        raise RuntimeError("SECRET_KEY must be set in production")
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 # ================= OPENAI =================
 
@@ -35,10 +58,6 @@ AZURE_SPEECH_VOICE = os.getenv("AZURE_SPEECH_VOICE", "en-US-JennyNeural")
 # ================= TTS (OpenAI fallback) =================
 
 OPENAI_TTS_VOICE = os.getenv("OPENAI_TTS_VOICE", "alloy")
-
-# ================= DEBUG =================
-
-DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # ================= ALLOWED HOSTS =================
 

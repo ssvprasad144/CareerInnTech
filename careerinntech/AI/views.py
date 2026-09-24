@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.conf import settings
@@ -143,7 +144,6 @@ def ai_interview_live(request):
 
 # ---------------- STT ----------------
 @login_required
-@csrf_exempt
 @require_POST
 def stt_transcribe(request):
     audio = request.FILES.get("audio")
@@ -175,7 +175,6 @@ import json
 from .services import generate_feedback
 
 @login_required
-@csrf_exempt
 @require_POST
 def finish_interview(request):
     data = json.loads(request.body)
@@ -184,7 +183,7 @@ def finish_interview(request):
     face_metrics = data.get("face_metrics") or {}
     transcripts = data.get("transcripts") or []
 
-    session = InterviewSession.objects.get(id=session_id)
+    session = get_object_or_404(InterviewSession, id=session_id, user=request.user)
 
     ai_response = generate_feedback(session)
 
@@ -205,6 +204,7 @@ def finish_interview(request):
 # ---------------- FEEDBACK ----------------
 @login_required
 def interview_feedback_page(request, session_id):
+    get_object_or_404(InterviewSession, id=session_id, user=request.user)
     feedback = request.session.get("feedback_data", {})
     speech_metrics = request.session.get("speech_metrics", {})
     face_metrics = request.session.get("face_metrics", {})
@@ -259,7 +259,7 @@ def _build_question_answer_pairs(session):
 
 @login_required
 def interview_feedback_details(request, session_id):
-    session = InterviewSession.objects.get(id=session_id)
+    session = get_object_or_404(InterviewSession, id=session_id, user=request.user)
     feedback = request.session.get("feedback_data", {})
     qa_pairs = _build_question_answer_pairs(session)
     speech_metrics = request.session.get("speech_metrics", {})
@@ -329,7 +329,7 @@ def interview_feedback_details(request, session_id):
 
 @login_required
 def download_feedback_pdf(request, session_id):
-    session = InterviewSession.objects.get(id=session_id)
+    session = get_object_or_404(InterviewSession, id=session_id, user=request.user)
     feedback = request.session.get("feedback_data", {})
     qa_pairs = _build_question_answer_pairs(session)
     speech_metrics = request.session.get("speech_metrics", {})

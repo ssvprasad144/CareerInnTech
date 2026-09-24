@@ -1,8 +1,10 @@
 import json
 import os
-import random
+import secrets
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils import timezone
+from datetime import timedelta
 from .models import SignupOTP
 
 from django.contrib import messages
@@ -14,6 +16,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from openai import OpenAI
 
 from .models import (
@@ -142,6 +145,7 @@ def login_view(request):
     return render(request, "login.html")
 
 
+@require_POST
 def logout_view(request):
     logout(request)
     return redirect("home")
@@ -150,7 +154,8 @@ def logout_view(request):
 # OTP UTIL
 # ================================
 def generate_otp():
-    return str(random.randint(100000, 999999))
+    # Cryptographically secure six-digit OTP.
+    return str(secrets.randbelow(900000) + 100000)
 
 
 # ================================
@@ -166,8 +171,13 @@ def otp_signup_page(request):
 
 
 
+@require_POST
 def signup_email(request):
-    email = request.POST.get("email")
+    email = (request.POST.get("email") or "").strip().lower()
+    if not email:
+        messages.error(request, "Email is required")
+        return redirect("signup")
+
     otp = generate_otp()
 
     SignupOTP.objects.update_or_create(
@@ -194,15 +204,22 @@ def signup_email(request):
 
 
 
+@require_POST
 def verify_email(request):
     email = request.session.get("email")
-    otp = request.POST.get("email_otp")
+    otp = (request.POST.get("email_otp") or "").strip()
 
-    if SignupOTP.objects.filter(email=email, otp=otp).exists():
+    record = SignupOTP.objects.filter(email=email, otp=otp).first()
+    otp_valid = bool(
+        record and record.created_at >= timezone.now() - timedelta(minutes=5)
+    )
+
+    if otp_valid:
         request.session["email_verified"] = True
         messages.success(request, "Email verified successfully")
     else:
-        messages.error(request, "Invalid OTP")
+        request.session["email_verified"] = False
+        messages.error(request, "Invalid or expired OTP")
 
     return redirect("signup")
 
@@ -210,8 +227,13 @@ def verify_email(request):
 
 
 
+@require_POST
 def resend_email(request):
-    email = request.session.get("email")
+    email = (request.session.get("email") or "").strip().lower()
+    if not email:
+        messages.error(request, "Please enter your email first")
+        return redirect("signup")
+
     otp = generate_otp()
 
     SignupOTP.objects.update_or_create(
@@ -229,10 +251,11 @@ def resend_email(request):
     return redirect("signup")
 
 
+@require_POST
 def set_password(request):
-    username = request.POST.get("username")
-    password = request.POST.get("password")
-    email = request.session.get("email")
+    username = (request.POST.get("username") or "").strip()
+    password = request.POST.get("password") or ""
+    email = (request.session.get("email") or "").strip().lower()
 
     # Email not verified
     if not request.session.get("email_verified"):
@@ -249,6 +272,14 @@ def set_password(request):
         messages.error(request, "Username already taken")
         return redirect("signup")
 
+    # Enforce Django's configured password policy on the active signup flow.
+    try:
+        validate_password(password, user=None)
+    except ValidationError as exc:
+        for msg in exc.messages:
+            messages.error(request, msg)
+        return redirect("signup")
+
     # Create user
     user = User.objects.create_user(
         username=username,
@@ -259,6 +290,8 @@ def set_password(request):
     StudentProfile.objects.get_or_create(user=user)
 
     SignupOTP.objects.filter(email=email).delete()
+    request.session.pop("email", None)
+    request.session.pop("email_verified", None)
 
     messages.success(request, "Account created successfully. Please login.")
     return redirect("login")
