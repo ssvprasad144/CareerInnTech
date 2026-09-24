@@ -11,6 +11,10 @@ load_dotenv(BASE_DIR / ".env")
 
 print("OPENAI KEY LOADED:", bool(os.getenv("OPENAI_API_KEY")))
 
+# ================= DEBUG =================
+
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
 # ================= SECURITY =================
 
 SECRET_KEY = os.environ.get(
@@ -54,10 +58,6 @@ AZURE_SPEECH_VOICE = os.getenv("AZURE_SPEECH_VOICE", "en-US-JennyNeural")
 # ================= TTS (OpenAI fallback) =================
 
 OPENAI_TTS_VOICE = os.getenv("OPENAI_TTS_VOICE", "alloy")
-
-# ================= DEBUG =================
-
-DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # ================= ALLOWED HOSTS =================
 
