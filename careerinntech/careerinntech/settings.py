@@ -18,11 +18,7 @@ SECRET_KEY = os.environ.get(
     "django-insecure-local-dev-key-change-this"
 )
 
-# Production must provide a real secret key.
-if not DEBUG and SECRET_KEY.startswith("django-insecure-"):
-    raise RuntimeError("SECRET_KEY must be set in production")
-
-# Secure browser session and CSRF cookies in production.
+# Secure browser/session settings.
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_HTTPONLY = True
@@ -33,6 +29,9 @@ X_FRAME_OPTIONS = "DENY"
 SECURE_REFERRER_POLICY = "same-origin"
 
 if not DEBUG:
+    # Production must provide a real secret key.
+    if SECRET_KEY.startswith("django-insecure-"):
+        raise RuntimeError("SECRET_KEY must be set in production")
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
