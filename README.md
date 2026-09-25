@@ -65,6 +65,7 @@ Recent work includes strengthening authentication and interview-session security
 
 ## Portfolio
 
+**Developer:** SSVPrasad  
 GitHub: https://github.com/ssvprasad144
 
 Built as a hands-on full-stack engineering project focused on production-minded web development and AI integration.
